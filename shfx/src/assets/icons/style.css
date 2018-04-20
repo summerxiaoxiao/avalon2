@@ -1,0 +1,333 @@
+@font-face {
+  font-family: 'yg';
+  src:  url('fonts/yg.eot?npocx6');
+  src:  url('fonts/yg.eot?npocx6#iefix') format('embedded-opentype'),
+    url('fonts/yg.ttf?npocx6') format('truetype'),
+    url('fonts/yg.woff?npocx6') format('woff'),
+    url('fonts/yg.svg?npocx6#yg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="ygmat-"], [class*=" ygmat-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'yg' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ygmat-lingdai:before {
+  content: "\e900";
+}
+.ygmat-qi:before {
+  content: "\e901";
+}
+.ygmat-baitian:before {
+  content: "\e902";
+}
+.ygmat-bianji:before {
+  content: "\e903";
+}
+.ygmat-block:before {
+  content: "\e904";
+}
+.ygmat-box:before {
+  content: "\e905";
+}
+.ygmat-box.on:before {
+  content: "\e906";
+}
+.ygmat-bujumoshi:before {
+  content: "\e907";
+}
+.ygmat-cake:before {
+  content: "\e908";
+}
+.ygmat-cha:before {
+  content: "\e909";
+}
+.ygmat-chazhao:before {
+  content: "\e90a";
+}
+.ygmat-chongzhi:before {
+  content: "\e90b";
+}
+.ygmat-chuangjiantubiao:before {
+  content: "\e90c";
+}
+.ygmat-cuboid:before {
+  content: "\e90d";
+}
+.ygmat-danwei:before {
+  content: "\e90e";
+}
+.ygmat-datamerge:before {
+  content: "\e90f";
+}
+.ygmat-diamond:before {
+  content: "\e910";
+}
+.ygmat-diamond-b:before {
+  content: "\e911";
+}
+.ygmat-diamond-c:before {
+  content: "\e912";
+}
+.ygmat-diamond-e:before {
+  content: "\e913";
+}
+.ygmat-diamond-f:before {
+  content: "\e914";
+}
+.ygmat-diamond-k:before {
+  content: "\e915";
+}
+.ygmat-diamond-l:before {
+  content: "\e916";
+}
+.ygmat-diamond-t:before {
+  content: "\e917";
+}
+.ygmat-dianhua:before {
+  content: "\e918";
+}
+.ygmat-drop:before {
+  content: "\e919";
+}
+.ygmat-earth:before {
+  content: "\e91a";
+}
+.ygmat-earth.on:before {
+  content: "\e91b";
+}
+.ygmat-excel:before {
+  content: "\e91c";
+}
+.ygmat-fenxiang:before {
+  content: "\e91d";
+}
+.ygmat-four:before {
+  content: "\e91e";
+}
+.ygmat-ge-ren:before {
+  content: "\e91f";
+}
+.ygmat-gengduo:before {
+  content: "\e920";
+}
+.ygmat-gou:before {
+  content: "\e921";
+}
+.ygmat-hand:before {
+  content: "\e922";
+}
+.ygmat-heiye:before {
+  content: "\e923";
+}
+.ygmat-histogram:before {
+  content: "\e924";
+}
+.ygmat-install:before {
+  content: "\e925";
+}
+.ygmat-install.on:before {
+  content: "\e926";
+}
+.ygmat-jiantou:before {
+  content: "\e927";
+}
+.ygmat-jiantou-s:before {
+  content: "\e928";
+}
+.ygmat-jichu:before {
+  content: "\e929";
+}
+.ygmat-letter-box:before {
+  content: "\e92a";
+}
+.ygmat-letter:before {
+  content: "\e92b";
+}
+.ygmat-line:before {
+  content: "\e92c";
+}
+.ygmat-lock:before {
+  content: "\e92d";
+}
+.ygmat-logo:before {
+  content: "\e92e";
+}
+.ygmat-map:before {
+  content: "\e92f";
+}
+.ygmat-mapp:before {
+  content: "\e930";
+}
+.ygmat-massif:before {
+  content: "\e931";
+}
+.ygmat-menu:before {
+  content: "\e932";
+}
+.ygmat-menu.on:before {
+  content: "\e933";
+}
+.ygmat-mima:before {
+  content: "\e934";
+}
+.ygmat-mind:before {
+  content: "\e935";
+}
+.ygmat-more:before {
+  content: "\e936";
+}
+.ygmat-nav_b:before {
+  content: "\e937";
+}
+.ygmat-nav_s:before {
+  content: "\e938";
+}
+.ygmat-note:before {
+  content: "\e939";
+}
+.ygmat-note.on:before {
+  content: "\e93a";
+}
+.ygmat-off:before {
+  content: "\e93b";
+}
+.ygmat-page:before {
+  content: "\e93c";
+}
+.ygmat-person:before {
+  content: "\e93d";
+}
+.ygmat-person.on:before {
+  content: "\e93e";
+}
+.ygmat-pie:before {
+  content: "\e93f";
+}
+.ygmat-publicdata:before {
+  content: "\e940";
+}
+.ygmat-publicdata2:before {
+  content: "\e941";
+}
+.ygmat-qiehuan:before {
+  content: "\e942";
+}
+.ygmat-quanpin-d:before {
+  content: "\e943";
+}
+.ygmat-qunzu:before {
+  content: "\e944";
+}
+.ygmat-quxiaofenxiang:before {
+  content: "\e945";
+}
+.ygmat-realinsight:before {
+  content: "\e946";
+}
+.ygmat-remind:before {
+  content: "\e947";
+}
+.ygmat-revolve:before {
+  content: "\e948";
+}
+.ygmat-rhomb:before {
+  content: "\e949";
+}
+.ygmat-scene:before {
+  content: "\e94a";
+}
+.ygmat-search:before {
+  content: "\e94b";
+}
+.ygmat-set-up:before {
+  content: "\e94c";
+}
+.ygmat-set-wenben:before {
+  content: "\e94d";
+}
+.ygmat-shanchu:before {
+  content: "\e94e";
+}
+.ygmat-shangchuan:before {
+  content: "\e94f";
+}
+.ygmat-shangjia:before {
+  content: "\e950";
+}
+.ygmat-shenhezhong:before {
+  content: "\e951";
+}
+.ygmat-shouji:before {
+  content: "\e952";
+}
+.ygmat-shuaxin:before {
+  content: "\e953";
+}
+.ygmat-shuju:before {
+  content: "\e954";
+}
+.ygmat-shujuji:before {
+  content: "\e955";
+}
+.ygmat-shujujiehe:before {
+  content: "\e956";
+}
+.ygmat-shujujihewenben:before {
+  content: "\e957";
+}
+.ygmat-shujuyuan:before {
+  content: "\e958";
+}
+.ygmat-tianjia:before {
+  content: "\e959";
+}
+.ygmat-time:before {
+  content: "\e95a";
+}
+.ygmat-time.on:before {
+  content: "\e95b";
+}
+.ygmat-triangle:before {
+  content: "\e95c";
+}
+.ygmat-tuichuquanpin:before {
+  content: "\e95d";
+}
+.ygmat-valley:before {
+  content: "\e95e";
+}
+.ygmat-wenjianjia-k:before {
+  content: "\e95f";
+}
+.ygmat-wenjianjia:before {
+  content: "\e960";
+}
+.ygmat-yonghu:before {
+  content: "\e961";
+}
+.ygmat-yonghu.on:before {
+  content: "\e962";
+}
+.ygmat-yonghudenglu:before {
+  content: "\e963";
+}
+.ygmat-yonghuzu:before {
+  content: "\e964";
+}
+.ygmat-yonghuzu.on:before {
+  content: "\e965";
+}
+

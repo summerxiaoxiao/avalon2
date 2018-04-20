@@ -1,0 +1,146 @@
+[
+  {
+    "id":"REPORTITEM",
+    "icon":"yg-deploy ygicon-rise",
+    "order":2,
+    "level":4,
+    "name":"报表项目",
+    "filter":[
+      {
+        "name":"fvalue",
+        "value":"",
+        "operate":"ne"
+      }
+    ],
+    "number":8706
+  },
+  {
+    "id":"CONTRACT",
+    "icon":"yg-deploy ygicon-report",
+    "order":2,
+    "level":999,
+    "name":"合同库",
+    "filter":null,
+    "number":18
+  },
+  {
+    "id":"ZBTX",
+    "icon":"yg-deploy ygicon-ziyuanchizhibiao",
+    "order":3,
+    "level":1,
+    "name":"指标",
+    "filter":null,
+    "number":2774
+  },
+  {
+    "id":"REPORT",
+    "icon":"yg-deploy ygicon-report",
+    "order":3,
+    "level":3,
+    "name":"报表",
+    "filter":null,
+    "number":22
+  },
+  {
+    "id":"ZBSJ",
+    "icon":"yg-deploy ygicon-ziyuanchizhibiaoshuju",
+    "order":4,
+    "level":0,
+    "name":"指标数据",
+    "filter":null,
+    "number":9635
+  },
+  {
+    "id":"KEMUHUIZONG",
+    "icon":"yg-deploy ygicon-kmhz",
+    "order":4,
+    "level":999,
+    "name":"科目汇总",
+    "filter":null,
+    "number":40180
+  },
+  {
+    "id":"KUAIJIPINGZHENG",
+    "icon":"yg-deploy ygicon-kjpz",
+    "order":5,
+    "level":999,
+    "name":"会计凭证",
+    "filter":null,
+    "number":142
+  },
+  {
+    "id":"CASHFLOW",
+    "icon":"yg-deploy ygicon-xjll",
+    "order":7,
+    "level":999,
+    "name":"月度现金流量",
+    "filter":null,
+    "number":23
+  },
+  {
+    "id":"GCXM",
+    "icon":"yg-deploy ygicon-gcxm",
+    "order":14,
+    "level":999,
+    "name":"工程项目",
+    "filter":null,
+    "number":39
+  },
+  {
+    "id":"DOCUMENT",
+    "icon":"yg-deploy ygicon-bag",
+    "order":14,
+    "level":999,
+    "name":"文件库",
+    "filter":[
+      {
+        "name":"file_state",
+        "value":"有效",
+        "operate":"eq"
+      }
+    ],
+    "number":7
+  },
+  {
+    "id":"GLDX6031",
+    "icon":"yg-deploy ygicon-financial-personnel",
+    "order":15,
+    "level":999,
+    "name":"财务人员信息",
+    "filter":[
+      {
+        "name":"dxtybz",
+        "value":"0",
+        "operate":"eq"
+      }
+    ],
+    "number":188
+  },
+  {
+    "id":"GLDX5063",
+    "icon":"yg-deploy ygicon-electric-price",
+    "order":16,
+    "level":999,
+    "name":"目录电价",
+    "filter":null,
+    "number":755
+  },
+  {
+    "id":"GLDX2126",
+    "icon":"yg-deploy ygicon-th-list",
+    "order":17,
+    "level":999,
+    "name":"项目库",
+    "filter":null,
+    "number":70
+  },
+  {
+    "id":"GLDX5012",
+    "icon":"yg-deploy ygicon-crew",
+    "order":50,
+    "level":999,
+    "name":"机组",
+    "filter":null,
+    "number":14
+  }
+]

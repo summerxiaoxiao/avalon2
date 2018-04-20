@@ -1,0 +1,44 @@
+[
+  {
+    "bgms": "单位与单位层级",
+    "tbid": "30f88574-1169-4086-9f1c-eaaf756d2d06",
+    "serverip": "http://10.121.8.2:8994",
+    "bgmc": "filter",
+    "bglx": "1"
+  },
+  {
+    "bgms": "项目大类-累计执行数table",
+    "tbid": "7fa5e992-f3c5-4780-9a33-ecf6e4bcf198",
+    "serverip": "http://10.121.8.2:8994",
+    "bgmc": "xmdl_01_all",
+    "bglx": "2"
+  },
+  {
+    "bgms": "项目大类-每月申请数table",
+    "tbid": "562232e6-42a4-4150-b1f2-1a2822eedd57",
+    "serverip": "http://10.121.8.2:8994",
+    "bgmc": "xmdl_02_all",
+    "bglx": "2"
+  },
+  {
+    "bgms": "项目大类-申请类型分析",
+    "tbid": "12ff3ba3-539f-48fe-8df0-7dc414154315",
+    "serverip": "http://10.121.8.2:8994",
+    "bgmc": "xmdl_lxfx_all",
+    "bglx": "1"
+  },
+  {
+    "bgms": "项目明细",
+    "tbid": "18309e64-1092-4a2b-8195-49f94a9f199d",
+    "serverip": "http://10.121.8.2:8994",
+    "bgmc": "xmmx_all",
+    "bglx": "1"
+  },
+  {
+    "bgms": "项目大类下拉列表",
+    "tbid": "416560fd-f063-4b1f-8888-1280e0b7ba20",
+    "serverip": "http://10.121.8.2:8994",
+    "bgmc": "xmdllx_select",
+    "bglx": "1"
+  }
+]

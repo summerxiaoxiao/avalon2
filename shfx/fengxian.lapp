@@ -1,0 +1,20 @@
+{
+	"name": "fengxianBulletin",
+	"gid": "ecp3.ui.fengxianBulletin",
+	"description": "fengxianBulletin",
+	"title": "项目用款情况查询",
+  	"icon" : "fa fa-arrows-h",
+  	"lightapp" : ["/fengxian/static/fengxianBulletin.js"],
+	"require":{
+		"js":[
+
+		"/fengxian/static/js/manifest.js",
+		"/fengxian/static/js/vendor.js"
+		],
+		"css":[
+        "/fengxian/static/css/app.css"
+		]
+	},
+	"tests":[
+	]
+}

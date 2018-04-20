@@ -1,0 +1,212 @@
+
+* ::-webkit-scrollbar-track-piece {
+  background: 0 0;
+}
+
+* ::-webkit-scrollbar-thumb {
+  background: $scrollbar-bg-color !important;
+  border-radius: 0;
+}
+
+* ::-webkit-scrollbar {
+  width: $scrollbar-width !important;;
+  height: $scrollbar-height !important;;
+  background-color: transparent;
+}
+input::-webkit-input-placeholder {
+ line-height: 2.5em;
+}
+.btn-icon {
+  @include icon-btn()
+}
+.row>[class^=col-] {
+   padding-top: 0px!important;
+   padding-bottom: 0px!important;
+   background-color: transparent!important;
+   border: none!important;
+ }
+.row {
+   margin-top: 0px!important;
+}
+iframe {
+  border: none;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+
+//body {
+//  min-width: 600px;
+//  min-height: 400px;
+//  overflow: hidden;
+//  line-height: 1em!important;
+//}
+
+.btn-icon-delete {
+  @include icon-btn(12px);
+  background: url(../images/icon-x.png) no-repeat center;
+}
+
+.icon-close {
+  @include icon-btn(24px, 24px);
+  background: url(../images/icon-close.png) no-repeat center;
+  background-size: 100%;
+  margin: 8px 6px 8px 8px;
+}
+
+.landing-controller {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 600px;
+  min-height: 400px;
+  display: flex;
+  height: 100%;
+  //overflow: hidden;
+
+  .landing-container {
+    flex-grow: 1;
+    flex-flow: column;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  .data-list { /* data-list start */
+    padding: 0px 10px;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.selector {
+  height: 32px;
+  width: 320px;
+  line-height: 30px;
+  display: inline-block;
+  position: relative;
+  outline: none;
+  select {
+    outline: none;
+    background-color: #fff;
+    box-shadow: none!important;
+    width: 240px;
+    height: 30px !important;
+    border: #e1e5e8 1px solid;
+    border-radius: 2px;
+    box-shadow: none!important;
+    background-position: right 50%!important;
+  }
+  &.date {
+    margin-left: 25px;
+  }
+  .selector-date{
+    background-color: #fff;
+    display:inline-block;
+    height:30px;
+    line-height: 30px;
+    vertical-align: top;
+    width: 160px;
+    position: relative;
+
+  }
+  .selector-input-date {
+    padding-left:10px;
+    height: 30px!important;
+    padding-right: 26px;
+    position: relative;
+    border: #e1e5e8 1px solid;
+    border-radius: 2px;
+    box-shadow: none!important;
+    width: 100%;
+  }
+  .input-group-addon {
+    display: inline;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    right: 10px;
+    top: 1px;
+  }
+}
+
+
+input[type=text], input[type=password], input[type=number], input[type=email]
+{
+  box-sizing: content-box;
+  background: transparent;
+  font-family: "Open Sans", Arial, sans-serif;
+  height: 12px !important;
+  /*box-shadow: 0 -1px 0 0 $primary-color inset !important;*/
+  border:none;
+  outline: none;
+
+  &:focus{
+    box-sizing: content-box;
+    background: transparent;
+    font-family: "Open Sans", Arial, sans-serif;
+    border:none;
+    outline: none;
+  }
+}
+  .content-main {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .content-column {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: 0;
+
+
+
+  .icon-close {
+    @include icon-btn(24px, 24px);
+    background: url(../images/icon-close.png) no-repeat center;
+    background-size: 100%;
+    margin: 8px 6px 8px 8px;
+  }
+
+  .bottom-container {
+    margin-top: 25px;
+    padding-bottom: 25px;
+    position: relative;
+    /* height: max-content;*/
+  }
+  .dateType-wrap {
+    height: 32px;
+    margin-left: 10px;
+    display: inline-block;
+    line-height: 32px;
+    margin-top: -1px;
+    > select {
+      border: #e1e5e8 1px solid;
+      border-radius: 2px;
+      display: inline-block;
+      height: 30px;
+      background-color: #fff;
+      outline: none;
+    }
+  }
+
+
+}

@@ -1,0 +1,75 @@
+.app-header-bar {
+  margin: 0;
+  padding: 0;
+  height: $app-bar-height;
+  line-height: $app-bar-height;
+  list-style-type: none;
+  z-index: 3;
+  font-size: 14px;
+  display: flex;
+  background: $app-bar-bg-color;
+  color: $app-bar-color;
+  flex: none;
+
+  ol,
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.app-heabar__splitter {
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background-color: $app-bar-color;
+  vertical-align: middle;
+  margin: 0 20px;
+  position: relative;
+  top: -2px;
+}
+
+.app-header-bar_title {
+  font-size: 16px;
+
+  .editable-label {
+    height: $app-bar-height;
+  }
+
+  .text-label {
+    display: inline;
+  }
+
+  i {
+    margin: 0 5px;
+  }
+
+}
+
+.app-header-bar_section--left {
+  flex-shrink: 1;
+  //white-space: nowrap;
+  padding-left: 25px;
+  float:left;
+
+  a,
+  a:hover,
+  a:focus,
+  a:visited,
+  a:active {
+    color: $app-bar-color;
+    text-decoration: none;
+  }
+}
+
+.app-header-bar_section--right {
+  flex-shrink: 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+
+}
+
+

@@ -1,0 +1,19 @@
+@mixin icon-btn($width: false, $height: false) {
+  border: none;
+  background: transparent;
+  @if $width {
+    width: $width;
+  }
+  @if $height {
+    height: $height;
+  }
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+
+  &:focus,
+  &:active,
+  &:hover {
+    outline: none;
+  }
+}
