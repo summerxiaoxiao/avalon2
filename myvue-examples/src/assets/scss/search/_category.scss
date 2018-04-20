@@ -1,0 +1,111 @@
+@CHARSET "UTF-8";
+$siderBar-toggle-width: 70px;
+$siderBar-expand-width: 245px;
+.cardSearchPage{
+  text-align: center;
+}
+.solr-category {
+  margin: 0;
+  padding: 0;
+  width: $siderBar-toggle-width;
+  position: fixed;
+  z-index: 1;
+  background-color: #ECF0F1;
+  top: 60px;
+  bottom: 15px;
+  -webkit-transition: 0.5s width ease;
+
+}
+.category-expand{
+  width: $siderBar-expand-width!important;
+}
+.scrolled .solr-category {
+  zoom: 1;
+  position: fixed;
+  top: 63px;
+}
+.sidebar-menu-container {
+  width: $siderBar-toggle-width;
+  position: absolute;
+  top: 55px;
+  bottom: 0;
+}
+.sidebar-menu-container > .mCSB_inside > .mCSB_container {
+  margin-right: 0px;
+}
+.sidebar-menu-container .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden {
+  margin-right: 0px;
+}
+.sidebar-menu-container .mCS-dark-3.mCSB_scrollTools .mCSB_draggerRail {
+  background-color: #B5D0CE;
+}
+.sidebar-menu-container .mCS-dark-3.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: #87B2B0;
+}
+.solr-category .sidebar-toggler-wrapper {
+  height: 55px;
+  border-bottom: 1px solid #E1E5E6;
+}
+.solr-category .sidebar-toggler {
+  font-size: 32px;
+  line-height: 55px;
+  float: right;
+  margin-right: 22px;
+  cursor: pointer;
+}
+.solr-main {
+  -webkit-transition: 0.5s padding-left ease;
+}
+
+.solr-main.slideIn .sidebar-menu-container {
+  width: $siderBar-toggle-width;
+}
+.solr-main.slideIn {
+  padding-left: $siderBar-toggle-width !important;
+}
+.solr-main.slideOut {
+  padding-left: $siderBar-expand-width !important;
+}
+
+.page-sidebar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.page-sidebar-menu > li {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.page-sidebar-menu > li.start:hover {
+  background-color: #F9FFDD;
+}
+.page-sidebar-menu > li.start > a > i {
+  vertical-align: sub;
+}
+
+.page-sidebar-menu > li > a {
+  display: block;
+  position: relative;
+  margin: 0;
+  border: 0px;
+  padding: 0px 0px 0px 22px;
+  text-decoration: none;
+  font-size: 16px;
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #F0F0F0;
+  color: #7D8590;
+}
+.page-sidebar-menu > li.active > a {
+  font-size: 18px;
+  background-color: white;
+}
+.page-sidebar-menu > li > a i {
+  font-size: 24px;
+  margin-right: 21px;
+  text-shadow: none;
+}

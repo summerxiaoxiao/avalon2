@@ -1,0 +1,34 @@
+$primary-color: #213543;
+$body-bg-color: #213543;
+$body-color: #fff;
+$primary-font-color: #fff ;
+$select-down-img : url(../../../images/icon-arrow-down-white.png) ;
+$theme-bg-color: #1b2833 ;
+$scrollbar-color: $primary-color;
+
+$theme-colors: (
+  primary: $primary-color,
+  black: #464646,
+  secondary: $gray-600,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800
+);
+
+$link-color:            $primary-color;
+$link-decoration:       none;
+$link-hover-color:      darken($link-color, 15%);
+$link-hover-decoration: none;
+
+$custom-scrollbar-height: 5px;
+$custom-scrollbar-width: 5px;
+
+$scrollbar-height: 8px;
+$scrollbar-width: 8px;
+$scrollbar-bg-color: #b1b7c3;
+
+
+

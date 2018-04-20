@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/d3/4.13.0/d3.min.js"></script>
+</head>
+<body>
+<div id="panel"></div>
+</body>
+</html>
+<script>
+var config = {
+    size: 200,             //panel的大小
+    label: '采油量',       //panel的名称
+    min: 0,                //量程的最小值
+    max: 200,              //量程的最大值
+    majorTicks: 6,         //主刻度的个数
+    minorTicks: 4,         //次刻度的个数
+    greenColor: '#109618', //区域1颜色
+    yellowColor:'#FF9900', //区域2颜色
+    redColor:'#DC3912',    //区域3颜色
+    duration: 500,         //转动一次动画需要的时间
+    value: 10}             //panel显示的值
+
+var chart = {
+    render: function() {
+        let {size, cx, cy, radius, range,  min, max, label, minorTicks,
+            majorTicks, duration, value,greenZones,greenColor,yellowZones,yellowColor,redZones,redColor} = this.setConfig(config);
+        let self = this;                   //添加上下文
+        let panel = d3.select("#panel").append("svg:svg")
+            .attr("class", "gauge")      //添加类名gauge
+            .attr("width", size)         //设置svg宽度
+            .attr("height", size);       //设置svg高度
+
+        panel.append("svg:circle")        //添加circle，圆
+            .attr("cx", cx)            //设置circle的坐标
+            .attr("cy", cy)
+            .attr("r", radius)         //设置circle的半径
+            .style("fill", "#ccc")     //设置circle的填充颜色
+            .style("stroke", "#000")   //设置circle的轮廓颜色
+            .style("stroke-width", "0.5px");//设置circle的轮廓宽度
+
+        panel.append("svg:circle")
+            .attr("cx", cx)
+            .attr("cy", cy)
+            .attr("r", 0.9 * radius)    //半径不一样
+            .style("fill", "#fff")
+            .style("stroke", "#e0e0e0")
+            .style("stroke-width", "2px");
+
+        console.log(Math.PI)
+        var angle = 270
+        var lineAngle = -90+(angle-90)
+        panel.append("svg:path")             //添加路径
+            .style("fill", greenColor)
+            .attr("d", d3.arc()  //添加圆弧
+                // .startAngle(this.valueToRadians(greenZones.from, config))
+                // //开始弧度
+                // .endAngle(this.valueToRadians(greenZones.to, config))
+                //结束弧度
+                .startAngle(-Math.PI/2/180)
+                .endAngle(Math.PI)
+                .innerRadius(0.65 * radius)  //内圈半径
+                .outerRadius(0.85 * radius))  //外圈半径
+            .attr("transform", function () {//移动+旋转
+                return "translate(" + cx + ", " + cy + ") rotate("+angle+")"
+            });
+
+        var g = panel.append('g')
+            .attr('transform',
+            'translate(' + size / 2 + ',' + size / 2 + ')')
+        // 指针
+        var tick = g.append('line')
+            .attr('class', 'gauge-tick')
+            .attr('x1',  0)
+            .attr('y1', -0.65 * radius)
+            .attr('x2', 0)
+            .attr('y2',  -(0.85 * radius + 1))  //  定义line位置，默
+            .style('stroke', 'red')
+            .style('stroke-width','4px' )
+            .attr("transform", function () {//移动+旋转
+                return "rotate("+( lineAngle)+")"
+            });
+
+        let fontSize = Math.round(size / 9); //字体大小
+        panel.append("svg:text")         //添加文本
+            .attr("x", cx)              //文本位置
+            .attr("y", cy / 2 + fontSize / 2)
+            .attr("dy", fontSize / 2)
+            .attr("text-anchor", "middle")//文字角度
+            .text(label)                 //文字内容
+            .style("font-size", fontSize + "px")//字体大小
+            .style("fill", "#333")        //颜色
+            .style("stroke-width", "0px");
+
+        let deltaSize = Math.round(size / 16); //
+        let majorDelta = range / (majorTicks - 1);//大刻度之间的距离
+        {
+            for (let major = min; major <= max; major += majorDelta) {
+                //循环每个大刻度
+                let minorDelta = majorDelta / minorTicks;//小刻度之间的距离
+                for (let minor = major + minorDelta; minor < Math.min(major + majorDelta, max); minor += minorDelta) {      //循环每个小刻度
+                    let point1 = this.valueToPoint(minor, config, 0.75);
+                    let point2 = this.valueToPoint(minor, config, 0.85);
+                    //获取小刻度线的（x1,y1）(x2,y2)位置
+                    //添加小刻度线
+                    panel.append("svg:line")
+                        .attr("x1", point1.x) //小刻度线的两点坐标
+                        .attr("y1", point1.y)
+                        .attr("x2", point2.x)
+                        .attr("y2", point2.y)
+                        .style("stroke", "#666")//小刻度线颜色
+                        .style("stroke-width", "1px");//小刻度的宽度
+                }
+                //获取大刻度线的（x1,y1）(x2,y2)位置
+                let point3 = this.valueToPoint(major, config, 0.7);
+                let point4 = this.valueToPoint(major, config, 0.85);
+                //添加大刻度线
+                panel.append("svg:line")
+                    .attr("x1", point3.x)
+                    .attr("y1", point3.y)
+                    .attr("x2", point4.x)
+                    .attr("y2", point4.y)
+                    .style("stroke", "#333")
+                    .style("stroke-width", "2px");
+                //标记最大值和最小值
+                if (major == min || major == max) {
+                    let point = this.valueToPoint(major, config, 0.63);
+                    panel.append("svg:text")
+                        .attr("x", point.x)
+                        .attr("y", point.y)
+                        .attr("dy", fontSize / 3)
+                        .attr("text-anchor", major == min ? "state" : "end")
+                        .text(major)
+                        .style("font-size", deltaSize + "px")
+                        .style("fill", "#333")
+                        .style("stroke-width", "0px")
+                }
+            }
+        }
+
+       var pointerContainer = panel.append("svg:g").attr("class", "pointerContainer");
+
+        //中间值
+        let midValue = (min + max) / 2;
+        //指针的点轨迹
+        let pointerPath = this.buildPointerPath(midValue, config);
+        //曲线生成器
+        let pointerLine = d3.line()
+            .x(function (d) {
+                return d.x
+            })
+            .y(function (d) {
+                return d.y
+            })
+            // .interpolate("basis"); //贝斯曲线
+        //画指针
+        pointerContainer.selectAll("path")
+            .data([pointerPath])
+            .enter()
+            .append("svg:path")
+            .attr("d", pointerLine)
+            .style("fill", "#dc3912")  //填充的颜色
+            .style("stroke", "#c63310") //轮廓的颜色
+            .style("fill-opacity", 0.7);  //填充的透明度
+
+        pointerContainer.append("svg:circle")
+            .attr("cx", cx)
+            .attr("cy", cy)
+            .attr("r", 0.12 * radius)
+            .style("fill", "#4684EE")
+            .style("stroke", "#666")
+            .style("opacity", 1);
+
+        let valueSize = Math.round(size / 10);
+        pointerContainer.append("svg:text")
+            .attr("x", cx)
+            .attr("y", size - (cy / 4) - valueSize)
+            .text(midValue)
+            .attr("dy", valueSize / 2)
+            .attr("text-anchor", "middle")
+            .style("font-size", valueSize + "px")
+            .style("fill", "#000")
+            .style("stroke-width", "0px");
+        this.redraw(value,duration,min,max,range,config,cy,cx)//指针渲染函数
+
+
+    },
+    valueToRadians: function (value, config) {
+        return this.valueToDegrees(value, config) * Math.PI / 180
+    },
+    valueToDegrees: function (value, config) {
+        let {range, min} = this.setConfig(config);
+        return value / range * 270 - (min / range * 270 + 45)
+    },
+    valueToPoint: function (value, config, factor){
+        let {cx, cy, radius} = this.setConfig(config);
+        return {
+            x: cx - radius * factor * Math.cos(this.valueToRadians(value, config)),
+            y: cy - radius * factor * Math.sin(this.valueToRadians(value, config))
+        }
+    },
+    buildPointerPath: function(value, config){
+        let {range} = this.setConfig(config);
+        let delta = range / 13,
+            head = this.valueToPoint(value, config, 0.85),
+            head1 = this.valueToPoint(value - delta, config, 0.12),
+            head2 = this.valueToPoint(value + delta, config, 0.12),
+            tailValue = value - (range * (1 / (270 / 360)) / 2),
+            tail = this.valueToPoint(tailValue, config, 0.28),
+            tail1 = this.valueToPoint(tailValue - delta, config, 0.12),
+            tail2 = this.valueToPoint(tailValue + delta, config, 0.12);
+        return [head, head1, tail2, tail, tail1, head2, head];
+    },
+    redraw: function (value,duration,min,max,range,config,cy,cx){
+        let self =this;
+        let panel = d3.select("#panel").select(".gauge");
+//指针旋转
+        let pointContainer = panel.select(".pointerContainer");
+//设置value值
+        pointContainer.selectAll('text').text(value);
+        let pointer = pointContainer.selectAll("path");
+//指针移动
+        pointer.transition()
+            .duration(duration)//持续时间
+            .attrTween("transform", function () {
+                let pointerValue = value;
+                //判断超出量程的问题
+                if (value > max) pointerValue = max + 0.02 * range;
+                else if (value < min) pointerValue = min - 0.02 * range;
+                //目标旋转角度：将数值转化为角度，并减去一个直角，
+                let targetRotation = (self.valueToDegrees(pointerValue, config) - 90);
+                //现在的角度
+                let currentRotation = self._currentRotation || targetRotation;
+                self._currentRotation = targetRotation;
+                return function (step) {
+                    let rotation = currentRotation + (targetRotation - currentRotation) * step;
+                    return " rotate(" + rotation + ", " + cx + ", " + cy + ")";   //定义旋转
+                }
+            })
+    },
+    setConfig: function() {
+        return {
+            value: config.value,
+            size: config.size,
+            cx: config.size / 2,                 //圆心的x坐标
+            cy: config.size / 2,                 //圆心的y坐标
+            label: config.label,
+            max: config.max,
+            min: config.min,
+            range: config.max - config.min,      //量程
+            radius: config.size * 0.97 / 2,      //半径（稍许留白）
+            minorTicks: config.minorTicks,
+            majorTicks: config.majorTicks,
+            duration: config.duration,
+            greenColor: config.greenColor,
+            yellowColor : config.yellowColor,
+            greenZones: {from: config.min, to: config.min + (config.max - config.min) * 0.75},                           //区域1范围
+            yellowZones: { from: config.min + (config.max - config.min)*0.75, to: config.min +(config.max - config.min)*0.9 } ,
+            redColor:config.redColor,            //区域2范围
+            redZones: { from: config.min +(config.max - config.min)*0.9, to: config.max }                               //区域3范围
+        }
+    }
+}
+
+chart.render()
+</script>

@@ -1,0 +1,58 @@
+.black-theme{
+  .selector {
+    height: 32px;
+    /*width: 240px;*/
+    line-height: 30px;
+    display: inline-block;
+    position: relative;
+    outline: none;
+    .input-date-icon{
+      color: $color;
+    }
+    select {
+      outline: none;
+      background-color: #223444;
+      -webkit-box-shadow: 0 -1px 0 0 #556d84 inset !important;
+      box-shadow: 0 -1px 0 0 #556d84 inset !important;
+      width: 180px;
+      height: 30px !important;
+      padding-left: 10px;
+      border: none;
+      line-height: 30px;
+      font-size: $font-size;
+      background-position: right 70% !important;
+    }
+    .selector-date{
+      padding-left: 10px;
+      -webkit-box-shadow: 0 -1px 0 0 #556d84 inset !important;
+      box-shadow: 0 -1px 0 0 #556d84 inset !important;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      vertical-align: top;
+      position: relative;
+      width:180px;
+
+    }
+    .selector-input-date {
+      height: auto!important;
+      position: relative;
+      font-size: $font-size;
+      box-shadow: none!important;
+    }
+    .input-group-addon {
+      display: inline;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      right: 5px;
+      top: 1px;
+    }
+  }
+
+  .selector + .selector{
+    margin-left: 3em;
+  }
+
+}

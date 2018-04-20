@@ -1,0 +1,512 @@
+@CHARSET "UTF-8";
+.solr-main {
+  float: none;
+  width: 100%;
+ /* padding-left: 245px;*/
+  padding-right: 0;
+  background: #fff;
+  min-height: 500px;
+}
+.solr-main-content {
+  background-color: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+}
+.solr-main .solr-content-top {
+  height: 56px;
+  line-height: 56px;
+  padding-left: 21px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+.solr-main .solr-content-title {
+  font-size: 26px;
+  color: #414141;
+}
+.solr-main .solr-content-facet {
+  border-bottom: navajowhite;
+  margin-left: 0;
+  position: relative;
+}
+.solr-main .solr-main-container {
+  clear: both;
+  overflow: hidden;
+  margin: 0px 0px 15px 15px;
+  padding-top: 15px;
+  position: relative;
+
+}
+
+.facet-warp {
+  border: 1px solid #d2d2d2;
+  margin: 1px 15px;
+  /*position: fixed;*/
+  z-index: 8;
+  top: 35px;
+  background: #fff;
+  right: 22px;
+  left: 245px;
+  -webkit-transition: left 0.5s ease;
+  transition: left 0.5s ease;
+}
+.facet-warp-noMenu {
+  top: 55px;
+}
+.slideIn .facet-warp {
+  left: 70px;
+}
+.scrolled .facet-warp {
+  top: 45px;
+}
+.common-search-facet {
+  min-height: 20px;
+  padding: 3px 10px 0 3px;
+  clear: both;
+  position: relative;
+  display: none;
+  max-height: 322px;
+  overflow: auto;
+}
+.common-search-facet .checkbox {
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin-right: 3px;
+}
+.common-search-navigation,
+.common-search-navigation-out {
+  padding-bottom: 12px;
+  display: none;
+  padding-top: 10px;
+  overflow: auto;
+  position: relative;
+  border-bottom: 1px solid #ddd;
+}
+.common-search-navigation .navigation-all,
+.common-search-navigation-out .navigation-all {
+  font-size: 14px;
+  text-align: right;
+  width: 118px;
+  position: absolute;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+.common-search-navigation .navigation-categories,
+.common-search-navigation-out .navigation-categories {
+  padding-left: 135px;
+  padding-right: 216px;
+  width: 100%;
+  min-height: 22px;
+}
+.common-search-navigation .navigation-categories a,
+.common-search-navigation-out .navigation-categories a {
+  display: none;
+  border: 1px solid #D0CECE;
+  padding: 0 5px 0px 0px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-top: 2px;
+  background: #25BE90;
+}
+.common-search-navigation .navigation-categories a > span.fa,
+.common-search-navigation-out .navigation-categories a > span.fa {
+  color: #fff;
+  font-family: FontAwesome !important;
+  margin-left: 5px;
+}
+.common-search-navigation .navigation-categories a:hover,
+.common-search-navigation-out .navigation-categories a:hover {
+  color: #666;
+}
+.common-search-navigation .navigation-categories a.hover,
+.common-search-navigation-out .navigation-categories a.hover {
+  border: 1px solid #e84031;
+}
+.common-search-navigation .navigation-categories a.hover > span.fa,
+.common-search-navigation-out .navigation-categories a.hover > span.fa {
+  color: #e84031;
+}
+.common-search-navigation .navigation-functional,
+.common-search-navigation-out .navigation-functional {
+  position: absolute;
+  right: 35px;
+  top: 10px;
+  width: 200px;
+  text-align: right;
+  padding: 0px;
+  padding-right: 20px;
+}
+.common-search-navigation-out {
+  display: block;
+  padding-top: 0;
+  border-bottom: none;
+}
+.common-search-navigation-out .navigation-all {
+  width: 80px;
+}
+.common-search-navigation-out .navigation-categories {
+  padding-left: 90px;
+  padding-right: 126px;
+}
+.common-search-navigation-out .navigation-functional {
+  right: 6px;
+  top: 0;
+  width: 100px;
+}
+.common-search-facet .facet-group {
+  padding-bottom: 1px;
+}
+.common-search-facet .facet-group label {
+  margin-bottom: 0;
+}
+.common-search-facet .facet-block {
+  overflow: auto;
+  border-bottom: 1px solid #dedede;
+  margin-bottom: -2px;
+  position: relative;
+  min-height: 40px;
+}
+.solr-main .more-facet {
+  height: 40px;
+  background-color: #D7EDFF;
+  line-height: 40px;
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+}
+.solr-main .more-facet:hover {
+  color: #FF6600;
+  background: #cee9ff;
+}
+.solr-main .more-facet a {
+  color: #333333;
+  font-size: 14px;
+}
+.solr-main .more-facet a:hover {
+  text-decoration: none;
+}
+.facet-block .facet-block-title {
+  color: #333333;
+  padding-top: 5px;
+  text-align: right;
+  width: 135px;
+  white-space: nowrap;
+  position: absolute;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  z-index: 2;
+  font-weight: bold;
+}
+.facet-block .facet-block-categories {
+  overflow: hidden;
+  width: 100%;
+  padding-left: 130px;
+  padding-right: 210px;
+}
+.facet-block .facet-block-categories a {
+  display: inline-block;
+  margin: 0 40px 0 0;
+  padding: 5px 0;
+  cursor: pointer;
+  color: #333333;
+  font-weight: normal;
+}
+.facet-block .facet-block-functional {
+  text-align: right;
+  width: 200px;
+  position: absolute;
+  right: 25px;
+}
+.facet-block .facet-block-functional .functionBtn .categories-more {
+  display: none;
+}
+.facet-block .facet-block-functional .functionBtn > div {
+  cursor: pointer;
+  display: inline-block;
+  margin: 5px 1px;
+  padding: 5px 7px 2px 5px;
+  width: 60px;
+  border: 1px solid #ddd;
+}
+.facet-block .facet-block-functional .functionBtn .categories-more {
+  border: none;
+}
+.facet-block .facet-block-functional .functionBtn .categories-mitiselect {
+  /*background: #397f87;*/
+}
+.facet-block .facet-block-functional .functionBtn .categories-mitiselect a {
+  padding-right: 3px;
+}
+.facet-block .facet-block-functional .functionBtn > div:hover {
+  /**color: #dd1100;**/
+  /*background:#47BC00;*/
+}
+.facet-block .facet-block-functional a {
+  color: #333;
+  text-decoration: none;
+  font-family: FontAwesome !important;
+  margin-left: 2px;
+  font-weight: bold;
+}
+.facet-block .facet-block-functional .btns button {
+  margin: 5px 1px;
+  padding: 2px 10px 2px 5px;
+  width: 60px;
+  border-radius: 4px;
+}
+.facet-block .facet-block-functional .btns .confirmBtn {
+  background-color: #F05D00;
+  border-color: #F05D00;
+}
+.facet-block .facet-block-functional .btns .cancalBtn {
+  background-color: #FEE5D0;
+  border-color: #FEE5D0;
+  color: #99938D;
+}
+.facet-block.active {
+  border: solid 1px #F05D00;
+  background: #FEF6EC;
+}
+.common-search .common-search-result {
+  border: 1px solid #EAE1E1;
+  margin-top: 16px;
+  padding: 0 16px 12px 16px;
+}
+.facet-bottom {
+  overflow: hidden;
+  border-bottom: none;
+  background-color: #E6ECF1;
+  padding: 6px 0;
+  border-top: 1px solid #ddd;
+}
+.facet-bottom input {
+  width: 70%;
+  display: inline-block;
+}
+.facet-bottom button {
+  background: #30ADA7;
+}
+.facet-bottom .btn-group .btn {
+  border-radius: 0 !important;
+  background-color: inherit;
+  border: none;
+  padding: 3px 18px;
+  border-right: 2px solid #ddd;
+  box-shadow: none;
+  font-size: 14px;
+}
+.facet-bottom .btn-group .btn.active {
+  color: #30ADA7;
+  box-shadow: none;
+}
+.common-search-num {
+  font-size: 16px;
+  font-family: "Microsoft YaHei";
+  padding: 0;
+  position: relative;
+}
+.common-search-num > div {
+  display: inline;
+}
+.common-search-num > div.common-search-control {
+  display: inline-block;
+  padding: 7px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  font-size: 13px;
+  color: #25BE90;
+  position: absolute;
+  margin-left: 20px;
+  top: -4px;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+}
+.common-search-num > div.common-search-control.active,
+.common-search-num > div.common-search-control:hover {
+  background: #F1F9FE;
+  border-bottom: none;
+  box-shadow: -1px -1px 0 0 #f5f5f5, 1px -1px 0 0 #f5f5f5;
+  z-index: 10;
+}
+.common-search-num span {
+  color: red;
+}
+.common-search-num span:first-child {
+  color: #6B9FA5;
+}
+.common-search-waste-time {
+  color: black;
+  font-size: 14px;
+  line-height: 24px;
+  display: inline;
+  margin-left: 10px;
+}
+.common-search-waste-time span {
+  color: red;
+}
+.common-search-relation {
+  font-size: 15px;
+  font-family: "Microsoft YaHei";
+  height: 32px;
+  line-height: 30px;
+  background-color: #fff;
+  position: absolute;
+}
+.common-search-relation-container {
+  padding: 0 15px;
+}
+.common-search-relation-nodata {
+  font-size: 15px;
+  font-family: "Microsoft YaHei";
+  padding-top: 10px;
+}
+.common-search-relation-title {
+  color: #595959;
+  float: left;
+}
+.common-search-relation-item {
+  color: #5b9fa5;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.WIKI-abstract {
+  background: url(./search/img/wiki/yanjing.png) center center no-repeat;
+  display: inline-block;
+  width: 20px;
+  height: 17px;
+  cursor: pointer;
+}
+.WIKI-abstract-container {
+  background-color: #EEFFFF;
+  border: 1px solid #A9D1C9;
+  width: 500px;
+  position: absolute;
+  z-index: 8;
+}
+.WIKI-abstract-top {
+  background: url(./search/img/wiki/jiantou.png) no-repeat;
+  position: absolute;
+  width: 13px;
+  height: 7px;
+  top: -7px;
+  left: 15px;
+}
+.WIKI-abstract-title {
+  padding: 15px;
+  font-size: 18px;
+  color: #414141;
+}
+.WIKI-abstract-close {
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  color: #C9C6B5;
+  line-height: 55px;
+  font-size: 20px;
+}
+.WIKI-abstract-content {
+  padding: 0 15px 15px 15px;
+  font-size: 14px;
+  color: #B9C2C2;
+}
+.WIKI-abstract-more {
+  border-top: 1px solid #A9D1C9;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #87B2B0;
+  cursor: pointer;
+}
+.common-search-facet .facet-block .input-for-single {
+  border: 1px solid #CCC9C9;
+  padding: 0px 5px 0 2px;
+}
+.common-search-facet .facet-block .input-for-single-wrap {
+  right: 41px;
+  top: 38px;
+  z-index: 8;
+  position: absolute;
+  padding: 5px;
+  border: 1px solid #30A3AD;
+}
+.common-search-facet .facet-block .input-for-single-wrap .facet-search {
+  position: absolute;
+  top: 9px;
+  right: 12px;
+}
+.common-search-facet .facet-block .sanjiao {
+  background: url(./search/img/sanjiao.jpg);
+  position: absolute;
+  width: 17px;
+  height: 10px;
+  top: -10px;
+  right: 77px;
+}
+.common-search-facet .facet-block .input-for-multi-wrap {
+  margin-top: 10px;
+  position: relative;
+}
+.common-search-facet .facet-block .input-for-multi {
+  border: 1px solid #CCC9C9;
+  padding: 1px 0 1px 5px;
+}
+.common-search-facet .facet-block.active .input-for-single-wrap {
+  display: none;
+}
+.common-search-facet .facet-block .input-for-multi-wrap {
+  display: none;
+}
+.common-search-facet .facet-block.active .input-for-multi-wrap {
+  display: block;
+}
+.facet-block.active .facet-block-functional {
+  bottom: 5px;
+}
+.common-search-facet .facet-block.active .input-for-multi-wrap .yes {
+  color: #30ADA7;
+  margin-left: 3px;
+  display: inline-block;
+}
+.common-search-facet .facet-block.active .input-for-multi-wrap .search2 {
+  position: absolute;
+  left: 143px;
+  top: 5px;
+}
+.solr-main .layout-main {
+  padding-left: 0;
+}
+.rotate180 {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.solr-content-facet .facet-pop {
+  position: absolute;
+  background: #F1F9FE;
+  border: 1px solid #ddd;
+  overflow: auto;
+  left: 10px;
+  top: 42px;
+  right: 10px;
+  z-index: 8;
+  -webkit-box-shadow: 0 0 3px #f5f5f5;
+  -moz-box-shadow: 0 0 3px #f5f5f5;
+  box-shadow: 0 0 1px 1px #f5f5f5;
+}
+.navigation-categories .category-name {
+  background: #21A188;
+  color: #fff;
+  padding: 0 5px;
+}
+.facet-warp .arrow {
+  right: 78px;
+  position: absolute;
+  bottom: -4px;
+  display: none;
+  color: #ddd;
+}

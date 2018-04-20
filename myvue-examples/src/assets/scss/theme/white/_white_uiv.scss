@@ -1,0 +1,37 @@
+.btn-info {
+  color: #fff;
+  background-color: $primary-color!important;
+  border-color: $primary-color!important;
+}
+.btn-info:active, .btn-info.active, .show > .btn-info.dropdown-toggle {
+  background-color: $primary-color!important;
+  background-image: none;
+  border-color: $primary-color!important;
+}
+
+.btn-info:hover {
+  color: #fff;
+  background-color: $primary-color!important;
+  border-color: $primary-color!important;;
+}
+
+.btn:active, .btn.active {
+  background-image: none;
+}
+
+.btn:focus, .btn:hover {
+  text-decoration: none;
+}
+
+.btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
+  background-image: none;
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
+  color: #fff;
+  background-color: $primary-color!important;
+  border-color: $primary-color!important;
+}
+.form-control {
+  padding: 0.5rem 2.5em 0.5em 0.1em!important
+}

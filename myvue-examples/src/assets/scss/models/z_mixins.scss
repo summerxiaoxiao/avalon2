@@ -1,0 +1,9 @@
+@mixin z-flex-container($flex-flow: row) {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: $flex-flow;
+}
+@mixin panel-bg-style($bgcolor: #fff, $bordercolor: #fff) {
+  background: $bgcolor;
+  border:1px solid $bordercolor;
+}

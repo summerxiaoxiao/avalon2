@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/d3/4.13.0/d3.min.js"></script>
+    <style>
+        .panel{
+            padding-top:10px;border-bottom:1px solid gray;width:200px;
+        }
+    </style>
+</head>
+<body>
+<div id="panel"  class="panel"></div>
+<div id="panel2" class="panel"></div>
+<div id="panel3" class="panel"></div>
+</body>
+</html>
+<script>
+render('panel')
+render('panel2')
+render('panel3')
+function render(id) {
+    var value = 22.65
+    // 已知角度，计算弧度
+    // 例：30°的弧度 = 2*PI/360*30
+    var angle = 50
+    var width = 200
+    var height = 200   //  svg的高度和宽度，也可以通过svg的width、height属性获取
+
+    let svg = d3.select("#"+id).append("svg:svg")
+        .attr("class", "gauge")      //添加类名gauge
+        .attr("width", width)         //设置svg宽度
+        .attr("height", height);       //设置svg高度
+
+    // 圆弧
+    var g = svg.append('g').attr('transform',
+        'translate(' + width / 2 + ',' + height / 2 + ')')
+
+    //添加仪表盘的标题
+    g.append('text').attr('class', 'gauge-title')
+        .style('alignment-baseline', 'central') //  相对父元素对齐方式
+        .style('text-anchor', 'middle') //  文本锚点，居中
+        .attr('y', -60)   //  到中心的距离
+        .text('CPU占用率')
+
+
+    //  添加仪表盘显示的数值，因为之后还要更新，所以声明一个变量
+    var valueLabel = g.append('text').attr('class', 'gauge-value')
+    .style('alignment-baseline', 'central') //  相对父元素对齐方式
+        .style('text-anchor', 'middle') //  文本锚点，居中
+        .attr('y', 25)    //  到中心的距离
+        .text(value+"%")
+    //valueLabel.text('123%')
+
+    //  添加仪表盘显示数值的单位
+    var titleLabel = g.append('text').attr('class', 'gauge-unity')
+        .style('alignment-baseline', 'central') //  相对父元素对齐方式
+        .style('text-anchor', 'middle') //  文本锚点，居中
+        .style('z-index','10')
+        .attr('y', 50)    //  到中心的距离
+        .text('测试测试测试测试测试测试')
+    // titleLabel.text('kwg kwg')
+
+    // 计算弧度
+    var endAngle = Math.PI * 2 / 360 * angle
+
+    // Math.PI * 2 / 3.2
+    //  添加背景圆弧
+    var background = g.append('path')
+        .datum({endAngle: Math.PI * 2 / 3.2})  //  传递endAngle参数到arc方法
+        .style('fill', '#444851')
+        .attr('d', d3.arc()
+            .innerRadius(35)
+            .outerRadius(45)
+            .startAngle(-Math.PI * 2 / 3.2))
+
+    // 添加另一层圆弧，用于表示百分比
+    var foreground = g.append('path')
+        .datum({endAngle: endAngle})  //  传递endAngle参数到arc方法
+        .style('fill', 'red')
+        .attr('d', d3.arc()
+            .innerRadius(35)
+            .outerRadius(45)
+            .startAngle(-Math.PI * 2 / 3.2))
+
+    // (currentAngle ) * Math.PI / 180 )
+    // 指针
+    var tick = g.append('line')
+        .attr('class', 'gauge-tick')
+        .attr('x1', 0)
+        .attr('y1', -35)
+        .attr('x2', 0)
+        .attr('y2', -(45 + 1))  //  定义line位置，默认是在圆弧正中间，12是指针的长度
+        .style('stroke', 'black')
+        .style('stroke-width','2px')
+        .attr('transform','rotate('+ angle +')')
+}
+</script>
+<style>
+    .gauge-title{
+        font-size: 10px;
+        fill: #A1A6AD;
+    }
+    .gauge-tick{
+        fill: #fff;
+    }
+</style>

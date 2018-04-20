@@ -1,0 +1,295 @@
+@CHARSET "UTF-8";
+.layoutContainer {
+  background: #ffffff;
+  border-radius: 5px;
+  position: relative;
+  height: 100%;
+  padding: 0 20px;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  backface-visibility: hidden;
+  .active {
+    border-color: #30ADA7 !important;
+  }
+}
+
+.layout-main {
+  &.hover > div {
+    border-color: #30ADA7 !important;
+  }
+
+  &.active .layoutContainer {
+    background: #f9fff9;
+  }
+  &.active > div {
+    border-color: #30ADA7 !important;
+  }
+
+}
+
+.layoutContainer {
+  .layoutTitle {
+    border-bottom: 1px solid #D3D2D2;
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+  }
+  .scroll-wrap {
+    max-height: 105px;
+    position: absolute;
+    z-index: 1000;
+    border: 1px solid #ddd;
+    overflow: hidden;
+  }
+  .scroll-wrap li {
+    margin-bottom: 3px;
+  }
+  .toolbar-btns-warp {
+    background-color: white;
+    list-style-type: none;
+    /*display: inline-block;*/
+    padding: 4px;
+    margin-bottom: 0;
+  }
+  .toolbar-btns-warp i {
+    font-size: 22px;
+    color: #30ADA7;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+  .layoutTitle > div {
+    padding: 0;
+  }
+  .layoutTitle .toolbar-btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+  .layoutTitle .toolbar-btn i {
+    font-size: 20px;
+    color: #30ADA7;
+    cursor: pointer;
+  }
+  .layoutTitle .icon {
+    cursor: pointer;
+    font-size: 26px;
+    margin: 8px 12px 8px 3px;
+    color: #30ADA7;
+    line-height: 45px;
+  }
+  .layoutTitle h4 {
+    display: inline-block;
+    width: 80%;
+    vertical-align: top;
+    line-height: 24px;
+  }
+  .bold {
+    font-weight: bold;
+  }
+  .layoutTitle > div {
+    height: 100%;
+    font-size: 18px;
+    font-family: "Microsoft YaHei", "宋体";
+  }
+  .gray {
+    color: #ADACAC;
+  }
+  .nowarp {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 22px;
+  }
+  .date {
+    color: #ADACAC;
+  }
+  /** 指标库  **/
+  .reportitemTitle {
+    font-size: 16px;
+    width: 100%;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+  .reportitemTitle p {
+    height: 22px;
+  }
+  .reportitemTitle h4 {
+    margin-top: 0;
+    font-size: 16px;
+  }
+  .rightBtns i {
+    font-size: 20px;
+    padding: 0px 10px 0px 0px;
+    color: #F06005;
+    vertical-align: middle;
+  }
+  .layoutBottom {
+    text-align: center;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    .icon-comment {
+      display: inline-block;
+      vertical-align: top;
+      height: auto;
+      text-align: left;
+      margin-right: 7px;
+      cursor: pointer;
+    }
+  }
+  .top-favourite,
+  i.correct {
+    cursor: pointer;
+    color: #67756C;
+  }
+  .icon-comment i {
+    padding-right: 3px;
+    color: #67756C;
+    vertical-align: top;
+  }
+}
+
+.icon-comment span {
+  font-size: 12px;
+  width: 18px;
+  text-align: left;
+  vertical-align: text-top;
+}
+.icon-cesuan {
+  background: url('./search/img/csmx.png') center center no-repeat;
+  height: 18px;
+  width: 40px;
+  cursor: pointer;
+  display: inline-block;
+}
+/** 指标库  **/
+.layoutContainer .document {
+  position: relative;
+  min-height: 200px;
+  display: -webkit-box;
+  display: flex;
+}
+.layoutContainer .document i {
+  color: #30ADA7;
+  font-size: 24px;
+}
+.layoutContainer .document .file-content {
+  font-size: 14px;
+  color: #777;
+  margin-top: 20px;
+  height: 80px;
+  overflow: hidden;
+  line-height: 25px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.layoutContainer .personPic {
+  background: url('./search/img/company.png') center center no-repeat;
+  height: 44px;
+  width: 144px;
+  position: absolute;
+  right: 0;
+  top: 18px;
+}
+.layoutContainer .marign0 {
+  margin: 0;
+}
+.layoutContainer .center {
+  text-align: center;
+}
+.layoutContainer .font14 {
+  font-size: 14px;
+}
+/*高亮*/
+.layoutContainer em {
+  color: #c00;
+  font-style: normal;
+}
+.dataTables_filter input {
+  border: 1px solid #cbc7c7;
+  border-radius: 5px;
+}
+.layoutContainer .reportitemTitle .pull-left,
+.layoutContainer .reportitemTitle .pull-right {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 49%;
+}
+.layoutContainer .reportitemTitle .pull-right {
+  text-align: right;
+}
+.layoutContainer.back {
+  z-index: 1;
+}
+.card_container {
+  .layout-back {
+    position: absolute;
+    background: #30ADA7;
+    -webkit-transition: width 0.5s ease;
+    transition: width 0.5s ease;
+    height: 44px !important;
+    border-radius: 0 5px 0 0;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .showBtn{
+    //width: 100%;
+  }
+  .unshowBtn{
+    width:0px;
+  }
+  .back {
+    width: 200px;
+  }
+  .toolbar-btns-warp {
+    /*top: 35%;*/
+    left: 0;
+    right: 0;
+    position: absolute;
+    display: -webkit-box;
+  }
+
+  .toolbar-btns-warp span {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+    padding: 4px 15px;
+    color: white;
+    cursor: pointer;
+  }
+  .toolbar-btns-warp span i {
+    font-size: 20px;
+    cursor: pointer;
+    color: #ffffff;
+    display: block;
+    text-align: center;
+  }
+  .toolbar-btns-warp span div {
+    cursor: pointer;
+  }
+  .layout-back .back-front {
+    position: absolute;
+    right: 25px;
+    top: 13px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ffffff;
+    z-index: 10;
+  }
+  .man {
+    color: #3f97d4;
+  }
+  .woman {
+    color: #fa81b2;
+  }
+}
+  div.ui-tooltip.ui-widget {
+    background: #25BE91;
+    border: none;
+    color: #ffffff;
+    border-radius: 11px;
+    font-size: 12px;
+  }
