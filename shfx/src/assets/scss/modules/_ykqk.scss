@@ -72,7 +72,8 @@
       }
 
       .ykqk-table-box {
-        height: 65%;
+        height: 68%;
+        min-height: 410px;
         align-content: stretch;
         .ykqk-table-box__data-title {
           height: 40px;
@@ -100,7 +101,7 @@
       .ykqk-chart-box{
         margin: $row-margin-top 0px $row-margin-top 0px;
         height: 40%;
-        //min-height: 320px;
+        min-height: 260px;
         .ykqk-chart-box__data-container {
           border: 1px solid gainsboro;
           height: 100%;

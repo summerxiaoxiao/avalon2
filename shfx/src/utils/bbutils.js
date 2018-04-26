@@ -1,6 +1,7 @@
 import _ from 'underscore'
 import $ from 'jquery'
 import request from '@/utils/api'
+import BuildQuery from './BuildQuery'
 
 /**
  * 查询报表工具中的配置信息
@@ -16,7 +17,9 @@ export function loadBBinfo (bbmc) {
       resolve(data)
     })
   } else {
-    return request.get('/static/datas/bbmc.json').then((res) => {
+    // var url = '/api/bgpz/findAll'
+    var url = '/static/datas/bbmc.json'
+    return request.get(url).then((res) => {
       return init(res)
     })
   }
@@ -248,21 +251,6 @@ export function getFieldsSingle (headers) {
   }
   return colMap
 }
-// export function getFieldsAll (headers) {
-//   var colObj = {}
-//   $.each(headers, function (index, item) {
-//     if (item['isInData']) { // 直接取field值
-//       var field_value = item['field'] // 字段属性名
-//       var field_name = item['header'] // 字段属性中文名
-//
-//       if (item['sxct'] && item['sxct']['lsxmcVauleMap']) { //多维表头
-//
-//       }
-//
-//       colObj[field_name] = field_value
-//     }
-//   }
-// }
 export function getFieldsByMutiple (headers) { // 多维表头字段名获取
   var fields = {
     // '固定资产原值':{
@@ -351,6 +339,7 @@ export function download (bbmc, tableCondition, fields) {
     document.body.removeChild(form)
   }
 }
+
 var bbutils = {
   /**
    * 通过报表名称bbmc, 查询相应报表的配置信息，报表类型，报表接口地址
@@ -440,7 +429,7 @@ var bbutils = {
   /**
    * 参数：{oldRow,allColMap,needFieldMap,defaultValue}
    * @param oldRow  当前行数据{bnljs:1,ljtbs:2,hyss:3}
-   * @param allColMap 所有表格原字段名｛‘本年累计’:'bnljs','累计同比':'ljtbs','预算数':"hyss'｝
+   * @param allColMap 所有表格原字段名｛‘本年累计’:'bnljs','累计同比':'ljtbs','预算数':'hyss'｝
    * @param needFieldMap 需要转换的字段名 ｛‘本年累计’:'bnlj','累计同比':'tb'｝
    * @param defaultValue 默认值，当字段数据为空时，默认赋值，可以不传
    * @returns {*}  转换后的：{bnlj: 1, tb: 2}
@@ -479,7 +468,24 @@ var bbutils = {
    *   }
    * }
    */
-  getFieldsByMutiple: getFieldsByMutiple
+  getFieldsByMutiple: getFieldsByMutiple,
+  /**
+   * 构建报表工具的查询参数
+   * 示例：
+   * let builder = bbutils.getBuilderQuery()
+   * builder.eq('日期', 'month_id', '201701') // month_id = '201701'
+   * // project_id like '%40523%' or project_id != '40523100'
+   builder.contains('项目编码', 'project_id', '40523', 'or', '!=', '40523100')
+   // moth_id in ('201701', '201702', '201703')
+   builder.eqArray('日期', 'moth_id', ['201701', '201702', '201703'])
+   // hello = 123
+   builder.eqMap('hello', 123)
+   */
+  getBuilderQuery: getBuilderQuery
+}
+
+function getBuilderQuery (option) {
+  return new BuildQuery(option)
 }
 
 export default bbutils

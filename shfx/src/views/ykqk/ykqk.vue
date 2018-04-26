@@ -1,6 +1,6 @@
 <template>
   <div class="landing-container ykqk-container">
-        <app-bar @on-refresh="onRefresh"></app-bar>
+    <app-bar @on-refresh="onRefresh"  v-show="config.show"></app-bar>
     <component :is="currentView"
                @on-detail="toDetail"
                @on-close="toClose"
@@ -23,6 +23,9 @@
     data () {
       return {
         currentView: 'app-content',
+        config: {
+          show: true
+        },
         xmdlbm: null
       }
     },
@@ -34,9 +37,11 @@
         this.$store.commit('ykqk/setXmdlmc', xmdl)
         this.$store.commit('ykqk/setTableQueryCondition_xmmx')
         this.currentView = 'app-content-detail'
+        this.$set(this.config, 'show', false)
       },
       toClose () {
         this.currentView = 'app-content'
+        this.$set(this.config, 'show', true)
       },
       onRefresh () {
         this.$refs.mycom.reload()

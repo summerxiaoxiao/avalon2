@@ -1,4 +1,5 @@
 import CommonService from '@/services/CommonService'
+import bbutils from '@/utils/bbutils'
 import moment from 'moment'
 
 export default {
@@ -23,11 +24,11 @@ export default {
     chartPadding: 25,
     chartlist: [],
     xmbm: '',
-    tableQueryCondition: {pzGjgltjs: [], organ_id: ''}, // 项目大类下拉，单位ID，年月
-    tableQueryCondition_xmmx: {pzGjgltjs: [], organ_id: ''}, // 月度预算table: 单位ID， 日期，项目大类，项目编码
-    tableQueryCondition_xmdl: {pzGjgltjs: [], organ_id: ''}, // 项目大类累计执行数table: 单位ID，当 前日期
-    tableQueryCondition_xmdl02: {pzGjgltjs: [], organ_id: ''}, // 项目大类申请数table: 单位ID，日期数组
-    tableQueryCondition_lxfx: {pzGjgltjs: [], organ_id: ''}, // chart：单位ID，日期，项目大类
+    tableQueryCondition: {}, // 项目大类下拉，单位ID，年月
+    tableQueryCondition_xmmx: {}, // 月度预算table: 单位ID， 日期，项目大类，项目编码
+    tableQueryCondition_xmdl: {}, // 项目大类累计执行数table: 单位ID，当 前日期
+    tableQueryCondition_xmdl02: {}, // 项目大类申请数table: 单位ID，日期数组
+    tableQueryCondition_lxfx: {}, // chart：单位ID，日期，项目大类
     colMap: {
       '单位ID': 'compid',
       '日期': 'date',
@@ -112,56 +113,33 @@ export default {
     },
     setTableQueryCondition_lxfx (state, data) { // 柱状图，类型分析，201704,那么查询20701-201704过滤条件：年份，项目大类，单位ID
       state.tableQueryCondition_lxfx = {}
-      state.tableQueryCondition_lxfx.organ_id = state.selectCompid || '-1'
-      state.tableQueryCondition_lxfx.project_class_id = state.selectXmdl
-      state.tableQueryCondition_lxfx.pzGlsxs = [{
-        containValues: state.yearmonthArr,
-        glms: '等于' + state.yearmonthArr.join('、'),
-        sxmc: 'month_id',
-        sxms: '日期'
-      }]
+      let builder = bbutils.getBuilderQuery()
+      builder.eqMap('organ_id', state.selectCompid || '-1')
+      builder.eqMap('project_class_id', state.selectXmdl)
+      builder.eqArray('日期', 'month_id', state.yearmonthArr)
+      state.tableQueryCondition_lxfx = builder.serialize()
     },
     setTableQueryCondition_xmdl (state, data) { // 项目大类累计执行数table, 过滤条件 ： 当前选择年月，单位ID
-      state.tableQueryCondition_xmdl = {}
-      state.tableQueryCondition_xmdl02 = {}
-      state.tableQueryCondition = {}
-      state.tableQueryCondition_xmdl.organ_id = state.selectCompid || '-1'
-      state.tableQueryCondition_xmdl.month_id = state.yearmonth
+      let builder = bbutils.getBuilderQuery()
+      builder.eqMap('organ_id', state.selectCompid || '-1')
+      builder.eqMap('month_id', state.yearmonth)
+      state.tableQueryCondition_xmdl = builder.serialize()
 
-      state.tableQueryCondition_xmdl02.organ_id = state.selectCompid || '-1'
-      state.tableQueryCondition_xmdl02.pzGlsxs = [{
-        containValues: state.yearmonthArr,
-        glms: '等于' + state.yearmonthArr.join('、'),
-        sxmc: 'month_id',
-        sxms: '日期'
-      }]
-      // 项目大类下拉框过滤条件
-      state.tableQueryCondition.organ_id = state.selectCompid || '-1'
-      state.tableQueryCondition.month_id = state.yearmonth || state.year + '01'
+      builder.eqArray('日期', 'month_id', state.yearmonthArr) // 覆盖上面的Month_id
+      state.tableQueryCondition_xmdl02 = builder.serialize() // organ_id, month_id
+
+      builder.eqMap('month_id', state.yearmonth || state.year + '01') // 覆盖上面的Month_id
+      state.tableQueryCondition = builder.serialize() // organ_id, month_id
     },
     setTableQueryCondition_xmmx (state, data) { // 月度预算数明细table，201704,那么查询20701-201704 过滤条件：年月，单位ID，项目大类名称， 项目编码
-      state.tableQueryCondition_xmmx = {}
-      state.tableQueryCondition_xmmx.organ_id = state.selectCompid || '-1'
-      state.tableQueryCondition_xmmx.project_class_name = state.xmdlmc
-      state.tableQueryCondition_xmmx.pzGlsxs = [{
-        containValues: state.yearmonthArr,
-        glms: '等于' + state.yearmonthArr.join('、'),
-        sxmc: 'month_id',
-        sxms: '日期'
-      }]
+      let builder = bbutils.getBuilderQuery()
+      builder.eqMap('organ_id', state.selectCompid || '-1')
+      builder.eqMap('project_class_name', state.xmdlmc)
+      builder.eqArray('日期', 'month_id', state.yearmonthArr)
+      state.tableQueryCondition_xmmx = builder.serialize() // organ_id, month_id,project_class_name
       if (data) {
-        state.tableQueryCondition_xmmx.pzGjgltjs = [{
-          glms: '包含' + data.xmbm,
-          qyh: '0',
-          sxlx: 1,
-          sxmc: 'project_id',
-          sxms: '项目编码',
-          tj1: '1',
-          tj2: '',
-          xh: 3,
-          z1: data.xmbm,
-          z2: ''
-        }]
+        builder.contains('项目编码', 'class_1', data.xmbm)
+        state.tableQueryCondition_xmmx = builder.serialize() // organ_id, month_id,project_class_name,class_1
       }
     }
   },

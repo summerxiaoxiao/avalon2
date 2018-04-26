@@ -26,9 +26,12 @@
 
   FengxianBulletin.prototype.init = function () {
     var me = this;
-    require(['zTable'],function(){
-      me.render();
-      me.bindEvent();
+    var modulePath = window._fengxian_module._modulePath
+    require([modulePath + '/static/js/vendor.js'],function(){
+      require(['datetimepicker', 'zTable'],function(){
+        me.render();
+        me.bindEvent();
+      })
     })
   }
   FengxianBulletin.prototype.loadUser = function (callback) {
@@ -69,7 +72,8 @@
 
     var $FengxianBulletin = $('<div id="app"></div>');
     this.$element.find('#app').length === 0 && this.$element.html($FengxianBulletin);
-    require([window._fengxian_module._modulePath + '/static/js/app.js'], function () {
+    var modulePath = window._fengxian_module._modulePath
+    require([modulePath + '/static/js/app.js'], function () {
       me.vue = $(document).data('app');
       var overflow = $(document.body).data('overflow')
       $(document.body).css("overflow", overflow);

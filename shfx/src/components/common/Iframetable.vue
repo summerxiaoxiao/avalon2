@@ -18,8 +18,17 @@
       bbmc: String,
       height: String,
       drillRender: Function, // 穿透事件
+      topFixed: {
+        type: [Number, String],
+        default: function () {
+          return true
+        }
+      },
       resizePadding: {
-        type: [Number, String]
+        type: [Number, String],
+        default: function () {
+          return 25
+        }
       },
       resizeFixed: {
         type: [Boolean, String],
@@ -50,7 +59,7 @@
         tbid: '',
         tableDom: null,
         resize: {
-          resizePadding: 25
+          resizePadding: this.resizePadding
         }
       }
     },
@@ -61,9 +70,11 @@
     },
     mounted () {
       this.$nextTick(function () {
-        var tt = $(this.$el).offset().top
-        this.resize.resizePadding = tt + 25
-        this.$set(this.resize, 'resizePadding', this.resize.resizePadding)
+        if (this.topFixed === true) {
+          var tt = $(this.$el).offset().top
+          this.resize.resizePadding = tt + this.resizePadding
+          this.$set(this.resize, 'resizePadding', this.resize.resizePadding)
+        }
         this.load()
       })
     },

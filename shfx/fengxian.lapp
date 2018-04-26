@@ -7,9 +7,7 @@
   	"lightapp" : ["/fengxian/static/fengxianBulletin.js"],
 	"require":{
 		"js":[
-
-		"/fengxian/static/js/manifest.js",
-		"/fengxian/static/js/vendor.js"
+		"/fengxian/static/js/manifest.js"
 		],
 		"css":[
         "/fengxian/static/css/app.css"
