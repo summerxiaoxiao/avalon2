@@ -1,0 +1,116 @@
+@import "./h_vars";
+@import "./h_mixins";
+.h-container_main {
+  $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, Arial, sans-serif;
+
+  font-family: $font-family;
+  height: 100%;
+  overflow: auto;
+
+  .h-title{
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    font-weight: 800;
+    background: #162736;
+    width: fit-content;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0px 10px 0px 10px;
+  }
+
+  .h-main_top{
+    min-height: 500px;
+    height: 65%;
+    width: 100%;
+  }
+  .h-main_top__fgs{
+    min-height: 500px;
+    height: 85%;
+    width: 100%;
+  }
+  .h-main_top__map{
+    height: 100%;
+    width: 30%;
+   @include panel-bg-style($z-bg-color, $z-border-color);
+    //background-image: $z-map-bg;
+  }
+  .h-main_top__listitems{
+    //height: 100%;
+    //width: 50%;
+    padding: $z-content-padding;
+    margin-left: $z-content-margin;
+    @include panel-bg-style($z-bg-color, $z-border-color)
+  }
+
+  .h-main_box_title{
+    //padding: $z-content-padding $z-content-padding 0px $z-content-padding;
+  }
+  .h-main_top__listitems__list{
+    //padding:0px $z-content-padding $z-content-padding $z-content-padding;
+  }
+  .h-main__title{
+    /*padding: 15px 15px 0px 15px;*/
+    position: absolute;
+    top: 15px;
+    .h-title{
+      color: #fff;
+      font-weight: 500;
+      font-size: 20px;
+      font-weight: 800;
+      background: #162736;
+      width: fit-content;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      padding: 0px 10px 0px 10px;
+    }
+  }
+  .h-list-box{
+    min-height: 100px;
+    height: 30%;
+    padding: $z-content-margin;
+    @include panel-bg-style($z-list-bg-color, $z-list-border-color);
+    align-items: center;
+    align-content: center;
+  }
+  .h-list-box + .h-list-box {
+    margin-top: $z-content-margin;
+  }
+
+  /*收入成本*/
+  .h-main_panel{
+    position: relative;
+    margin-top: $z-content-margin;
+    padding: $z-content-margin;
+    @include panel-bg-style($z-bg-color, $z-border-color)
+  }
+  .h-main_srcb{
+    min-height: 400px;
+    height: 50%;
+    width: 100%;
+  }
+  .h-main_kkfy{
+    min-height: 650px;
+    height: 90%;
+    width: 100%;
+    .h-main_box_barchart{
+      height: 100%;
+      width: 100%;
+      @include panel-bg-style(#254766,  #33668e);
+    }
+    .h-main_box_barchart + .h-main_box_barchart {
+      margin-top: $z-content-margin;
+    }
+  }
+  .h-main_kkfy__fgs{
+    height: 45%;
+    width: 100%;
+  }
+  .h-main_xmzc{
+    height: 35%;
+    min-height: 300px;
+    width: 100%;
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://cdn.bootcss.com/d3/4.13.0/d3.min.js"></script>
+</head>
+<body>
+<div id="panel"></div>
+<svg id="svg">
+  <!--<defs>-->
+    <!--<clipPath id="myClip">-->
+      <!--<rect x="0" y="0" width="120" height="65"></rect>-->
+    <!--</clipPath>-->
+  <!--</defs>-->
+<!--  <g style="clip-path: url(#myClip);">-->
+  <g id="mycircle">
+    <!--<circle cx="60" cy="60" r="50" fill="blue"/>
+    <circle cx="80" cy="80" r="80" fill="green"/>-->
+      <circle cx="84" cy="84" r="81.48" style="fill: rgb(79, 117, 146); stroke: rgb(0, 0, 0); stroke-width: 0px;"></circle>
+      <circle cx="84" cy="84" r="73.33200000000001" style="stroke: rgb(28, 49, 71); stroke-width: 7px;"></circle>
+  </g>
+</svg>
+</body>
+</html>
+<script>
+  renderPanel()
+  renderSvg()
+function renderSvg () {
+  let def = d3.select('#svg').append('defs')
+  let clip = def.append('clipPath').attr('id', 'myClip')
+  clip.append('svg:rect').attr('x', 0).attr('y', '0').attr('width', 120).attr('height', 65)
+// d3.select('#mycircle').style('clip-path', 'url(#myClip)')
+  d3.select('#svg').style('clip-path', 'url(#myClip)')
+}
+
+function renderPanel () {
+    let svg = d3.select('#panel').append('svg:svg')
+    svg.attr('id', 'mysvg')
+    let def = svg.append('defs')
+    let clip = def.append('clipPath').attr('id', 'myclip')
+    clip.append('svg:rect').attr('x', 0).attr('y', 0).attr('width', 120).attr('height', 65)
+    svg.attr('clip-path', 'url(#myclip')
+    svg.append('g').attr('id', 'mycircle').append('svg:circle')
+      .attr('cx', 60)
+      .attr('cy', 60)
+      .attr('r', 50)
+      .style('fill', 'blue')
+  }
+
+</script>

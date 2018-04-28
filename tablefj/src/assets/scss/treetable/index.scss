@@ -1,0 +1,73 @@
+@import "treetable-light";
+
+.h-treetable{
+  font-size: 16px;
+}
+.h-treetable__tbody tr,
+.h-treetable__thead tr th{
+ background: transparent!important;
+
+}
+.h-treetable__tbody tr td,
+.h-treetable__thead tr th{
+  color: #fff;
+  text-align: left;
+  vertical-align: middle;
+  padding: 0 16px;
+}
+.h-treetable.borderbottom tr td,
+.h-treetable.borderbottom tr th{
+  border:none!important;
+  border-bottom: 1px solid #23425c!important;
+}
+
+.h-treetable .h-treetable-circle{
+  display: inline-block;
+  margin-right: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #fff;
+  &:hover{
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+  }
+}
+.h-treetable__main{
+  position: relative;
+
+  & ::-webkit-scrollbar-track-piece {
+    background: 0 0;
+  }
+  & ::-webkit-scrollbar-thumb {
+    background: #3a72a8 !important;
+    border-radius: 0;
+  }
+  & ::-webkit-scrollbar {
+    width: 1px !important;;
+    height: 1px !important;;
+    background-color: transparent;
+  }
+}
+
+.h-treetable__content{
+  height: 100%;
+  position:relative;
+  overflow: auto;
+}
+
+.h-treetable__head{
+  position: absolute;
+  top: 0;
+  width:100%;
+}
+.h-treetable__main.onscroll{
+  padding-top: 55px;
+
+  .h-treetable__content{
+    height: calc( 100% - 50px);
+    max-height: 270px;
+  }
+}

@@ -1,0 +1,30 @@
+[
+
+  {
+    "module": "myhello/index",
+    "title": "demo",
+    "icon": "iconfont yg-deploy",
+    "subModules":[
+      {
+        "title": "固定资产分析",
+        "module": "myhello/index/detail"
+      },
+      {
+        "title": "无形资产分析",
+        "module": "myhello/index/33"
+      }
+    ]
+  },
+  {
+    "module": "myhello/test",
+    "title": "test",
+    "icon": "iconfont yg-deploy",
+    "hide":false
+  },
+  {
+    "module": "search",
+    "title": "test2",
+    "icon": "iconfont yg-deploy",
+    "hide":false
+  }
+]

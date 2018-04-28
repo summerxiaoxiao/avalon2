@@ -1,0 +1,55 @@
+.vuedal {
+  padding: 0;
+  header {
+    padding: 15px 20px;
+    margin: 0;
+    background-color: #fff;
+
+    .title {
+      font-size: 16px;
+    }
+
+    .close {
+      color: #b9b9b9;
+      font-size: 36px;
+    }
+  }
+}
+
+.vuedal__message {
+  margin: 30px 0 50px;
+  text-align: center;
+}
+
+.vuedal__content {
+  background-color: #fbfbfb;
+  padding: 20px;
+
+  h3 {
+    font-size: 24px;
+    font-weight: normal;
+  }
+
+  font-size: 12px;
+}
+
+.vuedal__actions {
+  text-align: center;
+  margin-top: 20px;
+  .loader {
+    vertical-align: middle;
+  }
+  &-multi {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .btn {
+    font-size: 12px;
+    padding: 5px 20px;
+  }
+
+  .btn + .btn {
+    margin-left: 10px;
+  }
+}

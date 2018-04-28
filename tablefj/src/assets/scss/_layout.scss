@@ -1,0 +1,121 @@
+
+* ::-webkit-scrollbar-track-piece {
+  background: 0 0;
+}
+
+* ::-webkit-scrollbar-thumb {
+  background: $scrollbar-bg-color !important;
+  border-radius: 0;
+}
+
+* ::-webkit-scrollbar {
+  width: $scrollbar-width !important;
+  height: $scrollbar-height !important;
+  background-color: transparent;
+}
+
+.btn-icon {
+  @include icon-btn()
+}
+.row>[class^=col-] {
+   padding-top: 0px!important;
+   padding-bottom: 0px!important;
+   background-color: transparent!important;
+   border: none!important;
+ }
+.row {
+   margin-top: 0px!important;
+}
+iframe {
+  border: none;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+table{
+  margin-bottom: 0px!important;
+}
+body {
+  min-width: 600px;
+  min-height: 400px;
+  overflow: hidden;
+  line-height: 1em!important;
+}
+
+.btn-icon-delete {
+  @include icon-btn(12px);
+  background: url(../images/icon-x.png) no-repeat center;
+}
+
+.icon-close {
+  @include icon-btn(24px, 24px);
+  background: url(../images/icon-close.png) no-repeat center;
+  background-size: 100%;
+  margin: 8px 6px 8px 8px;
+}
+
+.landing-controller {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 600px;
+  min-height: 400px;
+  display: flex;
+  //overflow: hidden;
+
+  .landing-container {
+    flex-flow: column  nowrap;
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  .data-list { /* data-list start */
+    padding: 0px 10px;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+
+input[type=text], input[type=password], input[type=number], input[type=email]
+{
+  box-sizing: content-box;
+  background: transparent;
+  font-family: "Open Sans", Arial, sans-serif;
+  height: 12px !important;
+  /*box-shadow: 0 -1px 0 0 $primary-color inset !important;*/
+  border:none;
+  outline: none;
+
+  &:focus{
+    box-sizing: content-box;
+    background: transparent;
+    font-family: "Open Sans", Arial, sans-serif;
+    border:none;
+    outline: none;
+  }
+}
+  .content-main,
+  .h-content-main{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .icon-close {
+    @include icon-btn(24px, 24px);
+    background: url(../images/icon-close.png) no-repeat center;
+    background-size: 100%;
+    margin: 8px 6px 8px 8px;
+  }
+

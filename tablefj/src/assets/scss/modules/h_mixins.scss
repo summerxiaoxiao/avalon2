@@ -1,0 +1,4 @@
+@mixin panel-bg-style($bgcolor: #fff, $bordercolor: #fff) {
+  background: $bgcolor;
+  border:1px solid $bordercolor;
+}

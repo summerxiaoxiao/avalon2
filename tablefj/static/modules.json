@@ -1,0 +1,55 @@
+[{
+    "module": "zbkb",
+    "icon": "ygmat-time",
+    "title": "指标看板",
+    "url":"#/zbkb",
+    "subModules":[
+      {
+        "title": "主要预算指标看板",
+        "module": "zbkb01",
+        "url":"#/zbkb/01"
+      }
+    ]
+  },
+  {
+    "module": "fxbb",
+    "icon": "ygmat-time",
+    "title": "分析报表",
+    "url":"#/fxbb",
+    "subModules":[
+      {
+        "title": "主要预算指标报表",
+        "module": "fxbb01",
+        "url":"#/fxbb/01"
+      },
+      {
+        "title": "利润预算明细报表",
+        "module": "fxbb08",
+        "url":"#/fxbb/08"
+      }
+    ]
+  },
+  {
+    "module": "test",
+    "icon": "ygmat-time",
+    "title": "test",
+    "url":"#/test",
+    "subModules":[
+      {
+        "title": "ybp",
+        "module": "testybp",
+        "url":"#/test/testybp"
+      },
+      {
+        "title": "fxbb",
+        "module": "testbb",
+        "url":"#/test/testbb"
+      },
+      {
+        "title": "main",
+        "module": "main",
+        "url":"#/main"
+      }
+    ]
+  }
+]

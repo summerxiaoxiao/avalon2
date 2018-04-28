@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <title>Document</title>
+  <style>
+    .arc {
+      fill: '#ccc';
+    }
+    .h-ybpchart-zhizhen{
+      position: absolute;
+      top: 49.5%;
+      width: 40%;
+      margin-left: 15.5%;
+      margin-top: -3.5%;
+      transform-origin: 90% center;
+      transition: transform 0.25s ease-out;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+<div id='panel' style="position: relative;">
+  <img class="h-ybpchart-zhizhen" src="src/assets/images/mycommon/zhizhen2.png"
+       style="display:block;" id="zhizhen"/>
+     <!--  :style="{transform: 'rotate('+degree+'deg)'}"-->
+</div>
+<script src='https://d3js.org/d3.v4.min.js'></script>
+<script>
+  // 1.定义data数据，实现组件的可定制化
+  var config = {
+    degree: 40,
+    size: 200,             // panel的大小
+    label: '完成率',       // panel的名称
+    min: 0,                // 量程的最小值
+    max: 180,              // 量程的最大值
+    majorTicks: 5,         // 主刻度的个数
+    minorTicks: 5         // 次刻度的个数
+  }
+  // 2.处理数据函数setConfig()
+  var setConfig = function () {
+    return {
+      degree: config.degree,
+      value: config.value,
+      size: config.size,
+      cx: config.size / 2,                 // 圆心的x坐标
+      cy: config.size / 2,                 // 圆心的y坐标
+      label: config.label,
+      max: config.max,
+      min: config.min,
+      range: config.max - config.min,      // 量程
+      radius: config.size * 0.97 / 2,      // 半径（稍许留白）
+      minorTicks: config.minorTicks,
+      majorTicks: config.majorTicks
+    }
+  }
+  // 3. render函数
+  var render = function () {
+    // 3.1 获取数据
+    let {
+      size, radius, cx, cy, degree, label,
+      range, min, max, minorTicks, majorTicks
+    } = setConfig(config)
+
+    // 指针旋转角度
+    d3.select('#zhizhen').style('transform', 'rotate(' + degree + 'deg)')
+
+    // 设置panel宽和高
+    d3.select('#panel').style('width', size + 'px').style('height', size + 'px')
+    // 3.2 添加svg
+    let svg = d3.select('#panel').append('svg:svg')
+      .attr('class', 'gauge')      // 添加类名gauge
+      .attr('width', size)         // 设置svg宽度
+      .attr('height', size)       // 设置svg高度
+
+    // 剪切为半圆
+    clipCircle(svg, {size: size})
+
+    let panel = svg.append('g')
+    // 画圆
+    renderCircle(panel, {
+      cx: cx,
+      cy: cy,
+      radius: radius
+    })
+
+    // 画刻度线
+    renderKdLine(panel, { range: range,
+      min: min,
+      max: max,
+      cx: cx,
+      cy: cy,
+      radius: 0.8 * radius, // 刻度线圆半径
+      minorTicks: minorTicks,
+      majorTicks: majorTicks,
+      color: '#DC3912' // 刻度线颜色
+    })
+
+    // 画遮罩弧度
+    renderRadius(panel, {
+      cx: cx,
+      cy: cy,
+      radius: radius,
+      degree: degree // 旋转角度
+    })
+
+    // 画指针标记线
+    renderMarkLine(panel, {
+      cx: cx,
+      cy: cy,
+      radius: radius,
+      degree: degree
+    })
+
+    // 画文本
+    renderLabelCircle(panel, {
+      cx: cx,
+      cy: cy,
+      radius: radius,
+      size: size,
+      label: label
+    })
+  }
+
+  /**
+   *  剪切为半圆
+   */
+  var clipCircle = function (svg, config) {
+    let {size} = config
+    let clipId = 'circleClip'
+    let clip = svg.append('defs').append('clipPath').attr('id', clipId)
+    clip.append('svg:rect').attr('x', 0).attr('y', 0).attr('width', size).attr('height', size / 2 + 3)
+    svg.style('clip-path', 'url(#' + clipId + ')')
+  }
+
+  /**
+   * 画圆，共三个圆堆叠
+   */
+  var renderCircle = function (panel, config) {
+    let {cx, cy, radius} = config
+    // 3.3画外圆
+    panel.append('svg:circle')        // 添加circle，圆
+      .attr('cx', cx)            // 设置circle的坐标
+      .attr('cy', cy)
+      .attr('r', radius)         // 设置circle的半径
+      .style('fill', '#4f7592')     // 设置circle的填充颜色
+      .style('stroke', '#fff')   // 设置circle的轮廓颜色
+      .style('stroke-width', '0px')// 设置circle的轮廓宽度
+
+    // 3.4画内圆
+    panel.append('svg:circle')
+      .attr('cx', cx)
+      .attr('cy', cy)
+      .attr('r', 0.9 * radius)    //  半径不一样，第一个圆半径
+      .style('stroke', '#1c3147')
+      .style('stroke-width', '7px')
+
+    //  3.4-2 画内圆2 第二个内圆, 绿色
+    panel.append('svg:circle')
+      .attr('cx', cx)
+      .attr('cy', cy)
+      .attr('r', 0.8 * radius)    //  半径不一样,第二个圆半径
+      .style('fill', '#1c3147')
+      .style('stroke', '#25e0be')
+      .style('stroke-width', '12px')
+  }
+  /**
+   * 画遮罩弧度
+   * 弧度= 角度 * Math.PI / 180
+   * 角度 = 弧度 * 180 / Math.PI
+   *  例：90°＝90×Math.PI/180 ＝Math.PI/2 弧度
+   */
+  var renderRadius = function (panel, config) {
+    let {radius, cx, cy, degree} = config
+// 3.5画遮罩弧度，颜色区域 角度遮罩
+    var startAngle = Math.PI / 2 - 0.02  // 这里 -0.02 是为了让起点弧度不留白
+    var endAngle = degree * Math.PI / 180 + Math.PI / 2
+    panel.append('svg:path')             // 添加路径
+      .style('fill', '#38bb96')
+      .style('fill-opacity', 0.95)  // 填充的透明度
+      .style('stroke', '#f1f3f5')
+      .style('stroke-width', '0px')
+      .attr('d', d3.arc()  // 添加圆弧
+        .startAngle(startAngle)
+        .endAngle(endAngle)
+        .innerRadius(0.74 * radius)  // 内圈半径
+        .outerRadius(0.87 * radius))  // 外圈半径
+      .attr('transform', function () { // 移动+旋转
+        return 'translate(' + cx + ', ' + cy + ') rotate(180)'
+      })
+  }
+
+  /***
+   *画指针线标记线
+   *
+   */
+  var renderMarkLine = function (panel, config) {
+    let {cx, cy, radius, degree} = config
+    var g = panel.append('g')
+      .attr('transform', function () { // 移动+旋转
+        return 'translate(' + cx + ', ' + cy + ') rotate(-90)' // 旋转到0度
+      })
+    // 指针
+    g.append('line')
+      .attr('class', 'gauge-tick')
+      .attr('x1', 0)
+      .attr('y1', -0.74 * radius)
+      .attr('x2', 0)
+      .attr('y2', -(0.87 * radius - 1))  //  定义line位置，默
+      .style('stroke', '#f1f3f5')
+      .style('stroke-width', '2px')
+      .attr('transform', function () { //  移动+旋转
+        return 'rotate(' + degree + ')'  // 旋转到指定角度
+      })
+  }
+
+
+  // 画文本圆
+  var renderLabelCircle = function (panel, config) {
+    let {cx, cy, radius, size, label} = config
+    // 3.4-3 画label所在的圆 ，内圆3 第三个内圆
+    panel.append('svg:circle')
+      .attr('cx', cx)
+      .attr('cy', cy)
+      .attr('r', 0.52 * radius)    //  半径不一样
+      .style('fill', '#1f3344')
+      .style('stroke-width', '0px')
+      .style('fill-opacity', 1)  // 填充的透明度
+
+    // 3.6设置label
+    let fontSize = Math.round(size / 9) // 字体大小
+    // let fontSize = this.fontSize
+    panel.append('svg:text')         // 添加文本
+      .attr('x', cx)              // 文本位置
+      .attr('y', cy - 8) // cy / 2 + fontSize / 2
+      .attr('text-anchor', 'middle')// 文字角度
+      .text(label)                 // 文字内容
+      .style('font-size', fontSize + 'px')// 字体大小
+      .style('fill', '#354b5b')        // 颜色
+      .style('stroke-width', '0px')
+  }
+
+  /**
+   * 画刻度线渲染示例，
+   * 可以直接调用看效果：render2()
+   */
+  var render2 = function (panel) {
+    var size = 168
+    var cx = size / 2  // 圆心坐标
+    var cy = size / 2
+    var radius = size * 0.97 / 2      // 圆 半径（稍许留白）
+    if (!panel) {
+      // 3.2 添加svg
+      panel = d3.select('#panel').append('svg:svg')
+        .attr('class', 'gauge')      // 添加类名gauge
+        .attr('width', size)         // 设置svg宽度
+        .attr('height', size)       // 设置svg高度
+    }
+
+    var majorTicks = 11 // 大刻度个数
+    var minorTicks = 5// 小刻度个数
+    var min = 0 // 范围
+    var max = 180 // 180 度刻度
+    var range = max - min
+
+    renderKdLine(panel, { range: range,
+      min: min,
+      max: max,
+      cx: cx,
+      cy: cy,
+      radius: radius,
+      minorTicks: minorTicks,
+      majorTicks: majorTicks
+    })
+  }
+
+  /**
+   * 渲染刻度线
+   *
+   */
+  var renderKdLine = function (panel, config) {
+    let {range, radius, cx, cy, min, max, minorTicks, majorTicks, color} = config
+    var kdcolor = color || 'blue' // 刻度线颜色
+    var kdConfig = {
+      cx: cx,
+      cy: cy,
+      radius: radius,
+      range: range,
+      min: min,
+      max: max
+    }
+    let majorDelta = range / (majorTicks - 1)// 大刻度之间的距离
+    for (let major = min; major <= max; major += majorDelta) {
+      // 循环每个大刻度
+      let minorDelta = majorDelta / minorTicks // 小刻度之间的距离
+      for (let minor = major + minorDelta; minor < Math.min(major + majorDelta, max); minor += minorDelta) {      // 循环每个小刻度
+        let point1 = valueToPoint(minor, kdConfig, 0.75)
+        let point2 = valueToPoint(minor, kdConfig, 0.85) // 刻度线的长度
+        // 获取小刻度线的（x1,y1）(x2,y2)位置
+        // 添加小刻度线
+        panel.append('svg:line')
+          .attr('x1', point1.x) // 小刻度线的两点坐标
+          .attr('y1', point1.y)
+          .attr('x2', point2.x)
+          .attr('y2', point2.y)
+          .style('stroke', kdcolor)// 小刻度线颜色
+          .style('stroke-width', '1px')// 小刻度的宽度
+      }
+      //  获取大刻度线的（x1,y1）(x2,y2)位置
+      let point3 = valueToPoint(major, kdConfig, 0.7)
+      let point4 = valueToPoint(major, kdConfig, 0.85)
+      //  添加大刻度线
+      panel.append('svg:line')
+        .attr('x1', point3.x)
+        .attr('y1', point3.y)
+        .attr('x2', point4.x)
+        .attr('y2', point4.y)
+        .style('stroke', kdcolor)
+        .style('stroke-width', '2px')
+    }
+  }
+  /**
+   *
+   * @param value 起始值
+   * @param config {
+   * cx: 圆心坐标
+   * cy: 圆心坐标
+   * radius: 圆半径
+   * factor: 直线坐标
+   * range: 范围 max - min
+   * min: 最小值
+   * }
+   * @param factor
+   * @returns {{x: number, y: number}}
+   */
+  function valueToPoint (value, config, factor) {
+    let {cx, cy, radius, range, min, max} = config
+
+    var degree = (value / range * max - (min / range * max + 360)) * Math.PI / 180
+
+    return {
+      x: cx - radius * factor * Math.cos(degree),
+      y: cy - radius * factor * Math.sin(degree)
+    }
+  }
+
+  render()
+</script>
+</body>
+</html>

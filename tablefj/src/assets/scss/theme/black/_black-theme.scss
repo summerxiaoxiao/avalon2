@@ -1,0 +1,220 @@
+@import "custom";
+@import "mixins";
+
+body .datetimepicker table{
+  color:white;
+  font-size:14px;
+}
+
+body .datetimepicker{
+  background-color:#315980;
+}
+
+body .datetimepicker:after{
+  border-bottom-color:#315980;
+}
+
+body .datetimepicker table tr td span:hover{
+  background-color:#628baa;
+}
+
+body .datetimepicker span.active {
+  background-color:#628baa !important;
+  background-image:none;
+}
+
+body .datetimepicker table tr td span.active:hover{
+  background-color:#628baa !important;
+  background-image:none;
+}
+
+body .datetimepicker thead tr:first-child th:hover,
+body .datetimepicker tfoot tr:first-child th:hover {
+  background: #628baa;
+}
+body .datetimepicker table tr td span.active:hover {
+  background-color: #628baa !important;
+  background-image: none;
+}
+body .datetimepicker table tr td span.active,
+body .datetimepicker table tr td span.active:hover,
+body .datetimepicker table tr td span.active.disabled,
+body .datetimepicker table tr td span.active.disabled:hover {
+  background-color: #006dcc;
+  background-image: none;
+}
+.black-theme{
+  font-size: $font-size;
+  color: $color ;
+
+  .h-box-main{
+    width: 100%;
+  }
+
+  .h-box-column{
+    @include h-flex-container(column);
+  }
+  .h-box-row{
+    @include h-flex-container(row);
+    //align-items: stretch;
+  }
+
+  .h-flex1{
+    flex: 1 0 auto;
+  }
+  .h-flex2{
+    flex: 2 1 auto;
+  }
+  .h-flex0-auto{
+    flex: 1 0 auto;
+  }
+  .h-flex-auto{
+    flex:1 1 auto;
+  }
+  .h-c-green {
+    color: #21e6b6!important;
+  }
+  .h-c-red {
+    color: #ea4d4d!important;
+  }
+
+  .content-header{
+    background-color: $app-bar-bg-color;
+    box-shadow: 0 1px 7px rgba(34,52,68,.6);
+    height: 50px;
+    line-height: 50px;
+    padding-left: 0px!important;
+    position: relative;
+    z-index: 999;
+  }
+  .h-content-main,
+  .content-main{
+    top: 50px!important;
+    overflow-y: auto;
+    background-color: $body-bg-color!important; ;
+    &::-webkit-scrollbar-track-piece {
+      background: 0 0;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $scrollbar-bg-color !important;
+      border-radius: 0;
+    }
+    &::-webkit-scrollbar {
+      width: $scrollbar-width !important;
+      height: $scrollbar-height !important;
+      background-color: transparent;
+    }
+  }
+  .h-content-mainbox{
+    margin: 20px;
+    height:100%;
+  }
+  .h-content-box{
+    //display: flex;
+    //position: relative;
+    //top: 0;
+    //width: 100%;
+    //height: 100%;
+    //overflow-y: auto;
+    //
+    ///*border-radius: 5px;*/
+    //background-color: $theme-bg-color;
+    //box-shadow:0px 1px 20px rgba(0, 0, 0, .3);
+    display:flex;
+    flex-flow: row;
+    padding: 20px;
+  }
+
+  .content-title{
+    color: $color;
+    font-size: 18px;
+    display: inline-block;
+  }
+  .backBtn {
+    color: $primary-color;
+    font-size: 14px;
+  }
+  // 画左三角箭头
+  .backArrow {
+    position: relative;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-right: 12px;
+    cursor: pointer;
+    color: $primary-color;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      margin-top: -4px;
+      border-top: 1px solid $primary-color;
+      border-left: 1px solid $primary-color;
+      transform: rotate(-45deg);
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 1px;
+      height: 14px;
+      margin-top: -7px;
+      background-color: $primary-color;
+    }
+  }
+  select {
+    position: relative;
+    padding-right: 14px; /*!*清除ie的默认选择框样式清除，隐藏下拉箭头*!*/
+    border: 0;
+    color: $color ;
+    box-shadow: 0 -1px 0 0 $primary-color inset !important;
+    appearance:none; // 清除箭头样式
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    height: 24px;
+    //padding-top: 12px;
+    padding-bottom: 0px;
+    outline: none;
+    line-height: 25px;
+    width: 160px;
+    display: inline-block;
+    font: normal 12px/25px "微软雅黑", "SimSun", "宋体", "Arial";
+    background-color: $theme-bg-color;
+    background: $select-down-img no-repeat scroll right center transparent;
+    background-repeat: no-repeat;
+    background-position: right 8px;
+    -webkit-appearance: none
+  }
+  &::-ms-expand { display: none; }
+  &:active{
+    border: 0;
+  }
+  .personalInfo {
+    color: white;
+    position: absolute;
+    z-index: 1000;
+    left: 100%;
+    bottom: 0;
+    background: #376b9f;
+    width: 72px;
+  }
+  .personalInfo ul {
+    margin-bottom: 0;
+  }
+  .personalInfo ul li:first-child {
+    border-bottom: 1px solid #445d73;
+  }
+  .personalInfo ul li {
+    padding: 10px 5px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+}
+@import "layouts/header";
+@import "layouts/form";
