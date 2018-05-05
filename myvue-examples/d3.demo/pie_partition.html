@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="lib/d3.v4.js"></script>
+</head>
+<body>
+<div id="main" style="position:relative; left: 0px; top: 0px;">
+
+</div>
+</body>
+
+<script>
+  // 产品经理要展示的数据
+  const oriData = [
+    {"x": "雨露计划", "value": 20},
+    {"x": "金融扶贫", "value": 15},
+    {"x": "产业扶贫", "value": 43},
+    {"x": "基础设施", "value": 56},
+    {"x": "基础设施", "value": 36}
+  ];
+
+  // 画布大小
+  const [width, height] = [450, 500];
+  let fontSize = Math.round(height / 20) // 字体大小
+
+  // 初始化一个svg元素
+  let svg = d3.select("#main")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  // 准备一个布局，此布局可根据原始数据计算出一段弧的开始和结束角度
+  let pie = d3.pie().value(d => 10)//d.y) // 平均分配扇形区域
+    .startAngle(-0.5 * Math.PI) // 半圆形
+    .endAngle(0.5 * Math.PI); //
+  // 将原始数据经过布局转换
+  let drawData = pie(oriData);
+
+  // 我们来看一下经过布局器转换后的数据长啥样
+  // 解释每一个属性
+  console.log(drawData);
+
+  // 根据画布大小算一个合适的半径吧
+  let radius = Math.min(width, height) * 0.95 / 2;
+  // 准备一个弧生成器，用于根据角度生产弧路径
+  let arc = d3.arc().innerRadius(radius/2).outerRadius(radius);
+
+
+  render_1()
+
+  render()
+  renderSmallPie()
+
+
+  function renderSmallPie(){
+    let panel = svg.append("g");
+    var startAngle = -1.5707963267948966
+    var endAngle = 1.5707963267948966
+    let arc2 = d3.arc()  // 添加圆弧
+      .startAngle(startAngle)
+      .endAngle(endAngle)
+      .innerRadius(0)
+      .outerRadius(radius/2)
+    panel.append('svg:path')             // 添加路径
+      .style('fill', 'yellow')
+      .style('fill-opacity', 0.5)  // 填充的透明度
+      .style('stroke', 'red')
+      .style('stroke-width', '2px')
+      .attr("d", d => arc2(d))
+      .attr("transform", `translate(${width / 2}, ${height / 2})`)
+    var panel2 = panel.append('g')
+    renderLabel(panel2, radius/2)
+  }
+  function renderLabel(panel, r){
+    // 3.6设置label
+
+    // let fontSize = this.fontSize
+    panel.append('svg:text')         // 添加文本
+      .attr('x', radius)              // 文本位置
+      .attr('y', radius/1.05) // cy / 2 + fontSize / 2
+      .attr('text-anchor', 'middle')// 文字角度
+      .text('hello')                 // 文字内容
+      .style('font-size', fontSize + 'px')// 字体大小
+      .style('fill', '#354b5b')        // 颜色
+      .style('stroke-width', '0px')
+
+    panel.append('svg:text')         // 添加文本
+      .attr('x', radius)              // 文本位置
+      .attr('y', radius + 30) // cy / 2 + fontSize / 2
+      .attr('text-anchor', 'middle')// 文字角度
+      .text('hello22')                 // 文字内容
+      .style('font-size', fontSize + 'px')// 字体大小
+      .style('fill', '#354b5b')        // 颜色
+      .style('stroke-width', '0px')
+  }
+  function render_1 () {
+    let panel = svg.append("g");
+    var startAngle = -1.5707963267948966
+    var endAngle = 1.5707963267948966
+    let arc2 = d3.arc()  // 添加圆弧
+      .startAngle(startAngle)
+      .endAngle(endAngle)
+      .innerRadius(radius/2)
+      .outerRadius(radius)
+    panel.append('svg:path')             // 添加路径
+      .style('fill', 'transparent')
+      // .style('fill-opacity', 0.95)  // 填充的透明度
+      .style('stroke', 'blue')
+      .style('stroke-width', '2px')
+      .attr("d", d => arc2(d))
+      .attr("transform", `translate(${width / 2}, ${height / 2})`)
+  }
+
+  function render(){
+    let pathParent = svg.append("g");
+    // 设定颜色比例尺，对于饼图来说，此比例尺的作用是根据饼上的某一节的序号得到一个对应的颜色值
+    let colorScale = d3.scaleOrdinal().domain(d3.range(0, oriData.length)).range(d3.schemeCategory20c);
+
+    pathParent.attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+    var colors = ['#fff', 'red', 'green', 'yellow', 'orange']
+
+    var mypath = pathParent
+      .selectAll("path")
+      .data(drawData)
+      .enter()
+      .append("path")
+      .attr("fill", function (d) {
+        // 设置填充颜色
+        console.log(colorScale(d.index))
+        // return colors[d.index];
+        return colorScale(d.index)
+      })
+      .attr('opacity', '0.5')
+      .style('stroke', function (d) {
+        // return colorScale(d.index);
+        return colors[d.index];
+      })
+      .attr("d", d => arc(d)); // 调用弧生成器得到路径
+
+    // 饼图已经画好了，接下来加入文字标签
+    // 同样，搞一个g来承载文字标签
+    let textParent = svg.append("g");
+    textParent.attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+    // 生产每一个文字标签的容器
+    let texts = textParent.selectAll("text")
+      .data(drawData)
+      .enter()
+      .append("text")
+      .attr("transform", function(d) {
+        // 将文字平移到弧的中心
+        return "translate(" + arc.centroid(d) + ")";
+      })
+      .attr("text-anchor", "middle")
+      .style('font-size', fontSize + 'px')// 字体大小
+      .text(function(d) {
+        // 显示百分比
+        return (d.data.value).toFixed(2);
+      });
+    var onMouseOver = function(data){
+      var selectObj = mypath._groups[0][data.index]
+      var textObj = texts._groups[0][data.index]
+      let color = d3.select(selectObj).attr("fill")
+      d3.select(selectObj).attr("data-color", color)
+      d3.select(selectObj).attr("opacity", "1")
+      d3.select(selectObj).attr("stroke-opacity", "0.5")
+      d3.select(selectObj).style("cursor", "pointer")
+      d3.select(textObj).style("cursor", "pointer")
+    }
+    var onMouseOut = function(data){
+      var selectObj = mypath._groups[0][data.index]
+      d3.select(selectObj).attr("opacity", '0.5')
+      d3.select(selectObj).attr("stroke-opacity", "1")
+    }
+    mypath.on('mouseover',onMouseOver)
+    mypath.on('mouseout', onMouseOut )
+    texts.on('mouseover',onMouseOver)
+    texts.on('mouseout', onMouseOut )
+  }
+</script>
+</html>
