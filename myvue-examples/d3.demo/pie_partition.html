@@ -22,7 +22,7 @@
   ];
 
   // 画布大小
-  const [width, height] = [450, 500];
+  const [width, height] = [450, 450];
   let fontSize = Math.round(height / 20) // 字体大小
 
   // 初始化一个svg元素
@@ -43,7 +43,7 @@
   console.log(drawData);
 
   // 根据画布大小算一个合适的半径吧
-  let radius = Math.min(width, height) * 0.95 / 2;
+  let radius = Math.min(width, height) *0.99 / 2;
   // 准备一个弧生成器，用于根据角度生产弧路径
   let arc = d3.arc().innerRadius(radius/2).outerRadius(radius);
 
@@ -63,37 +63,55 @@
       .endAngle(endAngle)
       .innerRadius(0)
       .outerRadius(radius/2)
-    panel.append('svg:path')             // 添加路径
+    let circle = panel.append('svg:path')             // 添加路径
       .style('fill', 'yellow')
-      .style('fill-opacity', 0.5)  // 填充的透明度
+      .style('fill-opacity', 0.2)  // 填充的透明度
       .style('stroke', 'red')
       .style('stroke-width', '2px')
       .attr("d", d => arc2(d))
       .attr("transform", `translate(${width / 2}, ${height / 2})`)
-    var panel2 = panel.append('g')
-    renderLabel(panel2, radius/2)
-  }
-  function renderLabel(panel, r){
-    // 3.6设置label
 
-    // let fontSize = this.fontSize
-    panel.append('svg:text')         // 添加文本
-      .attr('x', radius)              // 文本位置
-      .attr('y', radius/1.05) // cy / 2 + fontSize / 2
+    renderLabel(panel, circle)
+  }
+  function renderLabel(parent, circle){
+    var panel = parent.append('g')
+
+    // 3.6设置label
+   let text1 = panel.append('svg:text')         // 添加文本
+      .attr('x', width/2.1)              // 文本位置
+      .attr('y', height/2) // cy / 2 + fontSize / 2
       .attr('text-anchor', 'middle')// 文字角度
       .text('hello')                 // 文字内容
       .style('font-size', fontSize + 'px')// 字体大小
       .style('fill', '#354b5b')        // 颜色
       .style('stroke-width', '0px')
+      .attr("transform", `translate(${width/radius}, ${height/radius - radius/4})`)
 
-    panel.append('svg:text')         // 添加文本
-      .attr('x', radius)              // 文本位置
-      .attr('y', radius + 30) // cy / 2 + fontSize / 2
+    let text2 = panel.append('svg:text')         // 添加文本
+      .attr('x', width/2.1)              // 文本位置
+      .attr('y', height/2) // cy / 2 + fontSize / 2
       .attr('text-anchor', 'middle')// 文字角度
       .text('hello22')                 // 文字内容
       .style('font-size', fontSize + 'px')// 字体大小
       .style('fill', '#354b5b')        // 颜色
       .style('stroke-width', '0px')
+      .attr("transform", `translate(${width/ radius}, ${height/radius - radius/8})`)
+
+    var circleMouseover = function(data){
+      circle.style('fill-opacity', '1')
+    }
+    var circleMouseout = function(data){
+      circle.style('fill-opacity', '0.2')
+      circle.style('cursor', 'pointer')
+      text1.style('cursor', 'pointer')
+      text2.style('cursor', 'pointer')
+    }
+    circle.on('mouseover', circleMouseover)
+    circle.on('mouseout', circleMouseout)
+    text1.on('mouseover', circleMouseover)
+    text2.on('mouseover', circleMouseover)
+    text1.on('mouseout', circleMouseout)
+    text2.on('mouseout', circleMouseout)
   }
   function render_1 () {
     let panel = svg.append("g");
