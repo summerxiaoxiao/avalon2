@@ -6,7 +6,7 @@
   <script src="lib/d3.v4.js"></script>
 </head>
 <body>
-<div id="main" style="position:relative; left: 0px; top: 0px;">
+<div id="main" style="position:relative; left: 0px; top: 0px;min-height: 800px;width:100%;height:100%;display: flex;flex:1 0 auto;flex-flow:column">
 
 </div>
 </body>
@@ -22,39 +22,56 @@
     {"x": "基础设施", "value": 36}
   ];
   // 画布大小
-  const [width, height] = [450, 450];
-
-
-  // 初始化一个svg元素
-  let svg = d3.select("#main")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  // 准备一个布局，此布局可根据原始数据计算出一段弧的开始和结束角度
-  let pie = d3.pie().value(d => 10)//d.y) // 平均分配扇形区域
-    .startAngle(-0.5 * Math.PI) // 半圆形
-    .endAngle(0.5 * Math.PI); //
-  // 将原始数据经过布局转换
-  let drawData = pie(oriData);
-
-  // 我们来看一下经过布局器转换后的数据长啥样
-  // 解释每一个属性
-  console.log(drawData);
-
-  // 根据画布大小算一个合适的半径吧
-  let radius = Math.min(width, height) *0.99 / 2;
+  // const [width, height] = [850, 850];
+  let width = 0
+  let height = 0
+  let svg = null;
+  let drawData = []
+  let fontSize = 10
+  let innerRadius = 0
+  let radius = 0
   let big = 2.5
-  let innerRadius = radius/big
-  // 准备一个弧生成器，用于根据角度生产弧路径
-  let arc = d3.arc().innerRadius(innerRadius).outerRadius(radius);
-  let fontSize = Math.round(height/radius*4 + big)
-  console.log(fontSize)
+  let arc = null
 
-  render_1()
+  load()
+  window.onresize = function () {
+    load()
+  }
+  function load(){
 
-  render()
-  renderSmallPie()
+     width =  Number(d3.select("#main").style('width').replace('px',''))
+     height =  Number(d3.select("#main").style('height').replace('px',''))
+
+    // 初始化一个svg元素
+     svg = d3.select("#main").html('')
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // 准备一个布局，此布局可根据原始数据计算出一段弧的开始和结束角度
+    let pie = d3.pie().value(d => 10)//d.y) // 平均分配扇形区域
+      .startAngle(-0.5 * Math.PI) // 半圆形
+      .endAngle(0.5 * Math.PI); //
+    // 将原始数据经过布局转换
+     drawData = pie(oriData);
+
+    // 我们来看一下经过布局器转换后的数据长啥样
+    // 解释每一个属性
+    console.log(drawData);
+
+    // 根据画布大小算一个合适的半径吧
+     radius = Math.min(width, height) *0.99 / 2;
+     innerRadius = radius/big
+    // 准备一个弧生成器，用于根据角度生产弧路径
+     arc = d3.arc().innerRadius(innerRadius).outerRadius(radius);
+     fontSize = Math.round(height/(radius*4 ) + height/innerRadius*4)
+    console.log(fontSize)
+
+    render_1()
+
+    render()
+    renderSmallPie()
+  }
 
 
   function renderSmallPie(){
@@ -77,9 +94,9 @@
     panel.append('line')
       .attr('class', 'gauge-tick')
       .attr('x1', 0)
-      .attr('y1',0)
+      .attr('y1',2)
       .attr('x2', 0)
-      .attr('y2', radius*2)  //  定义line位置，默
+      .attr('y2', radius*2+2)  //  定义line位置，默
       .style('stroke', 'black')
       .style('stroke-width', '2px')
       .attr("d", d => arc2(d))
@@ -96,7 +113,7 @@
       .attr('x', radius)              // 文本位置
       .attr('y', height/2 - innerRadius/2) // cy / 2 + fontSize / 2
       .attr('text-anchor', 'middle')// 文字角度
-      .text('hello')                 // 文字内容
+      .text('完成率')                 // 文字内容
       .style('font-size', fontsize + 'px')// 字体大小
       .style('fill', '#354b5b')        // 颜色
       .style('stroke-width', '0px')
@@ -105,7 +122,7 @@
       .attr('x', radius)              // 文本位置
       .attr('y', height/2 - innerRadius/4) //
       .attr('text-anchor', 'middle')// 文字角度
-      .text('hello22')                 // 文字内容
+      .text('20%')                 // 文字内容
       .style('font-size', fontsize + 'px')// 字体大小
       .style('fill', '#354b5b')        // 颜色
       .style('stroke-width', '0px')
