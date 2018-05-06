@@ -18,12 +18,12 @@
     {"x": "金融扶贫", "value": 15},
     {"x": "产业扶贫", "value": 43},
     {"x": "基础设施", "value": 56},
+    {"x": "基础设施", "value": 56},
     {"x": "基础设施", "value": 36}
   ];
-
   // 画布大小
   const [width, height] = [450, 450];
-  let fontSize = Math.round(height / 20) // 字体大小
+
 
   // 初始化一个svg元素
   let svg = d3.select("#main")
@@ -44,9 +44,12 @@
 
   // 根据画布大小算一个合适的半径吧
   let radius = Math.min(width, height) *0.99 / 2;
+  let big = 2.5
+  let innerRadius = radius/big
   // 准备一个弧生成器，用于根据角度生产弧路径
-  let arc = d3.arc().innerRadius(radius/2).outerRadius(radius);
-
+  let arc = d3.arc().innerRadius(innerRadius).outerRadius(radius);
+  let fontSize = Math.round(height/radius*4 + big)
+  console.log(fontSize)
 
   render_1()
 
@@ -62,40 +65,50 @@
       .startAngle(startAngle)
       .endAngle(endAngle)
       .innerRadius(0)
-      .outerRadius(radius/2)
+      .outerRadius(innerRadius)
     let circle = panel.append('svg:path')             // 添加路径
       .style('fill', 'yellow')
       .style('fill-opacity', 0.2)  // 填充的透明度
-      .style('stroke', 'red')
+      .style('stroke', 'orange')
       .style('stroke-width', '2px')
       .attr("d", d => arc2(d))
       .attr("transform", `translate(${width / 2}, ${height / 2})`)
+// 直线
+    panel.append('line')
+      .attr('class', 'gauge-tick')
+      .attr('x1', 0)
+      .attr('y1',0)
+      .attr('x2', 0)
+      .attr('y2', radius*2)  //  定义line位置，默
+      .style('stroke', 'black')
+      .style('stroke-width', '2px')
+      .attr("d", d => arc2(d))
+      .attr("transform", `translate(0, ${height/2}) rotate(-90)`)
 
     renderLabel(panel, circle)
   }
   function renderLabel(parent, circle){
     var panel = parent.append('g')
 
+    let fontsize = Math.round(height/innerRadius*4)
     // 3.6设置label
    let text1 = panel.append('svg:text')         // 添加文本
-      .attr('x', width/2.1)              // 文本位置
-      .attr('y', height/2) // cy / 2 + fontSize / 2
+      .attr('x', radius)              // 文本位置
+      .attr('y', height/2 - innerRadius/2) // cy / 2 + fontSize / 2
       .attr('text-anchor', 'middle')// 文字角度
       .text('hello')                 // 文字内容
-      .style('font-size', fontSize + 'px')// 字体大小
+      .style('font-size', fontsize + 'px')// 字体大小
       .style('fill', '#354b5b')        // 颜色
       .style('stroke-width', '0px')
-      .attr("transform", `translate(${width/radius}, ${height/radius - radius/4})`)
 
     let text2 = panel.append('svg:text')         // 添加文本
-      .attr('x', width/2.1)              // 文本位置
-      .attr('y', height/2) // cy / 2 + fontSize / 2
+      .attr('x', radius)              // 文本位置
+      .attr('y', height/2 - innerRadius/4) //
       .attr('text-anchor', 'middle')// 文字角度
       .text('hello22')                 // 文字内容
-      .style('font-size', fontSize + 'px')// 字体大小
+      .style('font-size', fontsize + 'px')// 字体大小
       .style('fill', '#354b5b')        // 颜色
       .style('stroke-width', '0px')
-      .attr("transform", `translate(${width/ radius}, ${height/radius - radius/8})`)
 
     var circleMouseover = function(data){
       circle.style('fill-opacity', '1')
@@ -118,14 +131,29 @@
     var startAngle = -1.5707963267948966
     var endAngle = 1.5707963267948966
     let arc2 = d3.arc()  // 添加圆弧
-      .startAngle(startAngle)
-      .endAngle(endAngle)
-      .innerRadius(radius/2)
+      // .startAngle(startAngle)
+      // .endAngle(endAngle)
+      // .innerRadius(innerRadius) // 内圈半径无线条
       .outerRadius(radius)
-    panel.append('svg:path')             // 添加路径
+    // panel.append('svg:path')             // 添加路径
+    //   .style('fill', 'transparent')
+    //   // .style('fill-opacity', 0.95)  // 填充的透明度
+    //   .style('stroke', 'blue')
+    //   .style('stroke-width', '2px')
+    //   .attr("d", d => arc2(d))
+    //   .attr("transform", `translate(${width / 2}, ${height / 2})`)
+
+    var colors = ['black', 'blue', 'yellow', '#eeeeee', 'green']
+
+    var mypath = panel
+      .selectAll("path")
+      .data(drawData)
+      .enter()
+      .append("path")
       .style('fill', 'transparent')
-      // .style('fill-opacity', 0.95)  // 填充的透明度
-      .style('stroke', 'blue')
+      .style('stroke', function(d){
+        return colors[d.index];
+      })
       .style('stroke-width', '2px')
       .attr("d", d => arc2(d))
       .attr("transform", `translate(${width / 2}, ${height / 2})`)
