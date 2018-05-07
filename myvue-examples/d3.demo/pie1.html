@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="lib/d3.v4.js"></script>
+</head>
+<body>
+<div id="main" style="position:relative; left: 0px; top: 0px;">
+
+</div>
+</body>
+
+<script>
+    // 产品经理要展示的数据
+    const oriData = [
+        {"x": "雨露计划", "y": 20},
+        {"x": "金融扶贫", "y": 20},
+        {"x": "产业扶贫", "y": 70},
+        {"x": "基础设施", "y": 40}
+    ];
+
+    // 画布大小
+    const [width, height] = [450, 350];
+
+    // 初始化一个svg元素
+    let svg = d3.select("#main")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    // 准备一个布局，此布局可根据原始数据计算出一段弧的开始和结束角度
+    let pie = d3.pie().value(d => d.y); //.sort(null);
+    // 将原始数据经过布局转换
+    let drawData = pie(oriData);
+
+    // 我们来看一下经过布局器转换后的数据长啥样
+    // 解释每一个属性
+    console.log(drawData);
+
+    // 根据画布大小算一个合适的半径吧
+    let radius = Math.min(width, height) * 0.8 / 2;
+    // 准备一个弧生成器，用于根据角度生产弧路径
+    let arc = d3.arc().innerRadius(0).outerRadius(radius);
+
+    let pathParent = svg.append("g");
+    // 设定颜色比例尺，对于饼图来说，此比例尺的作用是根据饼上的某一节的序号得到一个对应的颜色值
+    let colorScale = d3.scaleOrdinal().domain(d3.range(0, oriData.length)).range(d3.schemeCategory20c);
+
+    pathParent.attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+    pathParent
+        .selectAll("path")
+        .data(drawData)
+        .enter()
+        .append("path")
+        .attr("fill", function (d) {
+            // 设置填充颜色
+            return colorScale(d.index);
+        })
+        .attr("d", d => arc(d)); // 调用弧生成器得到路径
+
+    // 饼图已经画好了，接下来加入文字标签百分比
+    // 先算一个总数
+    let sum = d3.sum(oriData, d => d.y);
+
+    // 同样，搞一个g来承载文字标签
+    let textParent = svg.append("g");
+    textParent.attr("transform", `translate(${width / 2}, ${height / 2})`);
+
+    // 生产每一个文字标签的容器
+    let texts = textParent.selectAll("text")
+        .data(drawData)
+        .enter()
+        .append("text")
+        .attr("transform", function(d) {
+            // 将文字平移到弧的中心
+            return "translate(" + arc.centroid(d) + ")";
+        })
+        .attr("text-anchor", "middle")
+        .attr("font-size", "10px")
+        .text(function(d) {
+            // 显示百分比
+            return (d.data.y / sum * 100).toFixed(2) + "%";
+        });
+</script>
+</html>
