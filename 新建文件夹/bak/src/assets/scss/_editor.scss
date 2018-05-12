@@ -1,0 +1,92 @@
+.ql-toolbar {
+  background: #585d64;
+  color: #FFF;
+  display: inline-flex;
+  padding: 2px;
+  font-size: 12px;
+
+  select {
+    margin: 2px;
+    padding: 2px;
+    background: #585d64;
+    color: #FFF;
+    font-size: inherit;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  select.ql-font {
+    width: 122px;
+  }
+
+  .ql-stroke {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .ql-fill,
+  .ql-stroke.ql-fill {
+    fill: #fff;
+  }
+
+  .ql-active {
+    background: $primary-color;
+  }
+}
+
+.ql-transparent {
+ opacity: 0.4;
+}
+
+.ql-formats {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 2px;
+
+  button {
+    background: 0 0;
+    border: none;
+    padding: 2px;
+    font-size: inherit;
+    display: inline-block;
+    vertical-align: middle;
+    width: 28px;
+    height: 24px;
+    cursor: pointer;
+
+    svg {
+      float: left;
+      height: 100%;
+    }
+
+    &.qc-active,
+    &:hover {
+      background: $primary-color;
+      color: #fff;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  .ql-format {
+    margin: 2px;
+    padding: 2px;
+
+    button {
+      margin: 0;
+      color: inherit;
+      width: auto;
+      padding: 0 2px;
+    }
+  }
+}
+
+.ql-editor {
+  padding: 0;
+  border: none
+}

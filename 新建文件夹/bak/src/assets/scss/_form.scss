@@ -1,0 +1,10 @@
+.form-control {
+  border:none;
+  border-bottom: 1px solid $input-border-color;
+  box-shadow: none !important;
+  border-radius: 0;
+  &:focus {
+    background-color: transparent;
+  }
+}
+

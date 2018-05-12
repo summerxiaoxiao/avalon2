@@ -1,0 +1,8 @@
+@mixin panel-bg-color($bgcolor: #fff) {
+  background: $bgcolor;
+}
+@mixin h-flex-container($flex-flow: row) {
+  display: flex;
+  display: -webkit-flex;
+  flex-flow: $flex-flow nowrap;
+}

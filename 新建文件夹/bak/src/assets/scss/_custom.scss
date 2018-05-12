@@ -1,0 +1,92 @@
+$primary-color: #418bca;
+$body-color: #333;
+
+$theme-colors: (
+  primary: $primary-color,
+  black: #464646,
+  secondary: $gray-600,
+  success: $green,
+  info: $cyan,
+  warning: $yellow,
+  danger: $red,
+  light: $gray-100,
+  dark: $gray-800
+);
+
+$link-color:            $primary-color;
+$link-decoration:       none;
+$link-hover-color:      darken($link-color, 15%);
+$link-hover-decoration: none;
+
+$custom-scrollbar-height: 5px;
+$custom-scrollbar-width: 5px;
+
+$scrollbar-height: 10px;
+$scrollbar-width: 10px;
+
+$app-bar-height: 40px;
+$app-bar-bg-color: #2e2e2e;
+$app-bar-color: #fff;
+
+$side-pane-width: 200px;
+$side-pane-collapsed-width: 27px;
+$side-pane-header-height: 27px;
+$side-pane-header-bg-color: #585d64;
+$side-pane-header-color: #fff;
+$side-pane-bg-color: #eceef1;
+$side-pane-color: #000;
+$side-pane-toggle-bg-color: #4e545c;
+
+$pane-contents-color: #72777f;
+$pane-splitter-bg-color: #464d55;
+
+$exploration-canvas-bg-color: #d4d4d4;
+
+$ui-resize-bg-color: #5b6779;
+$visual-container-border-color: $ui-resize-bg-color;
+$visual-container-selected-border-color: $ui-resize-bg-color;
+$visual-container-selected-hover-border-color: #a6a6a6;
+$visual-container-hover-border-color: #eaeaea;
+
+$vc-header-bg-color: #f9f9f9;
+$vc-header-height: 27px;
+
+$exploration-footer-font-size: 12px;
+$exploration-footer-height: 27px;
+$exploration-footer-color: #fff;
+$exploration-footer-bg-color: #878e96;
+$exploration-footer-selected-bg-color: #363a3f;
+$exploration-footer-selected-color: #fff;
+$exploration-footer-selected-border-color: $primary-color;
+
+
+$section-tab-active-border-color: $primary-color;
+$section-tab-active-bg-color: #2e2e2e;
+
+$section-header-height: 27px;
+$section-header-bg-color: #585d64;
+$section-header-color: #fff;
+$section-foot-size: 12px;
+
+// $scrollbar-bg-color: #585d64;
+$scrollbar-bg-color: $primary-color;
+
+$drop-bg-color: $primary-color;
+
+$padding-width: 10px;
+
+$context-menu-item-hover-bg: #eaeaea;
+
+/* bootstrap */
+$enable-rounded: false;
+$input-bg: transparent;
+
+$input-border-color: #7b9abf;
+$input-focus-border-color: #7b9abf;
+$enable-rounded: True;
+$btn-border-radius: 2px;
+
+/*
+$enable-shadows: True;
+$btn-box-shadow: 0;
+*/

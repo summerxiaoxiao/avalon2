@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 400 300" style="enable-background:new 0 0 400 300;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#F7F7F7;}
+	.st1{fill:#FFFFFF;}
+	.st2{fill:#E0E0E0;}
+	.st3{fill:none;stroke:#CCCCCC;stroke-width:4;stroke-miterlimit:10;}
+	.st4{fill-rule:evenodd;clip-rule:evenodd;fill:#B3B3B3;}
+</style>
+<g>
+	<rect class="st0" width="400" height="300"/>
+</g>
+<g>
+	<rect y="147" class="st1" width="400" height="6"/>
+</g>
+<g>
+	<rect y="69" class="st1" width="400" height="6"/>
+</g>
+<g>
+	<rect y="219" class="st1" width="400" height="6"/>
+</g>
+<g>
+	<rect x="224" y="196" class="st2" width="41" height="104"/>
+</g>
+<g>
+	<rect x="311" y="99" class="st2" width="41" height="201"/>
+</g>
+<g>
+	<rect x="49" y="130" class="st2" width="41" height="170"/>
+</g>
+<g>
+	<rect x="136" y="30" class="st2" width="41" height="270"/>
+</g>
+<g>
+	<g>
+		<path class="st3" d="M69,150l87-103"/>
+	</g>
+	<line class="st3" x1="244" y1="215" x2="156" y2="47"/>
+	<line class="st3" x1="331" y1="114" x2="244" y2="215"/>
+</g>
+<circle class="st4" cx="70" cy="148" r="9"/>
+<circle class="st4" cx="156" cy="48" r="9"/>
+<circle class="st4" cx="244" cy="215" r="9"/>
+<circle class="st4" cx="331" cy="114" r="9"/>
+</svg>

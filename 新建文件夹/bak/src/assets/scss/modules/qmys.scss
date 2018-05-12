@@ -1,0 +1,47 @@
+@import "./h_vars";
+@import "./h_mixins";
+.h-container_main {
+  $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, Arial, sans-serif;
+  $calc-height: 100%;
+
+  font-family: $font-family;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #003260;;
+
+  .h-box-main>div:last-child{
+    margin-bottom: $z-main-padding;
+  }
+  .h-title{
+    color: #fff;
+    font-weight: 500;
+    font-size: 20px;
+    font-weight: 800;
+    background: #162736;
+    width: fit-content;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0px 10px 0px 10px;
+  }
+
+  .c-white {
+    color: #fff;
+  }
+
+  .c-gray {
+    color: #3675b1;
+  }
+  .c-gray2{
+    color: #3675b3;
+  }
+
+  .c-red {
+    color: #dc0704;
+  }
+  .c-arrow{
+    color: #66707a;
+  }
+}
+@import "driver";

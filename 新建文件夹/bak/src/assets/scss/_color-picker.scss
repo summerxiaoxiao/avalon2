@@ -1,0 +1,247 @@
+$color-picker-bg: #50555b !default;
+$color-picker-color: #fff !default;
+
+$color-picker-prefix: '.color-picker';
+
+.color-picker {
+  display: inline-block;
+  padding: 2px;
+  height: 24px;
+  box-sizing: border-box;
+  position: absolute;
+  right: 0;
+
+  &__dropdown {
+    z-index: 999;
+  }
+
+  &__anchor {
+    cursor: pointer
+  }
+  &__icon {
+    display: inline-block;
+    vertical-align: top;
+    > i {
+      top: -1px;
+    }
+  }
+
+  &__color-tile {
+    display: block;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+
+  &__anchor {
+    #{$color-picker-prefix}__color-box {
+      display: inline-block;
+
+      &--selected {
+        width: 20px;
+        height: 13px;
+        margin: 0;
+        box-sizing: border-box;
+        background: #fff;
+      }
+    }
+  }
+
+  &__popup-container {
+    z-index: 1000;
+  }
+
+  &__flyout {
+    position: relative;
+    width: 180px;
+    background-color: $color-picker-bg;
+    z-index: 2;
+    margin-left: -128px;
+    top: -2px;
+    padding: 5px;
+  }
+
+  &__color-section {
+    &__button,
+    &__title {
+      font-size: 12px;
+      color: $color-picker-color;
+    }
+
+    &__title {
+      padding: 4px 0;
+    }
+
+    &__button {
+      padding: 3px 12px;
+      cursor: pointer;
+      background-color: #585d64;
+    }
+
+    &__morecolors-title {
+      display: block;
+      text-align: center;
+    }
+  }
+
+  &__color-theme {
+    width: 13px;
+    margin: 3px 2px;
+    display: inline-block;
+  }
+
+  &__parent-color {
+    margin-bottom: 5px;
+  }
+
+  &__recent-color {
+    margin: 2px;
+    border: 1px solid #464d55;
+    display: inline-block;
+  }
+
+  &__color-box {
+    &--selected {
+      border: 1px solid #fff;
+    }
+  }
+
+  &__recent-colors-container {
+    margin-bottom: 10px;
+    height: 17px;
+    overflow: hidden;
+  }
+
+  &__color-placeholder {
+    background: #585d64;
+    cursor: default;
+  }
+
+  &__color-wheel {
+    position: relative;
+    background-color: $color-picker-bg;
+    z-index: 3;
+    width: 180px;
+    margin-left: -128px;
+    top: -2px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+
+    &__picker {
+      cursor: crosshair;
+      float: left;
+      border-bottom: 1px solid #212121;
+    }
+    &__controls {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      color: #FFF;
+    }
+    &__hex-pound {
+      padding-right: 2px;
+    }
+    &__hex-input {
+      margin-top: 8px;
+      flex: 1 0 0;
+      width: 50px;
+      background-color: #666;
+      border-width: 1px;
+      color: #FFF;
+      padding: 1px 0 1px 5px;
+      font-size: 12px;
+    }
+    &__button {
+      border-radius: 3px;
+      color: #FFF;
+      font-size: 12px;
+      background-color: #666;
+      border: 1px solid #212121;
+      width: 60px;
+      padding: 3px;
+      margin-left: 10px;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+    }
+  }
+
+  &__saturation {
+    &,
+    &--white,
+    &--black {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    &--white {
+      background: linear-gradient(90deg,#fff,hsla(0,0%,100%,0));
+    }
+    &--black {
+      background: linear-gradient(0deg,#000,transparent);
+    }
+
+    &-pointer {
+      cursor: pointer;
+      position: absolute;
+    }
+    &-circle {
+      width: 4px;
+      height: 4px;
+      box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0,0,0,.3), 0 0 1px 2px rgba(0,0,0,.4);
+      border-radius: 50%;
+      transform: translate(-2px,-2px);
+    }
+  }
+
+  &__saturation-wrapper {
+    padding-bottom: 75%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__hue-slider {
+    height: 10px;
+    margin-top: 8px;
+    position: relative;
+  }
+
+  &__hue {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+    background: linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);
+    &-container {
+      cursor: pointer;
+      margin: 0 2px;
+      position: relative;
+      height: 100%;
+    }
+
+    &-pointer {
+      z-index: 2;
+      position: absolute;
+    }
+    &-picker {
+      cursor: pointer;
+      margin-top: 1px;
+      width: 4px;
+      border-radius: 1px;
+      height: 8px;
+      box-shadow: 0 0 2px rgba(0,0,0,.6);
+      background: #fff;
+      transform: translateX(-2px);
+    }
+  }
+}

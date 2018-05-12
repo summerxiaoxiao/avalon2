@@ -1,0 +1,82 @@
+ @import "~bootstrap/scss/bootstrap";
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "custom";
+
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/print";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+// @import "~bootstrap/scss/images";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/custom-forms";
+// @import "~bootstrap/scss/nav";
+// @import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/utilities";
+
+@import "~jquery.scrollbar/sass/jquery.scrollbar";
+
+@import "../fonts/iconfont.css";
+@import 'mixins';
+@import 'common';
+@import 'slicer';
+@import "layout";
+@import "form";
+@import 'color-picker';
+@import 'data-select';
+@import 'editor';
+@import 'slider';
+@import 'vuedal';
+@import 'report';
+@import 'linkage';
+
+@import 'theme/black/black-theme';
+
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-wrapper {
+  .scroll-y {
+    width: $custom-scrollbar-width !important;
+    .scroll-bar {
+      min-height: 20px;
+      max-height: calc(100% - 12px);
+    }
+  }
+
+  .scroll-x {
+    width: $custom-scrollbar-height !important;
+  }
+
+  .scroll-x ,
+  .scroll-y {
+    .scroll-bar {
+      background-color: $scrollbar-bg-color !important;
+      opacity: 1;
+    }
+    .scroll-element_track {
+      background-color: transparent !important;
+    }
+  }
+}
+
+
+.el-button--primary {
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+}

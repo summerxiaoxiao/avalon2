@@ -1,0 +1,85 @@
+.black-theme{
+
+
+  input {
+    background-color: transparent;
+    color: $color2;
+    border: none;
+  }
+  .selector {
+    //height: 32px;
+    /*width: 240px;*/
+    //line-height: 30px;
+    display: inline-block;
+    position: relative;
+    outline: none;
+    .input-date-icon{
+      color: $color2;
+    }
+    .filter-label{
+      margin-right: 4px;
+    }
+    select {
+      width: 180px;
+      height: 28px !important;
+      padding-left: 10px;
+      line-height: 28px;
+      color: $color2 ;
+      font-size: $font-size;
+      outline: none;
+      appearance:none; // 清除箭头样式
+      box-shadow: 0 0px 0 0 #556d84 inset !important;
+      border: 1px solid $select-border-color;
+      border-radius: 3px;
+      background: $select-bg-color;
+      //background: $select-down-img no-repeat scroll right center transparent;
+      //background-repeat: no-repeat;
+      //background-position: right 72% !important;
+    }
+    i.select-down{
+      width: 16px;
+      height: 100%;
+      position: absolute;
+      right: 4px;
+      top: 0;
+      color: $color2;
+      font-size: 2px;
+      //background: $select-down-img no-repeat scroll right center transparent;
+    }
+    .selector-date{
+      padding-left: 10px;
+      border-radius: 3px;
+      border: 1px solid $select-border-color;
+      background: $select-bg-color;
+      box-shadow: 0 0px 0 0 #556d84 inset !important;
+      display: inline-block;
+      height: 28px;
+      line-height: 24px;
+      /* vertical-align: top; */
+      /* position: relative; */
+      /* width: 180px; */
+
+    }
+    .selector-input-date {
+      height: auto!important;
+      width: 180px;
+      position: relative;
+      font-size: $font-size;
+      box-shadow: none!important;
+    }
+    .input-group-addon {
+      display: inline;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      right: 5px;
+      top: 1px;
+    }
+  }
+
+  .selector + .selector{
+    margin-left: 3em;
+  }
+
+}

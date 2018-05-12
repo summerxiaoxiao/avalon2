@@ -1,0 +1,373 @@
+$data-table-bg: #d8dee5 !default;
+$data-table-border-color: #d9dce1 !default;
+$data-table-directory-bg: #f1f4f8 !default;
+$data-table-row-hover-bg: #edf7ff !default;
+$data-table-row-active-bg: #edf7ff !default;
+$data-table-row-active-border-color: #b7d6ff;
+
+.data-list {
+  padding: 20px;
+  font-size: 12px;
+  flex: auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.data-breadcrumb {
+  border-bottom: 1px solid $data-table-border-color;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  flex: none;
+
+  span {
+    margin: 0 3px;
+  }
+}
+
+.data-filter {
+  display: flex;
+  flex: none;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.data-total {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+.data-sort {
+  .form-control {
+    @include form-control();
+    display: inline-block;
+    width: auto;
+  }
+  select.form-control {
+    padding: 5px 0;
+  }
+}
+
+.data-drag-item {
+  padding: 5px 5px 5px 30px;
+  border: 1px solid #ccc;
+  opacity: 0.75;
+  font-size: 12px;
+
+  &--directory {
+    background: url(../images/icon-folder.png) no-repeat 8px center;
+    background-color: #fff;
+  }
+  &--report {
+    background: url(../images/file.svg) no-repeat 5px center;
+    background-size: 20px auto;
+    background-color: #fff;
+  }
+  &--dataset {
+    background: url(../images/icon-dataset.svg) no-repeat 5px center;
+    background-size: 20px auto;
+    background-color: #fff;
+  }
+}
+
+.data-table {
+  flex: auto;
+  display: flex;
+  flex-flow: column nowrap;
+
+  .scroll-wrapper {
+    border-left: 1px solid $data-table-border-color;
+    border-right: 1px solid $data-table-border-color;
+    border-bottom: 1px solid $data-table-border-color;
+  }
+
+  &__head {
+    background: $data-table-bg;
+    flex: none
+  }
+
+  &__row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    &--directory {
+      background-color: $data-table-directory-bg;
+      .data-table__column__name {
+        padding-left: 30px;
+        background: url(../images/icon-folder.png) no-repeat left center;
+      }
+    }
+
+    &--report {
+      .data-table__column__name {
+        padding-left: 30px;
+        background: url(../images/file.svg) no-repeat left center;
+        background-size: 20px auto;
+      }
+    }
+
+    &--report-template {
+      .data-table__column__name {
+        padding-left: 30px;
+        background: url(../images/icon-moban.svg) no-repeat left center;
+        background-size: 20px auto;
+      }
+    }
+
+    &--dataset {
+      .data-table__column__name {
+        padding-left: 30px;
+        background: url(../images/icon-dataset.svg) no-repeat left center;
+        background-size: 20px auto;
+      }
+    }
+
+    &--active {
+      background-color: $data-table-row-active-bg;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__column {
+    padding: 5px 20px;
+    text-align: center;
+
+    .data-table__head & {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+
+  &__column__name {
+    padding: 5px 0;
+  }
+
+  &__body {
+    flex: auto;
+    .data-table__row {
+      border: 1px solid $data-table-border-color;
+      margin: -1px 0;
+
+      .scroll-content & {
+        margin: -1px -1px 0;
+      }
+      &:last-child {
+        margin-bottom: -1px;
+      }
+      &:hover {
+        background-color: $data-table-row-hover-bg !important;
+        .data-table__actions {
+          a {
+            color: #555555;
+          }
+        }
+      }
+    }
+    .data-table__row--active {
+      background-color: $data-table-row-active-bg;
+      border-color: $data-table-row-active-border-color;
+    }
+  }
+
+  &__empty {
+    flex: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__empty-content {
+    text-align: center;
+
+    &.can-add-report {
+      padding-top: 100px;
+      background: url(../images/add-file.png) no-repeat top center;
+    }
+    font-size: 16px;
+  }
+
+  &__actions {
+    font-size: 18px;
+    a {
+      margin: 0 5px;
+      color: #b0baca;
+    }
+  }
+}
+
+
+$dataset-select-border-color: #d9dce1;
+$dataset-select-title-bg: #d8dee5;
+$dataset-select-check-icon-border-color: #c4dbd8;
+$dataset-select-check-icon-bg: #edf7ff;
+$dataset-select-prefix: '.dataset-select';
+$dataset-select-check-icon-remove-border-color: #adb7c3;
+$dataset-select-check-icon-remove-bg: #fff;
+$dataset-select-check-icon-remove-color: #adb7c3;
+$dataset-select-item-checked-border-color: #b7d6ff;
+$dataset-select-item-checked-bg: #edf7ff;
+$dataset-select-item-checked-icon-bg: $primary-color;
+$dataset-select-item-checked-icon-color: #fff;
+$dataset-select-item-checked-icon-border-color: $primary-color;
+
+.relation,
+.dataset-select {
+  font-size: 12px;
+
+  &__filter {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .dataset-select__container {
+      width: 48%;
+      width: calc(50% - 10px);
+    }
+  }
+
+  &__container {
+    border: 1px solid $dataset-select-border-color;
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 auto;
+    margin-right: 20px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__title {
+    padding: 10px;
+    background-color: $dataset-select-title-bg;
+  }
+
+  &__items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 400px;
+  }
+
+  &__item {
+    padding: 10px 20px;
+    border: 1px solid $dataset-select-border-color;
+    margin: -1px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__item-text {
+    flex: auto;
+  }
+
+  &__item-check-icon {
+    cursor: pointer;
+    flex: none;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border: 1px solid $dataset-select-border-color;
+    background-color: $dataset-select-check-icon-bg;
+    border-radius: 50%;
+    > i {
+      top: 0;
+      color: inherit;
+    }
+  }
+
+  &__item--checked {
+    border-color: $dataset-select-item-checked-border-color;
+    background-color: $dataset-select-item-checked-bg;
+    position: relative;
+    z-index: 1;
+
+    #{$dataset-select-prefix}__item-check-icon{
+      border-color: $dataset-select-item-checked-icon-border-color;
+      background-color: $dataset-select-item-checked-icon-bg;
+     color: $dataset-select-item-checked-icon-color;
+    }
+  }
+
+  &__container--selected {
+    #{$dataset-select-prefix}__item {
+      border-color: $dataset-select-item-checked-border-color;
+      background-color: $dataset-select-item-checked-bg;
+      position: relative;
+      z-index: 1;
+    }
+    #{$dataset-select-prefix}__item-check-icon{
+      border-width: 2px;
+      border-color: $dataset-select-check-icon-remove-border-color;
+      background-color: $dataset-select-check-icon-remove-bg;
+      color: $dataset-select-check-icon-remove-color;
+      > i {
+        top: -1px;
+      }
+    }
+  }
+}
+
+.relation {
+  &__item {
+    align-items: center;
+  }
+
+  &__items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item-text {
+    padding-left: 50px;
+    background-size: 30px auto;
+    span {
+      color: #9aa0a9;
+    }
+  }
+  &__item-text--dataset {
+    background: url(../images/icon-dataset.svg) no-repeat left center;
+  }
+  &__item-text--report {
+    background: url(../images/file.svg) no-repeat left center;
+  }
+
+  &__item-name {
+    font-weight: bold;
+  }
+
+  &__item-actions {
+    .iconfont {
+      top: 0;
+    }
+    a {
+      color: $body-color;
+    }
+  }
+}
+.dataset-properties-preview {
+  .entry-list {
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #eee;
+    max-height: 500px;
+    overflow: auto;
+    margin-bottom: 10px;
+  }
+  &__desc {
+    font-size: 12px;
+    color: #999;
+  }
+}
+
