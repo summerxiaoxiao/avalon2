@@ -131,6 +131,7 @@
         },
         markPoint: {
           symbol: 'image://pointer.png',
+            // symbol: 'circle',
           symbolSize: [20, 20],
           label: {
             normal: {
@@ -148,11 +149,44 @@
             }
           },
           data: [
-            {name: '济南市', value: '111', coord: [117.124315, 36.658356]},
-            {name: 'hello', value: '222', coord: [121.401525, 37.440018]}
+            {name: '国网山东省电力公司济南供电公司', value: '111', coord: [117.015115,36.663757]}
           ]
         },
         data: mdata // defaultGoordData.data
+      },
+      {
+          type: 'map',
+          mapType: 'shandong',
+          mapLocation: {
+              x: 'center'
+          },
+          roam: true,
+          layoutSize: '120%',
+          selectedMode: 'multiple',
+          markPoint: {
+              // symbol: 'image://pointer.png',
+              symbol: 'circle',
+              symbolSize: [10, 10],
+              label: {
+                  normal: {
+                      show: false,
+                      textStyle: {
+                          color: '#fff',
+                          fontSize: 11
+                      }
+                  },
+                  emphasis: {
+                      textStyle: {
+                          color: '#fff',
+                          fontSize: 14
+                      }
+                  }
+              },
+              data: [
+                  {name: '国网山东省电力公司济南市历城区供电公司', value: '222', coord: [117.100201,36.688096]},
+                  {name: '国网山东省电力公司济南市长清区供电公司', value: '111', coord: [116.764383,36.569603]}
+              ]
+          }
       }
     ],
     animation: true
