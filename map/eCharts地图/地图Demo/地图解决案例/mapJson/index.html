@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="js/echarts.min.js"></script>
+	</head>
+
+	<body>
+		<div id="map" style="margin-top: 100px;margin-left: 500px;width: 1000px;height: 800px;"></div>
+	</body>
+
+</html>
+<script type="text/javascript">
+	/*var url = "json/341800.json";
+	$.get(url, function(geoJson) {
+		echarts.registerMap('xuancheng', geoJson);
+		
+		var chart = echarts.init(document.getElementById('map'));
+		var option = {
+			tooltip: {
+				trigger: 'item'
+			},
+			dataRange: {
+				min: 800,
+				max: 50000,
+				text: ['High', 'Low'],
+				realtime: false,
+				calculable: true,
+				color: ['#254d8c', '#32c3ff', '#32e4ff', '#4477c4', '#329cff'],
+				show: false
+			},
+			series: [{
+				type: 'map',
+				map: 'xuancheng',
+				layoutCenter: ['50%', '50%'],
+				layoutSize: 700,
+				itemStyle: {
+					normal: {
+						borderWidth: 1, //区域边框宽度
+						borderColor: '#12446d', //区域边框颜色
+						label: {
+							show: true,
+							color: '#fff'
+						},
+						areaColor: ['#2c74d3']
+					},
+					emphasis: {
+						label: {
+							show: true,
+							color: '#fff'
+						},
+						areaColor: '#32fdff'
+					}
+				},
+				data: [
+				{name: '广德县',value: 48000},
+				{name: '绩溪县',value: 20000}, 
+				{name: '郎溪县',value: 30000}, 
+				{name: '宁国市',value: 10000}, 
+				{name: '宣州区',value: 20000}, 
+				{name: '泾县',value: 40689}, 
+				{name: '旌德县',value: 36000}]
+			}]
+		};
+		chart.setOption(option);
+		//轮播展示
+		var currentIndex = -1;
+		setInterval(function() {
+			var dataLen = option.series[0].data.length;
+			// 取消之前高亮的图形
+			chart.dispatchAction({
+				type: 'downplay',
+				seriesIndex: 0, //表示series中的第几个data数据循环展示
+				dataIndex: currentIndex
+			});
+			currentIndex = (currentIndex + 1) % dataLen; //+1表示每次跳转一个
+			// 高亮当前图形
+			chart.dispatchAction({
+				type: 'highlight',
+				seriesIndex: 0,
+				dataIndex: currentIndex
+			});
+			// 显示 tooltip
+			chart.dispatchAction({
+				type: 'showTip',
+				seriesIndex: 0,
+				dataIndex: currentIndex
+			});
+		}, 1000);
+		//鼠标点击事件
+		chart.on('click', function(params) {
+			var cityName = params.name;
+			var cityValue = params.value;
+			alert(cityName + "***" + cityValue);
+		});
+	});*/
+	
+	
+	$.ajax({ 
+    url : "json/341800.json", 
+    type : "get", 
+    dataType : "json",//jsonp数据类型 
+    jsonp: "callback",//服务端用于接收callback调用的function名的参数 
+    jsonpCallback:"message",
+    success : function(data){ 
+    	echarts.registerMap('xuancheng', data);
+		
+		var chart = echarts.init(document.getElementById('map'));
+		var option = {
+			tooltip: {
+				trigger: 'item'
+			},
+			dataRange: {
+				min: 800,
+				max: 50000,
+				text: ['High', 'Low'],
+				realtime: false,
+				calculable: true,
+				color: ['#254d8c', '#32c3ff', '#32e4ff', '#4477c4', '#329cff'],
+				show: false
+			},
+			series: [{
+				type: 'map',
+				map: 'xuancheng',
+				layoutCenter: ['50%', '50%'],
+				layoutSize: 700,
+				itemStyle: {
+					normal: {
+						borderWidth: 1, //区域边框宽度
+						borderColor: '#12446d', //区域边框颜色
+						label: {
+							show: true,
+							color: '#fff'
+						},
+						areaColor: ['#2c74d3']
+					},
+					emphasis: {
+						label: {
+							show: true,
+							color: '#fff'
+						},
+						areaColor: '#32fdff'
+					}
+				},
+				data: [
+				{name: '广德县',value: 48000},
+				{name: '绩溪县',value: 20000}, 
+				{name: '郎溪县',value: 30000}, 
+				{name: '宁国市',value: 10000}, 
+				{name: '宣州区',value: 20000}, 
+				{name: '泾县',value: 40689}, 
+				{name: '旌德县',value: 36000}]
+			}]
+		};
+		chart.setOption(option);
+		//轮播展示
+		var currentIndex = -1;
+		setInterval(function() {
+			var dataLen = option.series[0].data.length;
+			// 取消之前高亮的图形
+			chart.dispatchAction({
+				type: 'downplay',
+				seriesIndex: 0, //表示series中的第几个data数据循环展示
+				dataIndex: currentIndex
+			});
+			currentIndex = (currentIndex + 1) % dataLen; //+1表示每次跳转一个
+			// 高亮当前图形
+			chart.dispatchAction({
+				type: 'highlight',
+				seriesIndex: 0,
+				dataIndex: currentIndex
+			});
+			// 显示 tooltip
+			chart.dispatchAction({
+				type: 'showTip',
+				seriesIndex: 0,
+				dataIndex: currentIndex
+			});
+		}, 1000);
+		//鼠标点击事件
+		chart.on('click', function(params) {
+			var cityName = params.name;
+			var cityValue = params.value;
+			alert(cityName + "***" + cityValue);
+		});
+   },
+     error: function(){
+     alert('fail....');
+    }
+  });
+</script>

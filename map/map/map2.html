@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
+  <script src="echarts.js"></script>
+  <script src="map2.js"></script>
+  <style>
+    #panel{
+      height: 800px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body style="background: #002f56">
+<div id="panel" ></div>
+</body>
+</html>
+<script>
+  // 注册地图
+  echarts.registerMap('china', registerData)
+  var max = 3000;
+  var min = 0;
+  var option = {
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: '#182e41',
+      borderColor: '#34678f',
+      borderRadius: '5',
+      borderWidth: 1,
+      padding: [5, 50, 10, 10],
+      textStyle: {
+        fontSize: 16
+      },
+      formatter: function (item) {
+        var res = []
+        res.push('<div style="text-align:left;">')
+        res.push(item.name + '<br/>')
+        res.push(item.value + '<br/>')
+          // res.push(item.marker)
+        return res.join('')
+      }
+    },
+    dataRange: {
+      show: true,
+      orient: 'vertical',
+      x: 'right',
+      y: 'top',
+      min: 0,
+      max: max,
+      itemWidth: 7,
+      itemHeight: 80,
+      padding: [15, 35, 15, 15],
+      inRange: {
+        color: ['#7fd0ff', '#52acff', '#197efd']
+      },
+      // color: ['#7fd0ff', '#52acff', '#197efd'],
+      text: ['优', '差'],           // 文本，默认为数值文本
+      textStyle: {
+        color: '#fff'          // 值域文字颜色
+      },
+      splitNumber: 0,
+      precision: 2,  // 显示精度位数
+      calculable: true
+    },
+    series: [
+      {
+        name: '2011全国GDP分布',
+        type: 'map',
+        mapType: 'china',
+        mapLocation: {
+          x: 'center'
+        },
+        selectedMode: 'multiple',
+        itemStyle: { // 地图区块设置
+          normal: {
+            label: {show: true},
+            areaColor: 'rgba(74,145,194,0.3)', // '#4a91c2',
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            borderColor: '#fff', // 地图边框
+            shadowColor: 'rgba(0, 0, 0, 0.2)'
+          },
+          emphasis: { //  鼠标选中样式
+            label: {show: true},
+            // areaColor: 'rgba(74,145,194,1)',  // '#4a91c2',
+            borderWidth: 2,
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            borderColor: '#fff',
+            shadowColor: 'rgba(0, 0, 0, 10)'
+          }
+        },
+        label: {
+          normal: {
+            show: true,
+            textStyle: {
+              color: '#fff',
+              fontSize: 11
+            }
+          },
+          emphasis: {
+            textStyle: {
+              color: '#fff',
+              fontSize: 14
+            }
+          }
+        },
+        data: mdata,
+		markPoint: {
+                                symbol: 'pin',
+                                symbolSize: 25,
+                                label: {
+                                    normal: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        show: false
+                                    }
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        label: {show: false},
+                                        areaColor: 'red',
+                                        color: "red",  // 会设置点和线的颜色，所以需要下面定制 line
+                                    },
+                                    emphasis: {
+                                        label: {show: true},
+                                        areaColor: '#3fc6b0',
+                                        color: "#3fc6b0",
+                                        shadowBlur: 20,
+                                        shadowColor: '#3fc6b0',
+                                        borderColor: '#3fc6b0',//区域边框颜色
+                                        borderWidth: 10
+                                    }
+                                },
+                                /* lineStyle: {
+							                          normal: {
+							                              color: "#dd3300"   // 线条颜色
+							                          }
+							                      },*/
+                                data: [{id: "218Y", name: "国网河南省电力公司检修公司", coord: [117.136101,36.657256], value: "1653670.36"}]
+                            }
+      }
+
+    ],
+    animation: true
+  };
+  var chart = echarts.init(document.getElementById('panel'))
+  chart.setOption(option, true)
+</script>

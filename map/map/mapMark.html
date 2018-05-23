@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdn.bootcss.com/lodash.js/4.17.10/lodash.core.js"></script>
+  <script src="echarts.js"></script>
+  <script src="map.js"></script>
+  <style>
+    #panel{
+      height: 800px;
+      width: 800px;
+    }
+  </style>
+</head>
+<body style="background: #002f56">
+<div id="panel" ></div>
+</body>
+</html>
+<script>
+  // 注册地图
+  echarts.registerMap('china', registerData)
+  var max = 3000;
+  var min = 0;
+
+  /**
+   * 需要标注的地区坐标, 及数据
+   */
+  var convertData = function (data) {
+    var res = []
+    for (var i = 0; i < data.length; i++) {
+      var geoCoord = geoCoordMap[data[i].name] // 找到当前地区的坐标值
+      if (geoCoord) {
+        res.push({
+          name: data[i].name,
+          value: data[i].value,
+          coord: geoCoord
+        })
+      }
+    }
+    return res
+  }
+  var markData = [
+    {name: '山东', value: '1234'},
+    {name: '湖北', value: '1002'}
+  ]
+  var markDataLast = convertData(markData)
+  console.log('mark data', JSON.stringify(markData))
+
+  /**
+   * 给地图上的地区赋值value, 默认为0
+   * @param mapFeatureData 地图上默认的地区
+   * @param exsistData 地区对应的数据
+   * @returns 地图上地区对应的数据, 地图会根据数据大小显示不同深浅颜色
+   * [
+   *  {name: '山东', value: 112}
+   * ]
+   */
+  var convertMapJson = function (mapFeatureData, exsistData) {
+    var rsData = []
+    for (var i = 0; i < mapFeatureData.length; i++) {
+      var item = mapFeatureData[i]
+      var name = item.properties.name
+      var obj = {
+        name: name,
+        value: 0
+      }
+      var isExsit = false
+      for (var index = 0; index < exsistData.length; index++) {
+        var eItem = exsistData[index]
+        if (!isExsit && name.indexOf(eItem.name) > -1) {
+          obj = {
+            name: name,
+            value: eItem.value ? eItem.value : 0
+          }
+          rsData.push(obj)
+          isExsit = true
+        }
+      }
+      if (!isExsit) {
+        rsData.push(obj)
+      }
+    }
+    return rsData
+  }
+  var defaultGoordData = convertMapJson(registerData.features, mdata)
+  console.log(defaultGoordData.data)
+  var option = {
+    tooltip: {
+      trigger: 'item',
+      backgroundColor: '#182e41',
+      borderColor: '#34678f',
+      borderRadius: '5',
+      borderWidth: 1,
+      padding: [5, 50, 10, 10],
+      textStyle: {
+        fontSize: 16
+      },
+      formatter: function (item) {
+        var res = []
+        res.push('<div style="text-align:left;">')
+        res.push(item.name + '<br/>')
+        res.push(item.value + '<br/>')
+        // res.push(item.marker)
+        return res.join('')
+      }
+    },
+    dataRange: {
+      show: true,
+      orient: 'vertical',
+      x: 'right',
+      y: 'top',
+      min: 0,
+      max: max,
+      itemWidth: 7,
+      itemHeight: 80,
+      padding: [15, 35, 15, 15],
+      inRange: {
+        color: ['#7fd0ff', '#52acff', '#197efd']
+      },
+      // color: ['#7fd0ff', '#52acff', '#197efd'],
+      text: ['优', '差'],           // 文本，默认为数值文本
+      textStyle: {
+        color: '#fff'          // 值域文字颜色
+      },
+      splitNumber: 0,
+      precision: 2,  // 显示精度位数
+      calculable: true
+    },
+    geo: {
+      map: 'china',
+      roam: true,
+      label: {
+        normal: {
+          show: true,
+          textStyle: {
+            color: 'rgba(0,0,0,0.4)'
+          }
+        }
+      },
+      itemStyle: {
+        normal: {
+          borderColor: 'rgba(0, 0, 0, 0.2)'
+        },
+        emphasis: {
+          areaColor: null,
+          shadowOffsetX: 0,
+          shadowOffsetY: 0,
+          shadowBlur: 20,
+          borderWidth: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    },
+    series: [
+      {
+        name: '2011全国GDP分布',
+        type: 'map',
+        mapType: 'china',
+        mapLocation: {
+          x: 'center'
+        },
+        // selectedMode: 'multiple',
+        itemStyle: { // 地图区块设置
+          normal: {
+            label: { show: true },
+            areaColor: 'rgba(74,145,194,0.3)', // '#4a91c2',
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            borderColor: '#fff', // 地图边框
+            shadowColor: 'rgba(0, 0, 0, 0.2)'
+          },
+          emphasis: { //  鼠标选中样式
+            label: { show: true },
+            areaColor: '#4a91c2', // '#4a91c2',
+            shadowOffsetX: 0,
+            shadowOffsetY: 0,
+            borderColor: '#fff', // 地图边框
+            shadowColor: 'rgba(0, 0, 0, 0.2)'
+          }
+        },
+        label: {
+          normal: {
+            show: true,
+            textStyle: {
+              color: '#fff',
+              fontSize: 11
+            }
+          },
+          emphasis: {
+            textStyle: {
+              color: '#fff',
+              fontSize: 14
+            }
+          }
+        },
+        nameMap: {
+          /* 屏蔽地级市名称显示 取别名， data数据中的Name与地图中的name相对应 */
+          '重庆市': '重庆市'
+        },
+        markPoint: {
+          symbol: 'image://pointer.png',
+          symbolSize: [20, 20],
+          label: {
+            normal: {
+              show: false,
+              textStyle: {
+                color: '#fff',
+                fontSize: 11
+              }
+            },
+            emphasis: {
+              show: false,
+              textStyle: {
+                color: '#fff',
+                fontSize: 14
+              }
+            }
+          },
+          data: markDataLast
+        },
+        data: defaultGoordData // defaultGoordData.data
+      }
+    ],
+    animation: true
+  };
+  var chart = echarts.init(document.getElementById('panel'))
+  chart.setOption(option, true)
+</script>
