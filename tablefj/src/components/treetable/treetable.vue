@@ -36,8 +36,12 @@
       <tbody class="h-treetable__tbody">
       <template>
       </template>
-      <template v-for="(row, index) in rows">
-        <tr :key="row[columnKey]" class="h-treetable__row " @click="(evt)=>{ handleClick(evt, row[columnKey]); }">
+      <template v-for="(row, index) in rows" >
+        <tr :key="row[columnKey]" class="h-treetable__row "
+            :class="{highlight: index === highlightIndex}"
+            @mouseover="(evt)=>{ handleMouseover(evt, row, index); }"
+            @mouseleave="(evt)=>{ handleMouseover(evt, row, -1); }"
+            @click="(evt)=>{ handleClick(evt, row[columnKey]); }">
           <td v-if="selection" :key="row[columnKey] + '-selection'" class="h-treetable__selection" >
               <input type="checkbox" class="selection" :value="row[columnKey]" @change="(evt)=>{ handleChange(evt, row[columnKey]) }" />
           </td>
@@ -65,6 +69,7 @@ import TreeTableColumn from './treetable-column'
 const prefixCls = 'h-treetable'
 
 const props = {
+  highlightIndex: Number,
   columns: {
     type: Array,
     default: []
@@ -234,7 +239,9 @@ export default {
 
       this.$emit('click', this.selectedRow)
     },
-
+    handleMouseover (evt, id, index) {
+      this.$emit('tr-mouseover', this.selectedRow, index)
+    },
     handleChange (evt, id) {
       var list = this.$el.querySelectorAll('.selection')
       var row = null

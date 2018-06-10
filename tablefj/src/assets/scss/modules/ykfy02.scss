@@ -1,0 +1,30 @@
+@import "./h_vars";
+@import "./h_mixins";
+.h-ykfy02{
+  height: 100%;
+  width: 100%;
+
+  .h-ykfy__title{
+    color: #769fd0;
+  }
+
+  .h-ykfy-top__left,
+  .h-ykfy-top__right,
+  .h-ykfy-tablebox{
+    padding: $z-content-padding;
+    @include panel-bg-style($z-bg-color, $z-border-color)
+  }
+  .h-ykfy-top__right{
+    margin-left: $z-content-margin;
+  }
+
+
+  .h-ykfy-table{
+    padding-top: $z-content-padding;
+    .h-ykfy-tablebox{
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+}

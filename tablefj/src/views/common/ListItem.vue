@@ -1,5 +1,5 @@
 <template>
-  <div class="h-box-row">
+  <div class="h-box-row h-list-box">
     <div class="h-box-column h-list-box__align">
       <span>{{name}}</span>
       <span class="h-list-box__dw">({{dw}})</span>
@@ -39,12 +39,19 @@
      }
    },
    mounted () {
+     this.$nextTick(() => {
+       console.log('.....item..')
+     })
    },
    methods: {
    }
  }
 </script>
 <style lang="scss">
+  .h-list-box{
+    /*width: 100%;*/
+    /*height: 100%;*/
+  }
   .h-list-box__bfb{
     width: 15%!important;
   }

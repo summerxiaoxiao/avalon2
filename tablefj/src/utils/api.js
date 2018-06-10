@@ -122,9 +122,11 @@ export default {
     })
   },
   config: function () {
+    var path = window._module && window._module._modulePath ? window._module._modulePath : ''
+    var bbserver = window._module && window._module.bbserver ? window._module.bbserver : ''
     return {
-      rootPath: window._module._modulePath || '',
-      bbserver: window._module.bbserver || ''
+      rootPath: path,
+      bbserver: bbserver
     }
   }
 }

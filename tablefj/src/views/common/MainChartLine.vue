@@ -336,7 +336,7 @@
 <style lang="scss">
   .h-chartline_main{
     width: 100%;
-    /*height: 100%;*/
+    height: 100%;
   }
 .h-main__title{
   /*padding: 15px 15px 0px 15px;*/

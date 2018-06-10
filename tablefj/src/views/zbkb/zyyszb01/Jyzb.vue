@@ -2,7 +2,7 @@
   <div class="h-box-column">
     <div class="zyyszb-title">{{title}}</div>
     <div class="zyyszb-left-box h-box-column">
-      <div class="zyyszb-left-item h-flex1 h-box-column" v-for="item in ybpList">
+      <div class="zyyszb-left-item h-flex1 h-box-column" v-for="item in data.rows">
         <div class="zyyszb-left-item-ybp h-box-row">
           <div class="zyyszb-left-item-ybp__image" ref="ybpchart">
             <h-ybpchart :val="item.hss" :targetValue="item.yss"></h-ybpchart>
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-  import Vuex from 'vuex'
+  // import Vuex from 'vuex'
 
   export default {
     name: 'zyyszb01-jyzb-app-content',
@@ -39,30 +39,28 @@
       }
     },
     props: {
-      title: String
+      title: String,
+      data: {
+        type: Object,
+        'default' () {
+          return {
+            rows: []
+          }
+        }
+      }
     },
     computed: {
-      ...Vuex.mapState({
-        'dwdm': state => state.app.dwdm,
-        'date': state => state.app.date,
-        'ybpList': state => state.zyyszb01.ybpList
-      })
     },
     mounted () {
-      this.$nextTick(function () {
-        this.load()
-      })
     },
     methods: {
-      reload () {
-      },
       getWcl (hss, yss) {
         return (Number(hss) / Number(yss) * 100).toFixed(2)
       },
       load () {
-        return this.$store.dispatch('zyyszb01/loadYbpList').then(() => {
-          this.isFinish = true
-        })
+        // return this.$store.dispatch('zyyszb01/loadYbpList').then(() => {
+        //   this.isFinish = true
+        // })
       }
     }
   }

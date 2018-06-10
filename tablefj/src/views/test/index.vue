@@ -11,19 +11,21 @@
   import AppBar from '@/views/test/AppBar.vue'
   import AppContent from '@/views/test/Content.vue'
   import AppYbp from './Ybp'
+  import AppTest from './test'
 
   export default {
     name: 'test-app-main',
     components: {
       AppBar,
       AppContent,
-      AppYbp
+      AppYbp,
+      AppTest
     },
     props: {
     },
     data () {
       return {
-        currentView: 'app-ybp'
+        currentView: 'app-test'
       }
     },
     mounted () {

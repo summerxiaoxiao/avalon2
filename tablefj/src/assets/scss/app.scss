@@ -1,8 +1,9 @@
-// @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap";
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "common_custom";
+@import "modules/layout";
 
 $theme-colors: (
   primary: $primary-color,

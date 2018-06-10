@@ -19,6 +19,7 @@
       title: String,
       bbmc: String,
       height: String,
+      cellCallback: Function, // 单元格渲染事件
       drillRender: Function, // 穿透事件
       isTitle: {
         type: [Boolean, String],
@@ -115,6 +116,14 @@
             iframeContainer: this.tableDom,
             id: 'receiver-content-' + this.id
           }
+          if (this.cellCallback) {
+            this.bbCondition.cellCallback = this.cellCallback
+          }
+          // this.bbCondition.cellCallback = function (cell, cellData, rowData, rowIndex, colIndex, colMap, $obj) {
+          //   if (colIndex === 1) {
+          //     $(cell).addClass('tdHover')
+          //   }
+          // }
           bbutils.buildIframe(this.bbCondition)
           this.resizeIframe(this.tableDom, this.resize.resizePadding, this.resizeFixed)
           if (this.drillRender) {
@@ -133,7 +142,7 @@
 <style>
   .h-iframe-box{
     height: 100%;
-    min-height: 300px;
+    min-height: 100px;
     /*background: #1c3147;*/
   }
   .h-iframe-box .h-iframe-box__title{

@@ -1,12 +1,18 @@
 <template>
-  <div class="h-box-column h-flex-auto h-barchart-box" >
-      <div class="h-barchart__title">{{title}}</div>
-    <div class="h-barchart"  ref="mybar"></div>
+  <div class="d-flex h-box-column h-flex-auto h-barchart-box" >
+      <div class="h-barchart__title" v-show="title">{{title}}</div>
+    <div class="d-flex flex-row h-barchart h-flex-auto"  ref="mybar"></div>
   </div>
 
 </template>
 <script>
   import $ from 'jquery'
+  let colorData = {
+    '本年累计数': '#2482c3',
+    '上年同期累计数': '#03b992',
+    '完成率': '#f3d063',
+    '累计同比': '#ec813a'
+  }
   export default {
     name: 'main-chart-bar',
     props: {
@@ -28,26 +34,24 @@
         default: function () {
           return 20
         }
+      },
+      colorMap: {
+        type: Object,
+        default: function () {
+          return colorData
+        }
       }
     },
     data () {
       return {
         lengendNames: [],
         lengendData: [],
-        seriesData: [], // ['本年累计数', '上年同期累计数','完成率','累计同比']
-        colorData: {
-          '本年累计数': '#2482c3',
-          '上年同期累计数': '#03b992',
-          '完成率': '#f3d063',
-          '累计同比': '#ec813a'
-        }
+        seriesData: [] // ['本年累计数', '上年同期累计数','完成率','累计同比']
       }
     },
     mounted () {
-      var _self = this
       this.$nextTick(() => {
         this.load()
-        window.resize = _self.chart.resize
       })
     },
     watch: {
@@ -67,7 +71,7 @@
         var lengendData = []
         var seriesData = []
         var lengendNames = []
-        var colorData = this.colorData
+        var colorData = this.colorMap
         var lineColor = Object.keys(this.data).length <= 3 ? '#f3d063' : null
         for (var key in this.data) {
           lengendNames.push(key)
@@ -128,12 +132,12 @@
 
         var grid = { // 设置图形位置
           y: '10%',
-          width: '85%',
+          width: '100%',
           height: '62%',
           top: '20%',
-          left: '7%',
-          right: '15%',
-          bottom: '0%',
+          left: '0%',
+          right: '0%',
+          bottom: '10%',
           color: '#34678f'
         }
         var defaultGrid = grid
@@ -344,6 +348,8 @@
   .h-barchart{
     height: 100%;
     width: 100%;
+    align-items: center;
+    justify-content: center;
   }
   .h-barchart__title{
     color: #fff;

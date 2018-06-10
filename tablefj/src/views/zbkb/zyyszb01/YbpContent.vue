@@ -8,11 +8,15 @@
         <div  class="zyyszb-box-cwzb h-box-column  h-flex-auto">
           <h-iframe-table ref="cwzb" title="财务指标" resizeFixed=true id="cwzb-iframe"
                           topFixed="false"
-                          :bbmc="bbmc"
-                          :queryCondition="tableQueryCondition"
+                          :bbmc="tableConfig.bbmc"
+                          :queryCondition="tableConfig.tableQueryCondition"
+                          :cellCallback="tableConfig.cellCallback"
                           class="zyyszb-box-cwzb-table"
                           titleClass="zyyszb-box-item-title"
           ></h-iframe-table>
+         <!-- <Progress :percent="50" :status="success" :stroke-width="20 " class="h-progress">
+            <span class="h-progress-text">50%</span>
+          </Progress>-->
         </div>
         <component :is="currentView" ></component>
       </div>
@@ -20,6 +24,7 @@
   </div>
 </template>
 <script>
+  import $ from 'jquery'
   import bbconst from '@/config/constant'
   import Vuex from 'vuex'
   import Jyzb from './Jyzb.vue'
@@ -34,11 +39,23 @@
       FgsZb,
       QtFgsZb
     },
+    prop: {
+      dwxzName: String,
+      orgId: String,
+      yearmonth: String
+    },
     data () {
       return {
-        bbmc: bbconst.bgmc_xmdl,
-        tableQueryCondition: {
-          tjqj: '201612'
+        tableConfig: {
+          bbmc: bbconst.bgmc_xmdl,
+          tableQueryCondition: {
+            month_id: '201612'
+          },
+          cellCallback: function (cell, cellData, rowData, rowIndex, colIndex, colMap, $obj) {
+            if (colIndex === 1) {
+              $(cell).css('color', 'red')
+            }
+          }
         },
         isFinish: false,
         showFgs: true,

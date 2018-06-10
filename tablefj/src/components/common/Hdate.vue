@@ -42,7 +42,12 @@
       // this.$nextTick(function () {
       // })
       this.$date = $(this.$el).find('input')
-      this.init()
+      const id = window.setInterval(() => {
+        if ($.fn.datetimepicker) {
+          window.clearInterval(id)
+          this.init()
+        }
+      }, 0)
     },
     methods: {
       showDate () {
@@ -50,7 +55,6 @@
       },
       init () {
         var vm = this
-
         if (vm.dateType === 'year') {
           vm.nowDate = addDate('y', -1, vm.newDate) // 默认是上一年，或当年上一个月
         }

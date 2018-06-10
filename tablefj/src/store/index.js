@@ -15,7 +15,7 @@ const store = new Vuex.Store({
     loginContext: getLoginContext(),
     navExpand: false,
     bbConfig: null,
-    chartState: 0,
+    svgs: [],
     activeModule: 'myhello/index',
     menulist: menus
   },
@@ -23,8 +23,8 @@ const store = new Vuex.Store({
   getters: {
   },
   mutations: {
-    setChartState (state, num) {
-      state.chartState = state.chartState + 1
+    setSvgs (state, num) {
+      state.svgs.push(num)
     },
     setLoginName (state, name) {
       state.loginName = name

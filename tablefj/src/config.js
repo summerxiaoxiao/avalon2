@@ -27,36 +27,28 @@ export default {
     window.onresize = () => {
       return (() => {
         this.resizeChart()
+        if (this.svgs && this.svgs.length > 0) {
+          for (var i = 0; i < this.svgs.length; i++) {
+            this.svgs[i].call()
+          }
+        }
       })()
     }
   },
   computed: {
     ...Vuex.mapState({
-      'chartState': state => state.chartState
+      'svgs': state => state.svgs
     })
   },
   data () {
     return {
-      charts: []
+      hello: 1
     }
   },
   watch: {
-    chartState () {
-      this.$(window).trigger('resize')
+    svgs () {
     }
   },
   methods: {
-    resizeChart () {
-      var charts = $('div[_echarts_instance_]') // chart-models
-      for (var i = 0, len = charts.length; i < len; i++) {
-        var chart = this.$echarts.getInstanceByDom(charts[i])
-        var pp = new Promise((resolve, reject) => {
-          chart.resize()
-          resolve('ok')
-        })
-        this.charts.push(pp)
-      }
-      Promise.all(this.charts).then((res) => {})
-    }
   }
 }

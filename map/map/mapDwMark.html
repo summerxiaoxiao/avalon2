@@ -182,6 +182,22 @@
                       }
                   }
               },
+              itemStyle: {
+                  normal: {
+                      label: {show: false},
+                      // areaColor: '#3fc6b0',
+                      color: "#3fc6b0",  // 会设置点和线的颜色，所以需要下面定制 line
+                  },
+                  emphasis: {
+                      label: {show: false},
+                      // areaColor: '#3fc6b0',
+                      color: "red",
+                      shadowBlur: 20,
+                      // shadowColor: '#3fc6b0',
+                      // borderColor: '#3fc6b0',//区域边框颜色
+                      borderWidth: 10
+                  }
+              },
               data: [
                   {name: '国网山东省电力公司济南市历城区供电公司', value: '222', coord: [117.100201,36.688096]},
                   {name: '国网山东省电力公司济南市长清区供电公司', value: '111', coord: [116.764383,36.569603]}

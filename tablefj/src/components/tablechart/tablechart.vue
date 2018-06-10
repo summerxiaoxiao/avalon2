@@ -1,52 +1,27 @@
 <template>
   <div class="h-tablechart h-box-column" :style="{height: height}">
     <div class="h-tablechart-item-title" v-if="title">{{title}}</div>
-    <div class="h-tablechart-item h-box-row">
-      <div class="h-tablechart-item-list h-flex2">
+    <div class="row">
+      <div class="col-md-7">
         <div class="h-tablechart-item-table" >
-          <h-treetable caption="" :columns="tableColumns" :rows="tableRows"
-                        display="none" borderbottom></h-treetable>
+          <h-treetable caption=""
+                       :highlightIndex="highlightIndex"
+                       :columns="tableColumns"
+                       :rows="tableRows"
+                       @tr-mouseover="handleMouseover"
+                       display="none" borderbottom></h-treetable>
         </div>
       </div>
-      <div class="h-tablechart-item-chart h-flex1" >
-        <div class="chart" style="width:100%;height:100%;margin:0 auto;" ref="mychart" ></div>
+      <div class="col-md-5">
+        <e-chart :options="options" v-if="isFinish" ref="echart"></e-chart>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import $ from 'jquery'
   import Vue from 'vue'
-  const chartOpts = {
-    tooltip: {
-      trigger: 'item',
-      formatter: '{b}: {c} ({d}%)'
-    },
-    legend: {
-      show: false,
-      orient: 'vertical',
-      left: 'right'
-    },
-    grid: {
-      top: '0%',
-      bottom: '0%',
-      left: '40%',
-      containLabel: true
-    },
-    series: {
-      type: 'pie',
-      name: '',
-      radius: ['0%', '100%'],
-      label: {
-        normal: {
-          formatter: '{b}:{c} ({d}%)',
-          position: 'inner',
-          show: false
-        }
-      },
-      data: []
-    }
-  }
+  import _ from 'lodash'
+  import EChart from '../common/EChart.vue'
   const headerStyle = {
     'font-size': '16px',
     'font-weight': 400,
@@ -142,10 +117,12 @@
   export default {
     name: 'Tablechart',
     components: {
+      EChart
     },
     props: {
       title: String,
       height: String,
+      level: [Number, String],
       colors: {
         type: Array,
         default: function () {
@@ -168,58 +145,117 @@
         }
       },
       tableRows: Array,
-      chartData: Array,
       legendData: Array,
+      legendFn: Function,
+      seriesDataFn: Function,
       chartSeries: {
         type: [Object, Array],
         default: function () {
           return null
         }
-      },
-      chartOption: {
-        type: Object,
-        default: function () {
-          return chartOpts
-        }
       }
     },
     data () {
       return {
+        highlightIndex: -1,
+        isFinish: false,
         allColors: this.colors,
         currentRow: {},
         mcolors: JSON.parse(JSON.stringify(this.colors))
       }
     },
+    computed: {
+      legendDatas () {
+        var data = this.legendData
+        if (this.legendFn && this.tableRows) {
+          data = []
+          data = this.tableRows.map(row => {
+            return this.legendFn(row)
+          })
+        }
+        return data
+      },
+      options () {
+        var option = {
+          color: this.colors,
+          tooltip: {
+            trigger: 'item',
+            formatter: '{b}: {c} ({d}%)'
+          },
+          legend: {
+            show: false,
+            data: this.legendDatas,
+            orient: 'vertical',
+            left: 'right'
+          },
+          grid: {
+            top: '0%',
+            bottom: '0%',
+            left: '40%',
+            containLabel: true
+          },
+          series: this.seriesData
+        }
+        console.log('....chart', JSON.stringify(option))
+        return option
+      },
+      seriesData () {
+        let series1 = _.cloneDeep(this.chartSeries[0])
+        let series2 = _.cloneDeep(this.chartSeries[1])
+        let seriesData = []
+        this.tableRows.map((row) => {
+          var temp1 = this.seriesDataFn(row)
+          if (row.parentId && !(_.isEmpty(row.parentId)) && this.level === '2') {
+            this.isH = true
+            series2 && series2.data.push(temp1)
+          } else {
+            series1 && series1.data.push(temp1)
+          }
+        })
+        if (this.isH && series2) {
+          // series1.radius = ['0', '50%']
+          // series2.radius = ['58%', '70%']
+          seriesData.push(series1)
+          seriesData.push(series2)
+        } else {
+          // series1.radius = '70%'
+          seriesData.push(series1)
+        }
+        return seriesData
+      },
+      series () {
+        return {
+          type: 'pie',
+          name: '',
+          radius: ['0%', '100%'],
+          label: {
+            normal: {
+              formatter: '{b}:{c} ({d}%)',
+              position: 'inner',
+              show: false
+            }
+          },
+          data: []
+        }
+      }
+    },
     watch: {
       mcolors () {
-        this.chart.dispatchAction({
+        this.$refs.echart.echart.dispatchAction({
           type: 'legendToggleSelect',
-          // 图例名称
-          name: this.currentRow.name
+          name: this.currentRow.name // 图例名称
         })
       }
     },
     mounted () {
       this.$nextTick(function () {
-        this.loadTable()
+        this.isFinish = true
       })
     },
     methods: {
-      loadTable () {
-        this.renderChart()
-      },
-      renderChart () {
-        var chartsDom = $(this.$refs.mychart).get(0)
-        this.chart = this.$echarts.init(chartsDom)
-        if (this.chartSeries) {
-          this.chartOption.series = JSON.parse(JSON.stringify(this.chartSeries))
-        }
-        this.chartOption.legend.data = this.legendData
-        this.chartOption.color = this.colors
-        this.chart.setOption(this.chartOption)
-        window.onresize = function () {
-          this.chart.resize()
-        }
+      handleMouseover (row, index) {
+        // this.highlightIndex = index
+        // console.log('..', index)
       }
     }
   }
@@ -227,12 +263,13 @@
 <style>
   .h-tablechart {
     height: 50%;
+    width: 100%;
     min-height: 400px;
-    padding: 15px;
-    border: 1px solid #406683;
-    margin-top: 15px;
-    background: #1c3147;
-    border: 1px solid #406683;
+    /*padding: 15px;*/
+    /*border: 1px solid #406683;*/
+    /*margin-top: 15px;*/
+    /*background: #1c3147;*/
+    /*border: 1px solid #406683;*/
   }
   .h-tablechart .chart>div{
     margin: 0 auto!important;
@@ -243,7 +280,14 @@
     font-weight: 600;
     padding-bottom: 15px;
   }
-  .h-tablechart .h-tablechart-item .h-tablechart-item-list {
+  .h-tablechart .h-tablechart-item{
+    height: 100%;
+    width: 100%;
+  }
+
+  .h-tablechart .h-tablechart-item .h-tablechart-item-chart {
+    height: 100%;
+    width: 20%;
 
   }
   .h-tablechart .h-tablechart-item .h-tablechart-item-table {

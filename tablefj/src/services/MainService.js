@@ -1,4 +1,6 @@
 import request from '@/utils/api'
+import {getRequestModulePath} from '../utils/commonutils'
+let requestModulePath = getRequestModulePath()
 class MainService {
   static getInstance () {
     if (!this.instance) {
@@ -10,13 +12,13 @@ class MainService {
    * 查询经营考核指标
    */
   getJykhzbData () {
-    return request.get('/static/datas/jykhzb.json', {})
+    return request.get(requestModulePath + '/static/datas/jykhzb.json', {})
   }
   /**
    * 查询经营考核指标--分公司
    */
   getJykhzbFgsData () {
-    return request.get('/static/datas/jykhzb_fgs.json', {})
+    return request.get(requestModulePath + '/static/datas/jykhzb_fgs.json', {})
   }
 }
 

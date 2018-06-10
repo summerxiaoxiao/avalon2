@@ -1,5 +1,5 @@
 <template>
-  <div class="h-box-column h-flex2 h-map-box" >
+  <div class="h-box-column h-map-box" >
     <div class="h-map_tip">
       <div class="h-map_tip__bg"></div>
       <div class="h-map_tip__label">
@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="h-map-box_area h-box-row h-flex-auto" >
-      <div class="h-map_chart h-flex2" ref="chinaMap"></div>
+      <div class="h-map_chart h-flex-auto" ref="chinaMap"></div>
       <div class="h-map_marker h-map_marker__arrow" v-show="!showRange">
           <div class="h-map_marker__bg"></div>
           <div class="h-map_marker__label">
@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-  import $ from 'jquery'
+  // import $ from 'jquery'
   import {convertData, convertMapJson} from '@/utils/commonutils'
   import Vuex from 'vuex'
   export default {
@@ -36,6 +36,13 @@
       zbmc: String,
       zbvalue: [String, Number],
       dwdm: String,
+      mapDwdm: String,
+      datas: {// 已存在的地图数据，地图区域颜色根据数值动态显示
+        type: Array,
+        default: function () {
+          return []
+        }
+      },
       roam: { // 是否允许缩放地图
         type: [Boolean, String],
         default: function () {
@@ -82,12 +89,16 @@
           maxValue: 0,
           mapTitle: this.title,
           currentDwdm: this.dwdm, // 当前单位代码
-          mapDwdm: null
+          mapDwdm: this.mapDwdm
         }
       }
     },
+    created () {
+    },
     mounted () {
-      this.load()
+      this.$nextTick(() => {
+        this.load()
+      })
     },
     methods: {
       load () {
@@ -102,7 +113,6 @@
       renderMap () {
         var _self = this
         var geoCoordMap = this.geoCoordMapData
-        var $dom = $(this.$refs.chinaMap)
         var existData = [ // 地图上需要显示坐标的数据
           {
             'id': this.config.currentDwdm,
@@ -116,7 +126,7 @@
         var currentData = allData.currentData
         var mydata = allData.data
 
-        var defaultObj = convertMapJson(this.mapFeaturesData, [], this.config.currentDwdm) // 显示地图用的基础数据
+        var defaultObj = convertMapJson(this.mapFeaturesData, this.datas, this.config.currentDwdm) // 显示地图用的基础数据
         var defaultData = defaultObj.data
         this.config.maxValue = defaultObj.maxValue
         this.$set(this.config, 'maxValue', defaultObj.maxValue)
@@ -147,26 +157,6 @@
               return res.join('')
             }
           },
-          // dataRange: {
-          //   show: this.showRange,
-          //   orient: 'vertical',
-          //   x: 'right',
-          //   y: '',
-          //   //  min: 0,
-          //   //  max: 10000,
-          //   itemWidth: 7,
-          //   itemHeight: 80,
-          //   padding: [15, 0, 15, 15],
-          //   color: ['#74cff1', '#3c90d1'],
-          //   text: ['高', '低'],           // 文本，默认为数值文本
-          //   textStyle: {
-          //     color: '#a0b4c7'          // 值域文字颜色
-          //   },
-          //   splitNumber: 2,
-          //   precision: 0,  // 显示精度位数
-          //   realtime: false,
-          //   calculable: true
-          // },
           dataRange: {
             show: this.showRange,
             orient: 'vertical',
@@ -230,40 +220,43 @@
                 borderWidth: 2,
                 borderColor: '#fff'
               }
-            },
-            markPoint: { // 所有标注数据
-              symbol: 'circle',
-              symbolSize: 8,
-              label: {
-                normal: {
-                  show: false
-                },
-                emphasis: {
-                  show: false
-                }
-              },
-              itemStyle: {
-                normal: {
-                  label: {show: false},
-                  areaColor: '#3fc6b0',
-                  color: '#3fc6b0'  // 会设置点和线的颜色，所以需要下面定制 line
-                },
-                emphasis: {
-                  label: {show: true},
-                  areaColor: '#3fc6b0',
-                  color: '#3fc6b0',
-                  shadowBlur: 20,
-                  shadowColor: '#3fc6b0',
-                  borderColor: '#3fc6b0', // 区域边框颜色
-                  borderWidth: 10
-                }
-              },
-              data: mydata
             }
           }
           ]// series
         }
-        if (this.mapMark) {
+        if (!this.mapMark) { // 普通地图
+          let mapData = convertMapJson(this.mapFeaturesData, this.datas, this.config.mapDwdm).data
+          option.series[0].data = mapData
+        } else { // 地图标
+          option.series[0].markPoint = { // 所有标注数据
+            symbol: 'circle',
+            symbolSize: 8,
+            label: {
+              normal: {
+                show: false
+              },
+              emphasis: {
+                show: false
+              }
+            },
+            itemStyle: {
+              normal: {
+                label: {show: false},
+                areaColor: '#3fc6b0',
+                color: '#3fc6b0'  // 会设置点和线的颜色，所以需要下面定制 line
+              },
+              emphasis: {
+                label: {show: true},
+                areaColor: '#3fc6b0',
+                color: '#3fc6b0',
+                shadowBlur: 20,
+                shadowColor: '#3fc6b0',
+                borderColor: '#3fc6b0', // 区域边框颜色
+                borderWidth: 10
+              }
+            },
+            data: mydata
+          }
           option.series.push({  //  当前标注数据
             type: 'map',
             mapType: localType,
@@ -293,7 +286,8 @@
             data: defaultData
           })
         }
-        var chart = this.$echarts.init($dom.get(0))
+        // this.$refs.chinaMap
+        var chart = this.$echarts.init(this.$refs.chinaMap)
         chart.setOption(option)
       }
     }
@@ -415,7 +409,7 @@
       width: 30%;
       min-width: 240px;
       height: 100px;
-      padding: 15px;
+      /*padding: 15px;*/
       z-index: 999;
 
       .h-map_tip__bg{

@@ -1,21 +1,302 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  <script src="https://cdn.bootcss.com/d3/4.13.0/d3.min.js"></script>
+  <meta charset='UTF-8'>
+  <title>Title</title>
+  <script src='https://d3js.org/d3.v4.min.js'></script>
+  <style>
+    #main{
+      position:relative;
+      left: 0px;
+      top: 0px;
+      min-height: 800px;
+      width:100%;
+      height:100%;
+      display: flex;
+      flex:1 0 auto;
+      flex-flow:column
+    }
+  </style>
 </head>
 <body>
-<svg class="h-ybpchart-svg" width="168" height="168" style="clip-path: url(#circleClip);">
-  <defs>
-    <clipPath id="circleClip">
-    <rect x="0" y="84" width="168" height="84"></rect>
-  </clipPath>
-  </defs>
-  <g>
-    <circle cx="84" cy="84" r="81.48" style="fill: rgb(79, 117, 146); stroke: rgb(0, 0, 0); stroke-width: 0px;"></circle>
-    <circle cx="84" cy="84" r="73.33200000000001" style="stroke: rgb(28, 49, 71); stroke-width: 7px;"></circle>
-  </g>
-</svg>
+<div id='main' class="mysvg">
+
+</div>
 </body>
+
+<script>
+  const oriData = [
+    {'x': '雨露计划', 'value': 20},
+    {'x': '金融扶贫', 'value': 15},
+    {'x': '产业扶贫', 'value': 43},
+    {'x': '基础设施', 'value': 56},
+    {'x': '基础设施', 'value': 56},
+    {'x': '基础设施', 'value': 36}
+  ]
+  const mainData = {
+    'name': '完成率',
+    'value': '20%'
+  }
+  // 画布大小
+  // const [width, height] = [850, 850];
+  let bgFill = '#192734'
+  let fontFill = '#bbd1ec'
+  let borderWidth = '8px'
+  let width = 0
+  let height = 0
+  let svg = null
+  let drawData = []
+  let fontSize = 10
+  let innerRadius = 0
+  let radius = 0
+  let big = 2.2
+  let arc = null
+  let linearGradient = null // 渐变色
+  var colors = ['black', 'blue', 'orange', 'red', 'green']
+  load()
+  // window.onresize = function () {
+  //   load()
+  // }
+  d3.select(window).on('resize.mysvg', load)
+  function load () {
+    width =  d3.select('#main')._groups[0][0].clientWidth
+    height =  d3.select('#main')._groups[0][0].clientHeight
+    // 初始化一个svg元素
+    svg = d3.select('#main').html('')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+    // 准备一个布局，此布局可根据原始数据计算出一段弧的开始和结束角度
+    // 画半圆
+    let pie = d3.pie().value(d => 10)// d.y) // 平均分配扇形区域
+      .startAngle(-0.5 * Math.PI) // 半圆形
+      .endAngle(0.5 * Math.PI) //
+    // 将原始数据经过布局转换
+    drawData = pie(oriData)
+
+    // 根据画布大小算一个合适的半径吧
+    radius = Math.min(width, height) * 0.99 / 2
+    innerRadius = radius / big
+    // 准备一个弧生成器，用于根据角度生产弧路径
+    arc = d3.arc().innerRadius(innerRadius).outerRadius(radius)
+    fontSize = Math.round(Math.min(width, height) / 2 * 0.05)
+
+    render()
+    renderSmallPie()
+  }
+
+  /**
+   * 画内圆
+   */
+  function renderSmallPie () {
+    let panel = svg.append('g')
+    var startAngle = drawData[0].startAngle // 起点
+    var endAngle = drawData[drawData.length - 1].endAngle // 终点
+    let arc2 = d3.arc()  // 添加圆弧
+      .startAngle(startAngle)
+      .endAngle(endAngle)
+      .innerRadius(0)
+      .outerRadius(innerRadius)
+
+    let arc3 = d3.arc()  // 添加圆弧
+      .innerRadius(innerRadius)
+      .outerRadius(innerRadius)
+
+    // 内圆外边框
+    panel
+      .selectAll('path')
+      .data(drawData)
+      .enter()
+      .append('path')
+      .style('fill', 'transparent')
+      .style('stroke', '#00958d')
+      .style('stroke-width', borderWidth)
+      .attr('d', d => arc3(d))
+      .attr('transform', `translate(${width / 2}, ${height / 2})`)
+
+    let pathParent = svg.append('g')
+
+    var a = d3.rgb(255, 0, 0)//  红色
+    var b = d3.rgb(0, 255, 0)//  绿色
+    // 定义一个线性渐变
+    var defs = svg.append('defs')
+    linearGradient = defs.append('linearGradient')
+      .attr('id', 'linearColor')
+      .attr('x1', '0%')
+      .attr('y1', '0%')
+      .attr('x2', '100%')
+      .attr('y2', '0%')
+    linearGradient.append('stop')
+      .attr('offset', '0%')
+      .style('stop-color', a.toString())
+
+    linearGradient.append('stop')
+      .attr('offset', '100%')
+      .style('stop-color', b.toString())
+
+    // 内圆
+    let circle = pathParent.selectAll('path')
+      .data([mainData])
+      .enter().append('path')
+      .attr('class', 'h-svg-outCricle-path') // 添加路径
+      // .style('fill', bgFill)  // 内圆填充颜色
+      .style('fill', 'url(#' + linearGradient.attr('id') + ')') // 渐变色
+      .attr('d', d => arc2(d))
+      .attr('transform', `translate(${width / 2}, ${height / 2})`)
+    // 内圆文本
+    renderLabel(pathParent, circle, arc2)
+  }
+  // 内圆文本
+  function renderLabel (parent, circle, arc2) {
+    var textParent = parent.append('g')
+    textParent.attr('transform', `translate(${width / 2}, ${height / 2})`)
+
+    let panel = textParent.selectAll('text')
+      .data([mainData])
+      .enter()
+    // 3.6设置label
+    let text1 = panel.append('text')         // 添加文本
+      .attr('class', 'h-svg-main-text')
+      .attr('text-anchor', 'middle')// 文字角度
+      .text('完成率')                 // 文字内容
+      .style('font-size', fontSize + 'px')// 字体大小
+      .style('fill', fontFill)        // 颜色
+      .attr('transform', function (d) { // 将文字平移到弧的中心
+        return 'translate(' + arc2.centroid(d) + ')'
+      })
+
+    let text2 = panel.append('text')         // 添加文本
+      .attr('class', 'h-svg-main-value')
+      .attr('text-anchor', 'middle')// 文字角度
+      .text('20%')                 // 文字内容
+      .style('font-size', fontSize + 'px')// 字体大小
+      .style('fill', fontFill)        // 颜色
+      .attr('transform', function (d) { // 将文字平移到弧的中心
+        var point = arc2.centroid(d)
+        point[1] = point[1] + 35
+        return 'translate(' + point + ')'
+      })
+
+    circle.on('mouseover', onMouseOver)
+    circle.on('mouseout', onMouseOut)
+    text1.on('mouseover', onMouseOver)
+    text2.on('mouseover', onMouseOver)
+    text1.on('mouseout', onMouseOut)
+    text2.on('mouseout', onMouseOut)
+  }
+
+  /**
+   * 画外圆
+   */
+  function render () {
+    // 画外圆边框
+    let panel = svg.append('g')
+    let arc2 = d3.arc()  // 添加圆弧
+      .innerRadius(radius)
+      .outerRadius(radius)
+
+    panel
+      .selectAll('path')
+      .data(drawData)
+      .enter()
+      .append('path')
+      .style('fill', 'transparent')
+      .style('stroke', '#f3cf25')
+      .style('stroke-width', '6px')
+      .attr('d', d => arc2(d))
+      .attr('transform', `translate(${width / 2}, ${height / 2})`)
+
+    // 画外圆
+    let pathParent = svg.append('g')
+    // 设定颜色比例尺，对于饼图来说，此比例尺的作用是根据饼上的某一节的序号得到一个对应的颜色值
+    pathParent.attr('transform', `translate(${width / 2}, ${height / 2})`)
+    var mypath = pathParent
+      .selectAll('path')
+      .data(drawData)
+      .enter()
+      .append('path')
+      .attr('class', 'h-svg-outCricle-path')
+      .attr('fill', bgFill)
+      .style('stroke', '#275072') // 外圆内边框
+      .attr('d', d => arc(d)) // 调用弧生成器得到路径
+
+    // 饼图已经画好了，接下来加入文字标签
+    let textParent = svg.append('g')
+    textParent.attr('transform', `translate(${width / 2}, ${height / 2})`)
+    let textPanel = textParent.selectAll('text')
+      .data(drawData)
+      .enter()
+
+    let texts = textPanel.append('text')
+      .attr('class', 'h-svg-text')
+      .attr('transform', function (d) { // 将文字平移到弧的中心
+        return 'translate(' + arc.centroid(d) + ')'
+      })
+      .attr('text-anchor', 'middle')
+      .style('fill', fontFill)        // 颜色
+      .style('font-size', fontSize + 'px')// 字体大小
+      .text(function (d) { // 显示百分比
+        return d.data.x
+      })
+
+    let texts2 = textPanel.append('text')
+      .attr('class', 'h-svg-value')
+      .attr('transform', function (d) { // 将文字平移到弧的中心
+        var point = arc.centroid(d)
+        point[1] = point[1] + 30
+        return 'translate(' + point + ')'
+      })
+      .attr('text-anchor', 'middle')
+      .style('fill', fontFill)        // 颜色
+      .style('font-size', fontSize + 'px')// 字体大小
+      .text(function (d) { // 显示百分比
+        return d.data.value
+      })
+
+    mypath.on('mouseover', onMouseOver)
+    mypath.on('mouseout', onMouseOut)
+    texts.on('mouseover', onMouseOver)
+    texts.on('mouseout', onMouseOut)
+    texts2.on('mouseover', onMouseOver)
+    texts2.on('mouseout', onMouseOut)
+  }
+
+  var onMouseOver = function (data) {
+    if (!data) return
+    if (data.index === 0 || data.index) {
+      let circlePath = d3.selectAll('.h-svg-outCricle-path')._groups[0][data.index]
+      d3.select(circlePath).style('cursor', 'pointer')
+
+      let t1 = d3.selectAll('.h-svg-text')._groups[0][data.index]
+      let t2 = d3.selectAll('.h-svg-value')._groups[0][data.index]
+
+      d3.select(t1).attr('data-fill', d3.select(t1).style('fill'))
+
+      d3.select(t1).style('cursor', 'pointer').style('fill', '#059173')
+      d3.select(t2).style('cursor', 'pointer').style('fill', '#059173')
+    } else {
+      let main = d3.selectAll('.h-svg-main-text')._groups[0][0]
+      let mainVal = d3.selectAll('.h-svg-main-value')._groups[0][0]
+      d3.select(main).attr('data-fill', d3.select(main).style('fill'))
+      d3.select(main).style('cursor', 'pointer').style('fill', '#059173')
+      d3.select(mainVal).style('cursor', 'pointer').style('fill', '#059173')
+    }
+  }
+  var onMouseOut = function (data) {
+    if (!data) return
+    if (data.index === 0 || data.index) {
+      let t1 = d3.selectAll('.h-svg-text')._groups[0][data.index]
+      let t2 = d3.selectAll('.h-svg-value')._groups[0][data.index]
+      var color = d3.select(t1).attr('data-fill')
+      d3.select(t1).style('fill', color)
+      d3.select(t2).style('fill', color)
+    } else {
+      let main = d3.selectAll('.h-svg-main-text')._groups[0][0]
+      let mainVal = d3.selectAll('.h-svg-main-value')._groups[0][0]
+      var color = d3.select(main).attr('data-fill')
+      d3.select(main).style('fill', color)
+      d3.select(mainVal).style('fill', color)
+    }
+  }
+</script>
 </html>

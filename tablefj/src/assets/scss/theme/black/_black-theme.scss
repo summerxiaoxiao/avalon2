@@ -51,6 +51,11 @@ body .datetimepicker table tr td span.active.disabled:hover {
     width: 100%;
   }
 
+  .h-box-auto{
+    height: 100%;
+    width: 100%;
+  }
+
   .h-box-column{
     @include h-flex-container(column);
   }
@@ -213,6 +218,23 @@ body .datetimepicker table tr td span.active.disabled:hover {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .h-progress{
+    .ivu-progress-inner{
+      background: #3f7089!important;
+    }
+    .ivu-progress-bg{
+      background: #38bb96!important;
+    }
+    .h-progress-text{
+      position: absolute;
+      right: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff!important;
+    }
   }
 
 }

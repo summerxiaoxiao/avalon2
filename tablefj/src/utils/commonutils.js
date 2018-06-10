@@ -1,3 +1,15 @@
+/**
+ * 打包后请求static/datas静态文件时的根路径
+ * @type {string}
+ */
+export const requestModulePath = '/ccf.portal/modules/app'
+
+export function getRequestModulePath () {
+  // if (process.env.NODE_ENV !== 'production') {
+  //   return ''
+  // }
+  return requestModulePath
+}
 /*
  *   功能:实现VBScript的addDate功能.
  *   参数:interval,字符串表达式，表示要添加的时间间隔.

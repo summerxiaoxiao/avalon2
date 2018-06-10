@@ -1,5 +1,7 @@
 import request from '@/utils/api'
 import bbutils from '@/utils/bbutils'
+import {getRequestModulePath} from '../utils/commonutils'
+let requestModulePath = getRequestModulePath()
 class CommonService {
   static getInstance () {
     if (!this.instance) {
@@ -11,14 +13,14 @@ class CommonService {
    *查询单位列表
    */
   findDwlist () {
-    return request.get('/static/datas/dwlist.json', {})
+    return request.get(requestModulePath + '/static/datas/dwlist.json', {})
   }
 
   /**
    * 查询单位性质列表
    */
   findDwxzlist () {
-    return request.get('/static/datas/dwxz.json', {})
+    return request.get(requestModulePath + '/static/datas/dwxz.json', {})
   }
   findTableData (bbmc, params) {
     return bbutils.loadBBData(bbmc, params)

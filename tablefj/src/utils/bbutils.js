@@ -190,14 +190,15 @@ export function getDwcjByBB (params, callback) { //  获取单位层级，区域
 
 export function buildIframe (params) {
   var tableCondition = params.tableCondition
-  var iframeAddr = window._module.bbserver || params.iframeAddr
+  var iframeAddr = window._module && window._module.bbserver ? window._module.bbserver : params.iframeAddr
   var iframeContainer = params.iframeContainer
   var iframe = iframeContainer
   var urlstr = []
   urlstr.push(iframeAddr + '/table-iframe?initIframeObject=')
   urlstr.push(encodeURIComponent(JSON.stringify(tableCondition)))
   urlstr.push('&tableConfig=' + encodeURIComponent(JSON.stringify({
-    isCt: true
+    isCt: true,
+    renderCellCallback: params.cellCallback
   })
   ))
   if (!$(iframeContainer).is('iframe')) {

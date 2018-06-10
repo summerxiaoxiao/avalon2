@@ -1,0 +1,375 @@
+$grid-gutter-width: 10px;
+$em-color: #3675b3;
+$body-bg: #003260;
+$body-color: #8f9ca3;
+$navbar-app-height: 60px;
+$navbar-app-line-height: $navbar-app-height;
+$navbar-app-color: #fff;
+$navbar-app-bg: #012948;
+$navbar-app-shadow: 0 1px 7px rgba(34,52,68,.6);
+$navbar-app-link-color: $navbar-app-color;
+$font-size: 14px;
+
+html {
+  font-size: $font-size;
+}
+
+.landing-container {
+  &.black-theme {
+    background-color: $body-bg;
+    color: $body-color
+  }
+}
+
+.navbar-app {
+  background-color: $navbar-app-bg;
+  color: $navbar-app-color;
+  box-shadow: $navbar-app-shadow;
+  height: $navbar-app-height;
+  line-height: $navbar-app-line-height;
+  flex: none;
+
+  a {
+    color: $navbar-app-link-color;
+  }
+
+  .navbar-sep {
+    height: 1em;
+    width: 1px;
+    background-color: $body-color;
+    margin: 0 1em;
+  }
+}
+.navbar-return{
+  cursor: pointer;
+}
+.navbar-return {
+  cursor: pointer;
+}
+
+.navbar-app-left {
+  display: flex;
+  align-items: center;
+}
+
+.index-page-main {
+  padding: $grid-gutter-width;
+  overflow: auto;
+  [class^=col] {
+    margin-bottom: $grid-gutter-width;
+  }
+
+  .row-stretch {
+    [class^=col] {
+      display: flex;
+      align-items: stretch;
+      > div {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@mixin high ($color: #fff, $font-size: 1.2em) {
+  font-size: $font-size;
+  color: $color;
+  font-weight: bold;
+}
+
+.index-percent {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+
+  > .group {
+    display: flex;
+    background-color: #002f56;
+    margin: 0 .5em .5em;
+    padding: 1em 0;
+    flex: auto;
+
+    > .item {
+      flex: auto;
+      text-align: center;
+      padding: 0 2em;
+      + .item {
+        border-left: 1px solid $em-color;
+      }
+    }
+
+    .percent {
+      display: block;
+      font-size: 1.4em;
+      margin-bottom: 5px;
+      color: $em-color;
+    }
+
+    .desc {
+      font-size: 12px;
+    }
+  }
+}
+
+$cart-title-font-size: 20px;
+
+.card{
+  background-color: #1c3147!important;
+  border-color: #406683!important;
+}
+.card-index {
+  background-color: #1c3147;
+  border-color: #406683;
+
+  .unit {
+    color: #fff;
+    font-size: 12px;
+  }
+
+  .card-header {
+    background-color: transparent;
+    border-bottom: none;
+    display: flex;
+    flex: none;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .title {
+      @include high($font-size: $cart-title-font-size);
+      margin-right: 15px;
+      a {
+        color: #fff;
+      }
+    }
+
+    .card-tabs {
+      display: flex;
+      flex: none;
+    }
+
+    .card-tab {
+      @include high(#3675b3, $cart-title-font-size);
+      cursor: pointer;
+
+      + .card-tab {
+        margin-left: 1em;
+        padding-left: 1em;
+        position: relative;
+        &:before {
+          content: '';
+          display: block;
+          width: 1px;
+          height: 1em;
+          position: absolute;
+          left: 0;
+          top: 25%;
+          background-color: $body-color;
+        }
+      }
+
+      &.active {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.total-visual-compare {
+  display: flex;
+  align-items: center;
+  em {
+    font-style: normal;
+    color: $em-color;
+    font-weight: bold;
+    margin: 0 5px;
+  }
+  .outer-bar {
+    flex: auto;
+    border: 1px solid $em-color;
+    height: 5px;
+    border-radius: 5px;
+    span {
+      display: block;
+      height: 100%;
+      background-color: $em-color;
+    }
+  }
+  .card-index & {
+    width: 20%;
+    margin-left: -10%;
+    position: absolute;
+    left: 50%;
+  }
+}
+.total-visual {
+  display: flex;
+  position: relative;
+  .item {
+    min-width: 50%;
+    flex: 1 0 auto;
+    display: flex;
+
+    .item-data {
+      min-width: 70%;
+      flex: 1 1 auto;
+    }
+
+    .item-visual {
+      min-width: 30%;
+      flex: 1 1 auto;
+      align-self: center;
+      .echart {
+        width: 100%;
+      }
+    }
+
+    &:nth-child(2n) {
+      position: relative;
+      padding-left: 1px;
+      &:before {
+        content: '';
+        display: block;
+        left: 0;
+        top: 40px;
+        bottom: 20px;
+        position: absolute;
+        width: 1px;
+        background-color: $em-color;
+      }
+
+      .item-data {
+        order: 1;
+      }
+      .item-visual {
+        order: 0
+      }
+    }
+  }
+  .item-data {
+    em {
+      font-style: normal;
+      color: $em-color;
+      font-weight: bold;
+    }
+    .caption {
+      font-size: 1.2em;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1em;
+    }
+
+    .table {
+      color: $body-color;
+      font-size: 1rem;
+      $dot-color: #3675b3;
+      .dot {
+        margin: 0 1em;
+        display: inline-block;
+        height: 8px;
+        width: 8px;
+        border-radius: 8px;
+        background-color: $dot-color;
+        position: relative;
+        top: -3px;
+      }
+      thead {
+        th {
+          border: none;
+          font-size: 12px;
+        }
+      }
+      tbody {
+        td {
+          border-color: #3675b3;
+        }
+        tr.highlight {
+          td {
+            color: #fff;
+            em {
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.relation-analysis-node {
+  background-color: #003261;
+  &.active {
+    background-color: #012849;
+  }
+  border: 1px solid #3675b3;
+  color: #fff;
+  padding: 10px;
+
+  .ran-name {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  .ran-bars-container {
+    display: flex;
+    align-items: flex-end;
+  }
+  .ran-bars {
+    flex: auto;
+  }
+  .ran-text {
+    flex: none;
+    margin-left: 5px;
+    @include high($em-color);
+  }
+  .ran-bar {
+    height: 5px;
+    min-width: 1px;
+    margin-bottom: 5px;
+  }
+  .ran-list {
+    font-size: 12px;
+    > div {
+      display: flex;
+      align-items: center;
+      .ran-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 5px;
+        margin-right: 8px;
+      }
+    }
+  }
+  .ran-color-1 {
+    background-color: #F3FE1B;
+  }
+  .ran-color-2 {
+    background-color: #1291F2;
+  }
+}
+
+
+.card.full-screen {
+  width: 100%;
+  height: 100%;
+  .card-body {
+    display: flex;
+    > div {
+      width: 100% !important;
+      height: auto !important;
+      flex: auto;
+    }
+  }
+}
+
+.echart {
+  position: relative;
+  .echart-tool {
+    position: absolute;
+    z-index: 100;
+    select {
+      border: 1px solid #0c518d;
+      border-radius: 3px;
+      background: #00315c;
+      color: inherit;
+    }
+  }
+}

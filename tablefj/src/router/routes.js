@@ -10,9 +10,24 @@ export default [
     name: 'main'
   },
   {
+    path: '/zbkb/index',
+    component: (resolve) => require(['@/views/zbkb/Index'], resolve),
+    name: 'zbkbIndex'
+  },
+  {
     path: '/zbkb/01',
     component: (resolve) => require(['@/views/zbkb/zyyszb01'], resolve),
     name: 'zbkb01'
+  },
+  {
+    path: '/zbkb/02',
+    component: (resolve) => require(['@/views/zbkb/ykfy02'], resolve),
+    name: 'zbkb02'
+  },
+  {
+    path: '/zbkb/07',
+    component: (resolve) => require(['@/views/zbkb/xmysfx07'], resolve),
+    name: 'zbkb07'
   },
   {
     path: '/fxbb/01',

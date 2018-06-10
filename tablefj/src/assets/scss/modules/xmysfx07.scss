@@ -1,0 +1,56 @@
+@import "./h_vars";
+@import "./h_mixins";
+.h-xmysfx07{
+  height: 100%;
+  width: 100%;
+
+  .h-xmysfx__title{
+    color: #769fd0;
+  }
+
+  .h-xmysfx-tablebox{
+    padding: $z-content-padding;
+    @include panel-bg-style($z-bg-color, $z-border-color)
+  }
+  .h-xmysfx-top__right{
+    margin-left: $z-content-margin;
+    padding: $z-content-padding;
+    height: 100%;
+    .h-xmysfx__right_box{
+      height: 100%;
+      padding: $z-content-padding;
+      @include panel-bg-style(#1f3245, #2c3f52)
+    }
+  }
+
+  .h-xmysfx-top{
+    @include panel-bg-style(#192734, #192734);
+  }
+  .h-xmysfx-top__left{
+    position: relative;
+    height: 100%;
+    max-width: 48%;
+    padding: $z-content-padding;
+
+    .h_xmysfx-left_chart{
+      padding: 0px 50px;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      bottom: 0px;
+    }
+    .h_xmysfx_chart{
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .h-xmysfx-table{
+    padding-top: $z-content-padding;
+    .h-xmysfx-tablebox{
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+}

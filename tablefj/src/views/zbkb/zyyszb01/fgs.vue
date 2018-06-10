@@ -10,8 +10,9 @@
     ></h-tablechart>
     <h-tablechart v-if="isFinish"  class="zyyszb-qtkkfy-item h-flex-auto"
                   title="其他可控费用(万元)"
+                  level="2"
                   :tableRows="rows"
-                  :chartSeries="chartSeries"
+                  :chartSeries="chartSeries2"
                   :chartData="chartData"
                   :legendData="legendData"
     ></h-tablechart>
@@ -35,7 +36,8 @@
         },
         showFgs: true,
         currentView: 'fgs-zb',
-        chartSeries: {}
+        chartSeries: [],
+        chartSeries2: []
       }
     },
     computed: {
@@ -53,14 +55,16 @@
     },
     methods: {
       reload () {
+        this.load()
       },
       load () {
         return this.$store.dispatch('zyyszb01/loadList').then(() => {
           this.isFinish = true
-          this.chartSeries = {
+          console.log(this.rows)
+          this.chartSeries = [{
             type: 'pie',
             name: '',
-            radius: ['0%', '100%'], // 内圈半径，外圈半径
+            radius: ['0%', '70%'], // 内圈半径，外圈半径
             center: ['50%', '50%'], //  饼状图位置，第一个参数是左右，第二个是上下。
             label: {
               normal: {
@@ -70,7 +74,34 @@
               }
             },
             data: this.chartData
-          }
+          }]
+          this.chartSeries2 = [{
+            type: 'pie',
+            name: '',
+            radius: ['0%', '45%'], // 内圈半径，外圈半径
+            center: ['50%', '50%'], //  饼状图位置，第一个参数是左右，第二个是上下。
+            label: {
+              normal: {
+                formatter: '{b}:{c} ({d}%)',
+                position: 'inner',
+                show: false
+              }
+            },
+            data: this.chartData
+          }, {
+            type: 'pie',
+            name: '',
+            radius: ['55%', '70%'], // 内圈半径，外圈半径
+            center: ['50%', '50%'], //  饼状图位置，第一个参数是左右，第二个是上下。
+            label: {
+              normal: {
+                formatter: '{b}:{c} ({d}%)',
+                position: 'inner',
+                show: false
+              }
+            },
+            data: this.chartData
+          }]
         })
       }
     }

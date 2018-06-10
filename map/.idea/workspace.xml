@@ -35,8 +35,8 @@
       <file leaf-file-name="mapDwMark.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/map/mapDwMark.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="164" column="35" lean-forward="true" selection-start-line="157" selection-start-column="10" selection-end-line="164" selection-end-column="35" />
+            <state relative-caret-position="376">
+              <caret line="192" column="43" selection-start-line="192" selection-start-column="43" selection-end-line="192" selection-end-column="43" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -59,7 +59,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="7" />
     <option name="width" value="1616" />
@@ -132,12 +132,12 @@
       <option name="presentableId" value="Default" />
       <updated>1527054575008</updated>
       <workItem from="1527054580032" duration="773000" />
-      <workItem from="1527072448927" duration="3709000" />
+      <workItem from="1527072448927" duration="5451000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4482000" />
+    <option name="totallyTimeSpent" value="6224000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -209,8 +209,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/map/mapDwMark.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="164" column="35" lean-forward="true" selection-start-line="157" selection-start-column="10" selection-end-line="164" selection-end-column="35" />
+        <state relative-caret-position="376">
+          <caret line="192" column="43" selection-start-line="192" selection-start-column="43" selection-end-line="192" selection-end-column="43" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>

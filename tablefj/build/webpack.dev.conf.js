@@ -1,15 +1,15 @@
 var utils = require('./utils')
-var path = require('path')
 var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var HtmlDevPlugin = require('./html-dev-plugin')
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-  // baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
+   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 })
 
 module.exports = merge(baseWebpackConfig, {
@@ -22,6 +22,10 @@ module.exports = merge(baseWebpackConfig, {
      {'jquery': 'jQuery'},
   ],
   plugins: [
+    /*new HtmlDevPlugin({
+      main: 'static/main',
+      src: 'ccf.core/scripts/core/ccfrequire.js'
+    }),*/
     new webpack.DefinePlugin({
       'process.env': config.dev.env
     }),

@@ -1,17 +1,16 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import Vuex from 'vuex'
 import iView from 'iview'
-// import TreeTable from './components/treetable'
 import './assets/scss/treetable/index.scss'
 import 'iview/dist/styles/iview.css'
 import api from './utils/api'
-import config from './config'
 import echarts from 'echarts'
-// import {calDomWidthHeight} from '@/utils/commonutils'
 import mycomponents from './components/index'
 import $ from 'jquery'
 
+Vue.use(Vuex)
 Vue.use(iView)
 Vue.use(mycomponents)
 // 将API方法绑定到全局
@@ -20,6 +19,9 @@ Object.defineProperty(Vue.prototype, '$http', { value: api })
 Vue.prototype.$echarts = echarts
 
 import './assets/scss/app.scss'
+import App from './App'
+import router from './router'
+import Store from './store'
 
 Vue.config.productionTip = false
 
@@ -33,10 +35,45 @@ Vue.config.productionTip = false
 //   }
 // })
 /* eslint-disable no-new */
+function loadVue () {
+  new Vue({
+    el: '#app',
+    router,
+    store: Store,
+    template: '<App/>',
+    components: { App },
+    mounted () {
+      let loginContext = $('body').data('context')
+      let bbConfig = $('body').data('bbconfig')
+      if (loginContext) {
+        loginContext = JSON.parse(loginContext)
+        this.$store.commit('setLoginContext', loginContext)
+      }
+      if (bbConfig) {
+        bbConfig = JSON.parse(bbConfig)
+        window._bbconfig = bbConfig
+        this.$store.commit('setBBConfig', bbConfig)
+      }
+      $('body').data('bbconfig', null)
+      $('body').data('context', null)
+      window.onresize = () => {
+        return (() => {
+          this.resizeChart()
+          if (this.svgs && this.svgs.length > 0) {
+            for (var i = 0; i < this.svgs.length; i++) {
+              this.svgs[i].call()
+            }
+          }
+        })()
+      }
+    }
+  })
+}
+/* eslint-disable no-new */
 const id = window.setInterval(() => {
   if (window.isReuqireLoad) {
     window.clearInterval(id)
-    new Vue(config)
+    loadVue()
   }
 }, 0)
 
@@ -65,8 +102,24 @@ Vue.prototype.resizeIframe = function (tableDom, padding, fixed) {
     }
   }
   resize()
-  window.onresize = () => {
-    // resize()
-  }
 }
 
+Vue.prototype.resizeChart = function () {
+  function resize () {
+    var mycharts = []
+    var charts = $('div[_echarts_instance_]') // chart-models
+    for (var i = 0, len = charts.length; i < len; i++) {
+      var chart = echarts.getInstanceByDom(charts[i])
+      var pp = new Promise((resolve, reject) => {
+        chart.resize()
+        resolve('ok')
+      })
+      mycharts.push(pp)
+    }
+    Promise.all(mycharts).then((res) => {})
+  }
+  resize()
+}
+
+Vue.prototype.resizeSvg = function () {
+}

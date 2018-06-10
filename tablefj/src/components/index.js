@@ -1,12 +1,18 @@
 import Treetable from './treetable'
 import Tablechart from './tablechart'
 import Ybpchart from './ybpchart'
+import Ybpchart2 from './ybpchart2'
+import Barchart from './barchart'
+import Tableiframe from './tableiframe'
 const componentPrefix = 'h'
 
 const components = {
   Treetable, // 树型表格
   Tablechart,
-  Ybpchart
+  Ybpchart,
+  Ybpchart2,
+  Barchart,
+  Tableiframe
 }
 const install = function (Vue, options = {}) {
   var prefix = options.prefix || componentPrefix

@@ -2,11 +2,20 @@
 @import "./h_mixins";
 .h-container_main {
   $font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, Arial, sans-serif;
+  $calc-height: 100%;
 
   font-family: $font-family;
   height: 100%;
   overflow: auto;
 
+  //.h-content-box{
+  //  padding: $z-main-padding $z-main-padding $z-main-padding-bottom $z-main-padding;
+  //  width: 100%;
+  //  height: 100%;
+  //}
+  .h-box-main>div:last-child{
+    margin-bottom: $z-main-padding;
+  }
   .h-title{
     color: #fff;
     font-weight: 500;
@@ -21,24 +30,26 @@
   }
 
   .h-main_top{
-    min-height: 500px;
+    //min-height: 500px;
     height: 65%;
     width: 100%;
   }
   .h-main_top__fgs{
-    min-height: 500px;
+    //min-height: 650px;
     height: 85%;
     width: 100%;
   }
   .h-main_top__map{
-    height: 100%;
-    width: 30%;
+    //height: 100%;
+    padding: $z-content-padding;
+    max-width: 50%;
    @include panel-bg-style($z-bg-color, $z-border-color);
     //background-image: $z-map-bg;
   }
   .h-main_top__listitems{
-    //height: 100%;
+    height: 100%;
     //width: 50%;
+    max-width: 50%;
     padding: $z-content-padding;
     margin-left: $z-content-margin;
     @include panel-bg-style($z-bg-color, $z-border-color)
@@ -48,6 +59,7 @@
     //padding: $z-content-padding $z-content-padding 0px $z-content-padding;
   }
   .h-main_top__listitems__list{
+    height: $calc-height;
     //padding:0px $z-content-padding $z-content-padding $z-content-padding;
   }
   .h-main__title{
@@ -68,7 +80,7 @@
     }
   }
   .h-list-box{
-    min-height: 100px;
+    //min-height: 100px;
     height: 30%;
     padding: $z-content-margin;
     @include panel-bg-style($z-list-bg-color, $z-list-border-color);
@@ -87,12 +99,12 @@
     @include panel-bg-style($z-bg-color, $z-border-color)
   }
   .h-main_srcb{
-    min-height: 400px;
+    //min-height: 400px;
     height: 50%;
     width: 100%;
   }
   .h-main_kkfy{
-    min-height: 650px;
+    //min-height: 650px;
     height: 90%;
     width: 100%;
     .h-main_box_barchart{
@@ -105,12 +117,19 @@
     }
   }
   .h-main_kkfy__fgs{
-    height: 45%;
+    //min-height: 400px;
+    height: 50%;
     width: 100%;
+    .h-main_box_barchart{
+      height: $calc-height;
+      width: 100%;
+      padding-bottom: $z-content-padding;
+      //@include panel-bg-style(#254766,  #33668e);
+    }
   }
   .h-main_xmzc{
-    height: 35%;
-    min-height: 300px;
+    height: 45%;
+    //min-height: 300px;
     width: 100%;
   }
 }

@@ -19,13 +19,10 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json','css'],
+    extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
-      // 'jquery': path.resolve(__dirname,'../static/ccf.core/plugins/jquery-1.10.2.min.js'),
-      // 'baidu' : path.resolve(__dirname,'../static/ccf.core/plugins/baiduTemplate.js'),
-      // 'datatables': path.resolve(__dirname,'../static/ccf.core/plugins/data-tables/jquery.dataTable.js')
     }
   },
   module: {
@@ -52,15 +49,15 @@ module.exports = {
       {
         test: /\.(svg)(\?.*)?$/,
         loader: 'html-loader',
-        include: [resolve('src/assets/svg')]
+        include: [resolve('src/assets/visualWatermark')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
-        exclude: [resolve('src/assets/svg')],
+        exclude: [resolve('src/assets/visualWatermark')],
         options: {
           limit: 10000,
-          name: utils.assetsPath('images/[name].[hash:7].[ext]')
+          name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },
       {

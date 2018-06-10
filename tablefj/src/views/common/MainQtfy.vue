@@ -88,6 +88,12 @@
         }
       }
     },
+    watch: {
+      data () {
+        this.toData()
+        this.renderChart()
+      }
+    },
     mounted () {
       this.$nextTick(() => {
         this.toData()
@@ -126,9 +132,9 @@
             {
               // name:'结果分析',
               type: 'pie',
-              selectedMode: 'single',
+              // selectedMode: 'single', // 点击不会分离
               center: ['50%', '50%'], // 设置环比图的上下左右的位置
-              radius: [0, '85%'],
+              radius: [0, '75%'],
               label: {
                 normal: {
                   position: 'inner',
@@ -159,32 +165,32 @@
 </script>
 <style lang="scss">
 .h-box_qtfy{
-  /*height: 100%;*/
+  height: 100%;
   width: 100%;
 
   .h-box_qtfy__content{
     width: 100%;
-    /*height: 100%;*/
-    padding: 0px 0px 20px;
+    height: 100%;
+    padding: 0px 0px 40px;
   }
   .h-box_qtfy__middle
   {
     width: 30%;
-    /*height: 100%;*/
-    padding-top: 20px;
+    height: 100%;
+    padding-top: 4%;
     align-items: center;
     justify-content: center;
   }
   .h-box_qtfy__left,
   .h-box_qtfy__right{
       width: 25%;
-      padding: 70px 30px 40px 40px;
+      padding: 70px 30px 10px 40px;
   }
 .h-box_qtfy__box_item{
   border: 1px solid #33668e;
   background: #254766;
   width: 100%;
-  /*height: 100%;*/
+  height: 100%;
 }
 
 .h-box_qtfy__middle{
@@ -220,6 +226,7 @@
   line-height: 70px;
   align-items: center;
   color: #cce5fc;
+  padding-top: 10px;
   .h-box_qtfy_line_green{
     border-left: 4px solid #1fe7bb;
     height: 20px;

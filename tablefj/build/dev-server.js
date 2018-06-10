@@ -10,10 +10,14 @@ var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
+var contextMatcher = require('http-proxy-middleware/lib/context-matcher');
 var webpackConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production')
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
 
+var webpackLibraryConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production')
+  ? require('./webpack.library.prod.conf')
+  : require('./webpack.library.dev.conf')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -24,7 +28,9 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
-var compiler = webpack([webpackConfig])
+var compiler = webpack([webpackConfig
+  // , webpackLibraryConfig
+])
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -43,13 +49,33 @@ compiler.plugin('compilation', function (compilation) {
   })
 })
 
+var matchContext = contextMatcher.match;
+contextMatcher.match = function (context, uri, req) {
+  if (req.proxy === false) {
+    return false;
+  }
+  return matchContext.apply(this, arguments);
+}
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
   var options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options , }
+    options = { target: options }
   }
-  app.use(proxyMiddleware(options.filter || context, options))
+  var HPM = proxyMiddleware(options.filter || context, options);
+  function middleware(req, res, next) {
+    const bypass = typeof options.bypass === 'function';
+    // eslint-disable-next-line
+    const bypassUrl = bypass && options.bypass(req, res, options) || false;
+
+    if (bypassUrl) {
+      req.originalUrl = bypassUrl;
+      req.url = bypassUrl;
+      req.proxy = false;
+    }
+    return HPM(req, res, next);
+  }
+  app.use(middleware)
 })
 
 // handle fallback for HTML5 history API
@@ -64,9 +90,7 @@ app.use(hotMiddleware)
 
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
-var apiPath =  path.posix.join(config.dev.assetsPublicPath, 'apis')
 app.use(staticPath, express.static('./static'))
-app.use(apiPath, express.static('./apis'))
 
 var uri = 'http://localhost:' + port
 

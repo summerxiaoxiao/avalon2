@@ -138,17 +138,17 @@
 </script>
 <style lang="scss">
 .h-box_xmzc{
-  /*height: 100%;*/
+  height: 100%;
   width: 100%;
 }
 .h-box_xmzc__content{
   width: 100%;
-  /*height: 100%;*/
+  height: 100%;
   padding: 0px 0px 20px;
 }
 .h-box_xmzc__desc{
   width: 80%;
-  /*height: 100%;*/
+  height: 100%;
   align-items: center;
   justify-content: center;
   border: 1px solid #33668e;
@@ -184,7 +184,7 @@
 }
 .h-box_xmzc__circle{
   width: 20%;
-  /*height: 100%;*/
+  height: 100%;
   align-items: center;
   justify-content: center;
   position: relative;

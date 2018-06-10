@@ -5,9 +5,24 @@
     "url":"#/zbkb",
     "subModules":[
       {
+        "title": "index指标看板",
+        "module": "zbkbIndex",
+        "url":"#/zbkb/index"
+      },
+      {
         "title": "主要预算指标看板",
         "module": "zbkb01",
         "url":"#/zbkb/01"
+      },
+      {
+        "title": "十四项严控费用指标看板",
+        "module": "zbkb02",
+        "url":"#/zbkb/02"
+      },
+      {
+        "title": "项目类预算分析指标看板",
+        "module": "zbkb07",
+        "url":"#/zbkb/07"
       }
     ]
   },
